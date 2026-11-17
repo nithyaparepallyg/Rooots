@@ -80,6 +80,13 @@
   /* Logo */
   .logo { display: inline-flex; align-items: center; font-family: 'Fredoka', sans-serif; font-weight: 700; line-height: 0.75; }
   .logo .o { display: inline-block; width: 2.3em; height: 0.7em; border: 0.12em solid currentColor; border-radius: 50%; margin: 0 0.02em; }
+  /* Hero logo: three o's slide together into one long oval */
+  .o-merge { position: relative; display: inline-block; width: 2.3em; height: 0.7em; margin: 0 0.02em; }
+  .o-merge i { position: absolute; top: 0; height: 100%; width: 0.66em; border: 0.12em solid currentColor; border-radius: 50%; animation: merge 1.3s cubic-bezier(0.65, 0, 0.3, 1) 1s forwards; }
+  .o-merge i:nth-child(1) { left: 0; }
+  .o-merge i:nth-child(2) { left: 0.82em; animation-delay: 1.1s; }
+  .o-merge i:nth-child(3) { left: 1.64em; animation-delay: 1.2s; }
+  @keyframes merge { 80% { left: -0.04em; width: 2.38em; } 100% { left: 0; width: 2.3em; } }
   .logo-lockup { display: inline-flex; flex-direction: column; gap: 0.2em; font-size: clamp(76px, 16vw, 210px); color: var(--wasabi); }
   .logo-lockup .sub { display: flex; justify-content: space-between; font-size: 0.12em; font-weight: 500; letter-spacing: 0.24em; line-height: 1; color: var(--blue); }
 
@@ -183,6 +190,7 @@
     .draw path { animation: none; stroke-dashoffset: 0; }
     .tree .garland { animation: none; stroke-dashoffset: 0; }
     .tree .bauble, .tree .star { animation: none; }
+    .o-merge i { animation: none; left: 0; width: 2.3em; }
   }
 </style>
 </head>
@@ -208,7 +216,7 @@
     </nav>
     <div class="hero-body">
       <div class="logo-lockup" role="img" aria-label="Rooots: stories and making">
-        <div class="logo rough"><span>R</span><span class="o"></span><span>TS</span></div>
+        <div class="logo rough"><span>R</span><span class="o-merge"><i></i><i></i><i></i></span><span>TS</span></div>
         <div class="sub"><span>STORIES</span><span>MAKING</span></div>
       </div>
       <h1 class="display">We bring cultures to life through stories, discoveries and making.</h1>
@@ -278,21 +286,19 @@
           <article class="card one">
             <svg class="portrait" viewBox="0 0 120 120" role="img" aria-label="Line drawing of the first co-founder">
               <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M77 44 C88 56 90 80 85 104 C84 109 79 109 78 104 C81 82 80 62 75 50"/>
-                <path d="M43 50 C42 30 50 20 60 20 C72 20 80 30 78 48"/>
-                <path d="M55 21 C52 28 48 34 44 40"/>
-                <path d="M44 41 C40 52 41 62 44 69"/>
-                <ellipse cx="60" cy="52" rx="16" ry="21"/>
-                <path d="M54 72 L54 86 M66 72 L66 86"/>
-                <path d="M20 118 C22 100 36 92 52 88 M68 88 C80 91 90 96 96 106"/>
-                <path d="M52 88 L60 102 L68 88"/>
-                <path d="M52 88 L46 100 L56 98 M68 88 L74 100 L64 98"/>
-                <path d="M34 104 L32 118 M42 101 L41 118 M84 104 L86 118"/>
-                <path d="M55 63 C57.5 66 62.5 66 65 63"/>
+                <path d="M34 96 L33 50 C33 22 48 12 60 12 C72 12 87 22 87 50 L86 96"/>
+                <path d="M60 13 L60 29"/>
+                <path d="M44 47 C45 35 52 29 60 29 C68 29 75 35 76 47"/>
+                <ellipse cx="60" cy="50" rx="16" ry="21"/>
+                <path d="M45 62 L43 96 M75 62 L77 96"/>
+                <path d="M54 70 L54 86 M66 70 L66 86"/>
+                <path d="M22 118 C24 104 28 98 34 96 M86 96 C92 98 96 104 98 118"/>
+                <path d="M43 96 C47 90 51 87 54 86 M66 86 C69 87 73 90 77 96"/>
+                <path d="M54 86 L60 98 L66 86 M54 86 L50 95 M66 86 L70 95"/>
+                <path d="M55 61 C57.5 64 62.5 64 65 61"/>
               </g>
               <g fill="currentColor">
-                <circle cx="53.5" cy="53" r="2"/><circle cx="66.5" cy="53" r="2"/>
-                <circle cx="43.6" cy="59" r="1.8"/><circle cx="76.4" cy="59" r="1.8"/>
+                <circle cx="53.5" cy="51" r="2"/><circle cx="66.5" cy="51" r="2"/>
               </g>
             </svg>
             <h3>The thinking behind the experience</h3>
@@ -302,20 +308,17 @@
           <article class="card two">
             <svg class="portrait" viewBox="0 0 120 120" role="img" aria-label="Line drawing of the second co-founder">
               <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M38 58 C36 30 50 20 60 20 C72 20 84 30 82 58"/>
-                <path d="M58 21 C56 28 52 32 45 37"/>
-                <circle cx="60" cy="54" r="20"/>
-                <path d="M40 60 L40 66 M80 60 L80 66"/>
-                <path d="M54 73 L54 86 M66 73 L66 86"/>
-                <path d="M22 118 C25 99 40 90 54 86 M66 86 C80 90 95 99 98 118"/>
-                <path d="M40 91 C48 105 72 105 80 91"/>
+                <path d="M47 80 C44 84 38 85 32 80 L34 54 C34 26 48 16 60 16 C72 16 86 26 86 54 L88 80 C82 85 76 84 73 80"/>
+                <circle cx="60" cy="53" r="20"/>
+                <path d="M81 47 C72 36 55 35 41 52"/>
+                <path d="M54 73 L54 88 M66 73 L66 88"/>
+                <path d="M24 118 C27 99 40 91 54 88 M66 88 C80 91 93 99 96 118"/>
+                <path d="M41 93 C49 106 71 106 79 93"/>
                 <path d="M53 63 C57 69 63 69 67 63"/>
               </g>
               <g fill="currentColor">
                 <circle cx="53" cy="55" r="2"/><circle cx="67" cy="55" r="2"/>
-                <circle cx="40" cy="69" r="2.2"/><circle cx="80" cy="69" r="2.2"/>
-                <circle cx="46" cy="98" r="1.4"/><circle cx="53" cy="101.5" r="1.4"/><circle cx="60" cy="102.5" r="1.4"/><circle cx="67" cy="101.5" r="1.4"/><circle cx="74" cy="98" r="1.4"/>
-                <circle cx="50" cy="94" r="1.2"/><circle cx="57" cy="96.5" r="1.2"/><circle cx="63" cy="96.5" r="1.2"/><circle cx="70" cy="94" r="1.2"/>
+                <circle cx="47" cy="100" r="1.4"/><circle cx="53.5" cy="103" r="1.4"/><circle cx="60" cy="104" r="1.4"/><circle cx="66.5" cy="103" r="1.4"/><circle cx="73" cy="100" r="1.4"/>
               </g>
             </svg>
             <h3>The experience of being in it</h3>

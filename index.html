@@ -64,6 +64,18 @@
   .display { font-family: 'Fredoka', sans-serif; font-weight: 600; line-height: 1.06; margin: 0; }
   .rough { filter: url(#rough); }
   .grain { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.14; mix-blend-mode: multiply; z-index: 50; }
+  section { padding: clamp(72px, 9vw, 112px) 0; }
+
+  /* Drawn-in lines: roots, sprouts, icons */
+  .draw path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.4s ease-out forwards; }
+  .draw path:nth-child(2) { animation-delay: 0.3s; }
+  .draw path:nth-child(3) { animation-delay: 0.6s; }
+  .draw path:nth-child(4) { animation-delay: 0.9s; }
+  .draw path:nth-child(5) { animation-delay: 1.2s; }
+  .draw path:nth-child(6) { animation-delay: 1.5s; }
+  .draw path:nth-child(7) { animation-delay: 1.8s; }
+  .draw path:nth-child(8) { animation-delay: 2.1s; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
 
   /* Logo */
   .logo { display: inline-flex; align-items: center; font-family: 'Fredoka', sans-serif; font-weight: 700; line-height: 0.75; }
@@ -71,28 +83,26 @@
   .logo-lockup { display: inline-flex; flex-direction: column; gap: 0.2em; font-size: clamp(76px, 16vw, 210px); color: var(--wasabi); }
   .logo-lockup .sub { display: flex; justify-content: space-between; font-size: 0.12em; font-weight: 500; letter-spacing: 0.24em; line-height: 1; color: var(--blue); }
 
-  /* Header: menu on the right */
-  .hero { background: var(--cassis); color: var(--blue); padding-bottom: clamp(64px, 8vw, 104px); }
-  .nav { display: flex; justify-content: flex-end; align-items: center; gap: 16px; padding-top: 28px; min-height: 76px; }
+  /* Hero */
+  .hero { background: var(--cassis); color: var(--blue); }
+  .nav { display: flex; justify-content: flex-end; align-items: center; gap: 16px; padding-top: 28px; }
   .nav ul { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap; }
   .nav a { text-decoration: none; display: inline-block; padding: 10px 0; }
   .nav a:hover { color: var(--wasabi); }
   .nav .cta { border: 2px solid var(--orange); color: var(--orange); padding: 9px 18px; border-radius: 999px; }
   .nav .cta:hover { background: var(--orange); color: var(--cassis); }
-
   .hero-body { display: flex; flex-direction: column; align-items: center; gap: clamp(32px, 5vw, 56px); margin-top: clamp(48px, 8vw, 96px); text-align: center; }
   .hero h1 { max-width: 1000px; font-size: clamp(32px, 4.6vw, 60px); }
   .hero p { margin: 0; max-width: 680px; font-size: clamp(17px, 1.6vw, 21px); }
+  .hero-roots { display: block; width: 100%; height: clamp(90px, 12vw, 170px); margin-top: clamp(40px, 6vw, 72px); }
+  .hero-roots path { fill: none; stroke-width: 4; stroke-linecap: round; }
 
-  /* Shared layout */
-  section { padding: clamp(72px, 9vw, 112px) 0; }
+  /* Vision */
+  .vision { background: var(--sauge); }
   .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 24px 48px; }
   .split .side { display: flex; flex-direction: column; gap: 14px; }
-  .mini-o { width: 96px; height: 34px; border: 6px solid; border-radius: 50%; }
-
-  /* Vision: cassis on sauge */
-  .vision { background: var(--sauge); }
-  .vision .mini-o { border-color: var(--orange); }
+  .sprout { width: 72px; height: 72px; }
+  .sprout path { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
   .vision .big { font-size: clamp(30px, 3.9vw, 54px); margin-bottom: 24px; }
   .vision p.body { margin: 0; max-width: 760px; }
   .hopes { list-style: none; margin: 32px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
@@ -101,14 +111,7 @@
   .hopes li:nth-child(2) { background: var(--orange); color: var(--cassis); }
   .hopes li:nth-child(3) { background: var(--blue); color: var(--cassis); }
 
-  /* Our way: cassis on blue, ovals stretch row by row */
-  .way ol { list-style: none; margin: 32px 0 0; padding: 0; }
-  .way li { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 5fr); gap: 12px 24px; align-items: center; padding: 22px 0; border-top: 2px solid var(--cassis); }
-  .way .oval { height: 30px; border: 6px solid; border-radius: 50%; }
-  .way .not { margin: 0; font-size: 18px; }
-  .way .yes { margin: 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(32px, 3.8vw, 52px); line-height: 1; }
-
-  /* Our work: soft blue card on cassis, with stretching ovals */
+  /* Our works */
   .work { background: var(--cassis); color: var(--blue); }
   .work-card { margin-top: 32px; background: var(--blue); color: var(--cassis); border-radius: 32px; padding: clamp(28px, 4vw, 56px); display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 32px; align-items: center; }
   .work-card .tag { display: inline-block; background: var(--orange); color: var(--cassis); font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 8px 16px; border-radius: 999px; }
@@ -117,46 +120,56 @@
   .work-card .when { margin-top: 18px; font-weight: 700; }
   .work-card .btn { display: inline-block; margin-top: 24px; background: var(--cassis); color: var(--wasabi); text-decoration: none; font-weight: 700; padding: 14px 24px; border-radius: 999px; }
   .work-card .btn:hover { background: var(--orange); color: var(--cassis); }
-  .work-art { position: relative; height: 220px; }
-  .work-art span { position: absolute; border: 8px solid; border-radius: 50%; }
-  .work-art .a1 { animation: grow1 6s ease-in-out infinite; }
-  .work-art .a2 { animation: grow2 7s ease-in-out infinite 0.8s; }
-  .work-art .a3 { animation: grow3 5s ease-in-out infinite 1.6s; }
-  @keyframes grow1 { 0%,100% { width: 40%; transform: translateY(0); } 50% { width: 82%; transform: translateY(8px); } }
-  @keyframes grow2 { 0%,100% { width: 50%; left: 44%; } 50% { width: 22%; left: 60%; } }
-  @keyframes grow3 { 0%,100% { width: 18%; transform: translateY(0); } 50% { width: 46%; transform: translateY(-10px); } }
-  .work-card { transition: transform 0.4s ease; }
-  .work-card:hover { transform: rotate(-0.6deg) scale(1.01); }
-  @media (prefers-reduced-motion: reduce) { .work-art span { animation: none; } .work-card:hover { transform: none; } }
+  .grow { width: 100%; max-width: 260px; height: auto; justify-self: center; overflow: visible; }
+  .grow .soil { stroke: var(--sauge); stroke-width: 10; stroke-linecap: round; }
+  .grow .root { fill: none; stroke: var(--cassis); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: rootloop 7s ease-in-out infinite; }
+  .grow .root:nth-of-type(3) { animation-delay: 0.4s; }
+  .grow .root:nth-of-type(4) { animation-delay: 0.8s; }
+  .grow .root:nth-of-type(5) { animation-delay: 1.2s; }
+  .grow .stem { fill: none; stroke: var(--cassis); stroke-width: 5; stroke-linecap: round; }
+  .grow .leaf { transform-origin: 100px 62px; animation: sway 4s ease-in-out infinite; }
+  .grow .leaf.r { animation-delay: 0.6s; }
+  .grow .star { transform-origin: 156px 26px; animation: twinkle 2.6s ease-in-out infinite; }
+  @keyframes rootloop { 0% { stroke-dashoffset: 1; } 45%, 80% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+  @keyframes sway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+  @keyframes twinkle { 0%, 100% { transform: scale(0.7) rotate(0deg); opacity: 0.6; } 50% { transform: scale(1.1) rotate(20deg); opacity: 1; } }
 
-  /* Who we are: cassis on orange */
+  /* Who we are: founders */
   .us { background: var(--orange); }
   .us h2 { max-width: 1040px; font-size: clamp(30px, 4.4vw, 60px); margin-top: 14px; }
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 48px; }
   .card { padding: clamp(28px, 3vw, 40px); border-radius: 32px; display: flex; flex-direction: column; gap: 16px; }
   .card.one { background: var(--cassis); color: var(--blue); }
   .card.two { background: var(--blue); color: var(--cassis); }
-  .card .card-o { width: 120px; height: 40px; border: 7px solid; border-radius: 50%; }
-  .card.one .card-o { border-color: var(--wasabi); }
-  .card.two .card-o { border-color: var(--orange); }
+  .card .icon { width: 64px; height: 64px; }
+  .card .icon path, .card .icon circle { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .card.one .icon * { stroke: var(--wasabi); }
+  .card.two .icon * { stroke: var(--orange); }
   .card h3 { margin: 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(28px, 3vw, 40px); line-height: 1.05; }
   .card p { margin: 0; }
   .card .tags { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
   .card.one .tags { color: var(--wasabi); }
 
-  /* Why Rooots: blue on cassis, each verb circled in a different colour */
+  /* Who we are: our way */
+  .way ol { list-style: none; margin: 32px 0 0; padding: 0; }
+  .way li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 4fr) minmax(0, 6fr); gap: 8px 24px; align-items: center; padding: 22px 0; border-top: 2px solid var(--cassis); }
+  .way .num { margin: 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 22px; color: #B23A1E; }
+  .way .not { margin: 0; font-size: 18px; }
+  .way .yes { margin: 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(32px, 3.8vw, 52px); line-height: 1; }
+
+  /* Who we are: why Rooots */
   .why { background: var(--cassis); color: var(--blue); text-align: center; }
-  .why .lines { max-width: 1120px; margin: 32px auto 0; font-size: clamp(13px, 4.2vw, 60px); line-height: 1.35; }
+  .why .lines { max-width: 1120px; margin: 32px auto 0; font-size: clamp(13px, 4.2vw, 60px); line-height: 1.4; }
   .why .lines > span { display: block; white-space: nowrap; }
-  .circled { position: relative; display: inline-block; padding: 0 0.15em; }
-  .circled::after { content: ""; position: absolute; left: -0.05em; right: -0.05em; top: -0.02em; bottom: -0.06em; border: 0.06em solid; border-radius: 50%; filter: url(#rough); }
-  .c-wasabi::after { border-color: var(--wasabi); }
-  .c-orange::after { border-color: var(--orange); }
-  .c-sauge::after { border-color: var(--sauge); }
-  .c-blue::after { border-color: var(--blue); }
+  .mark { position: relative; display: inline-block; }
+  .mark::after { content: ""; position: absolute; left: -0.04em; right: -0.04em; bottom: -0.02em; height: 0.12em; border-radius: 999px; filter: url(#rough); }
+  .m-wasabi::after { background: var(--wasabi); }
+  .m-orange::after { background: var(--orange); }
+  .m-sauge::after { background: var(--sauge); }
+  .m-blue::after { background: var(--blue); }
   .why .closing { margin: 40px 0 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(22px, 2.4vw, 32px); color: var(--wasabi); }
 
-  /* Footer: cassis on wasabi */
+  /* Footer / Join us */
   .foot { background: var(--wasabi); color: var(--cassis); padding: clamp(72px, 9vw, 88px) 0 48px; }
   .foot .display { font-size: clamp(36px, 5vw, 64px); line-height: 1; }
   .foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; border-top: 2px solid var(--cassis); padding-top: 28px; margin-top: 48px; }
@@ -165,14 +178,18 @@
   .foot .contact a { text-decoration-thickness: 2px; text-underline-offset: 4px; }
 
   @media (max-width: 760px) {
-    .nav { padding-top: 18px; min-height: 0; }
+    .nav { padding-top: 18px; }
     .nav ul { width: 100%; justify-content: space-between; gap: 6px; font-size: 11px; letter-spacing: 0.05em; }
     .nav .cta { padding: 7px 12px; }
     .split { grid-template-columns: 1fr; }
-    .way li { grid-template-columns: 1fr; }
     .work-card { grid-template-columns: 1fr; }
-    .work-art { height: 140px; }
-    .way .oval { max-width: 60%; }
+    .grow { max-width: 180px; }
+    .way li { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .draw path { animation: none; stroke-dashoffset: 0; }
+    .grow .root { animation: none; stroke-dashoffset: 0; }
+    .grow .leaf, .grow .star { animation: none; }
   }
 </style>
 </head>
@@ -191,7 +208,7 @@
     <nav class="nav" aria-label="Main">
       <ul>
         <li><a href="#vision">Our vision</a></li>
-        <li><a href="#our-way">Our way</a></li>
+        <li><a href="#our-works">Our works</a></li>
         <li><a href="#who-we-are">Who we are</a></li>
         <li><a class="cta" href="#contact">Join us</a></li>
       </ul>
@@ -205,13 +222,27 @@
       <p>Every experience invites children and families to discover a tradition, decode the ideas behind it and reinterpret what they've learned through their own imagination.</p>
     </div>
   </div>
+  <svg class="hero-roots draw rough" viewBox="0 0 1200 170" preserveAspectRatio="none" aria-hidden="true">
+    <path pathLength="1" stroke="#AEB8A0" d="M150 0 C150 40 128 62 140 104 S118 146 108 170"/>
+    <path pathLength="1" stroke="#E9F056" d="M420 0 C432 52 398 82 410 128 S392 160 398 170"/>
+    <path pathLength="1" stroke="#FF5C34" d="M700 0 C690 42 722 72 705 120 S690 152 700 170"/>
+    <path pathLength="1" stroke="#D7EFFF" d="M980 0 C992 34 958 70 975 112 S960 150 968 170"/>
+    <path pathLength="1" stroke="#AEB8A0" d="M140 60 C170 76 190 88 204 128"/>
+    <path pathLength="1" stroke="#E9F056" d="M410 86 C378 104 360 116 348 154"/>
+    <path pathLength="1" stroke="#FF5C34" d="M708 90 C744 102 764 122 774 156"/>
+    <path pathLength="1" stroke="#D7EFFF" d="M975 74 C1012 88 1032 112 1044 146"/>
+  </svg>
 </header>
 
 <main>
   <section class="vision" id="vision">
     <div class="wrap split">
       <div class="side">
-        <div class="mini-o rough" aria-hidden="true"></div>
+        <svg class="sprout draw" viewBox="0 0 72 72" aria-hidden="true">
+          <path pathLength="1" stroke="#351E28" d="M36 70 L36 30"/>
+          <path pathLength="1" stroke="#351E28" d="M36 40 C24 26 12 28 8 36 C18 44 30 44 36 40"/>
+          <path pathLength="1" stroke="#FF5C34" d="M36 32 C46 14 60 14 66 22 C58 34 46 36 36 32"/>
+        </svg>
         <p class="label">Our vision</p>
       </div>
       <div>
@@ -226,9 +257,9 @@
     </div>
   </section>
 
-  <section class="work" id="our-work">
+  <section class="work" id="our-works">
     <div class="wrap">
-      <h2 class="label">Our work</h2>
+      <h2 class="label">Our works</h2>
       <article class="work-card">
         <div>
           <span class="tag">Upcoming · December</span>
@@ -237,61 +268,77 @@
           <p class="when">Dates and venue to be announced soon.</p>
           <a class="btn" href="mailto:rooots.admin@gmail.com?subject=Christmas%20series">Register your interest</a>
         </div>
-        <div class="work-art" aria-hidden="true">
-          <span class="rough a1" style="width:70%;height:38%;left:6%;top:6%;border-color:var(--orange)"></span>
-          <span class="rough a2" style="width:44%;height:26%;left:44%;top:46%;border-color:var(--cassis)"></span>
-          <span class="rough a3" style="width:24%;height:16%;left:14%;top:70%;border-color:var(--sauge)"></span>
-        </div>
+        <svg class="grow" viewBox="0 0 200 220" aria-hidden="true">
+          <line class="soil" x1="20" y1="90" x2="180" y2="90"/>
+          <path class="stem" d="M100 90 L100 48"/>
+          <path class="root" pathLength="1" d="M100 92 C100 130 82 150 88 205"/>
+          <path class="root" pathLength="1" d="M100 108 C122 126 140 136 148 178"/>
+          <path class="root" pathLength="1" d="M92 138 C72 148 62 166 58 196"/>
+          <path class="root" pathLength="1" d="M120 122 C130 150 118 170 124 200"/>
+          <path class="leaf" d="M100 62 C88 48 72 48 66 58 C78 68 92 68 100 62 Z" fill="#AEB8A0"/>
+          <path class="leaf r" d="M100 56 C110 38 128 36 136 46 C126 60 112 62 100 56 Z" fill="#FF5C34"/>
+          <path class="star" d="M156 10 L160 22 L172 26 L160 30 L156 42 L152 30 L140 26 L152 22 Z" fill="#FF5C34"/>
+        </svg>
       </article>
     </div>
   </section>
 
-  <section class="way" id="our-way">
-    <div class="wrap">
-      <h2 class="label">Our way</h2>
-      <ol>
-        <li><div class="oval rough" style="width:56px;border-color:var(--orange)" aria-hidden="true"></div><p class="not">We don't just look at things.</p><p class="yes">We observe.</p></li>
-        <li><div class="oval rough" style="width:96px;border-color:var(--cassis)" aria-hidden="true"></div><p class="not">We don't just learn facts.</p><p class="yes">We question.</p></li>
-        <li><div class="oval rough" style="width:140px;border-color:var(--sauge)" aria-hidden="true"></div><p class="not">We don't just copy traditional art.</p><p class="yes">We understand it.</p></li>
-        <li><div class="oval rough" style="width:190px;border-color:var(--orange)" aria-hidden="true"></div><p class="not">We don't just make things.</p><p class="yes">We make decisions.</p></li>
-        <li><div class="oval rough" style="width:250px;border-color:var(--cassis)" aria-hidden="true"></div><p class="not">We don't just finish an activity.</p><p class="yes">We express an idea.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="us" id="who-we-are">
-    <div class="wrap">
-      <p class="label">Who we are</p>
-      <h2 class="display">Two mothers, building the experiences we wanted for our own children.</h2>
-      <div class="cards">
-        <article class="card one">
-          <div class="card-o rough" aria-hidden="true"></div>
-          <h3>The thinking behind the experience</h3>
-          <p>A designer and researcher, endlessly curious about the stories behind things. She digs into the history and meaning behind a tradition, finds the idea at its heart, and shapes how it looks, feels and is made.</p>
-          <p class="tags">Research · Cultural decoding · Design · Visual language · Making</p>
-        </article>
-        <article class="card two">
-          <div class="card-o rough" aria-hidden="true"></div>
-          <h3>The experience of being in it</h3>
-          <p>An engineer and a natural host who loves reading, animals and the outdoors. She digs into the history behind each tradition, curates what we share, and shapes how the story unfolds, how everyone takes part and how it feels from the moment someone walks in.</p>
-          <p class="tags">Storytelling · Research &amp; curation · Participation · Facilitation · Individual engagement</p>
-        </article>
+  <div id="who-we-are">
+    <section class="us">
+      <div class="wrap">
+        <p class="label">Who we are</p>
+        <h2 class="display">Two mothers, building the experiences we wanted for our own children.</h2>
+        <div class="cards">
+          <article class="card one">
+            <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M8 46 H40 M8 54 H48 M8 38 H30"/>
+              <circle cx="40" cy="22" r="14"/>
+              <path d="M50 32 L60 42"/>
+            </svg>
+            <h3>The thinking behind the experience</h3>
+            <p>A designer and researcher, endlessly curious about the stories behind things. She digs into the history and meaning behind a tradition, finds the idea at its heart, and shapes how it looks, feels and is made.</p>
+            <p class="tags">Research · Cultural decoding · Design · Visual language · Making</p>
+          </article>
+          <article class="card two">
+            <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M32 18 C24 12 14 12 6 14 V52 C14 50 24 50 32 56 C40 50 50 50 58 52 V14 C50 12 40 12 32 18 Z"/>
+              <path d="M32 18 V56"/>
+              <path d="M44 4 L46 9 L51 10 L46 11 L44 16 L42 11 L37 10 L42 9 Z"/>
+            </svg>
+            <h3>The experience of being in it</h3>
+            <p>An engineer and a natural host who loves reading, animals and the outdoors. She digs into the history behind each tradition, curates what we share, and shapes how the story unfolds, how everyone takes part and how it feels from the moment someone walks in.</p>
+            <p class="tags">Storytelling · Research &amp; curation · Participation · Facilitation · Individual engagement</p>
+          </article>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="why" aria-labelledby="why-rooots">
-    <div class="wrap">
-      <h2 class="label" id="why-rooots">Why Rooots?</h2>
-      <p class="display lines">
-        <span>Roots are where things begin, so we <span class="circled c-wasabi">ask</span>.</span>
-        <span>They're hidden, so we <span class="circled c-orange">dig</span>.</span>
-        <span>They feed what grows next, so we <span class="circled c-sauge">make</span>.</span>
-        <span>They connect us, so we <span class="circled c-blue">gather</span>.</span>
-      </p>
-      <p class="closing">That's why we're Rooots.</p>
-    </div>
-  </section>
+    <section class="way" aria-labelledby="our-way">
+      <div class="wrap">
+        <h2 class="label" id="our-way">Our way</h2>
+        <ol>
+          <li><p class="num">01</p><p class="not">We don't just look at things.</p><p class="yes">We observe.</p></li>
+          <li><p class="num">02</p><p class="not">We don't just learn facts.</p><p class="yes">We question.</p></li>
+          <li><p class="num">03</p><p class="not">We don't just copy traditional art.</p><p class="yes">We understand it.</p></li>
+          <li><p class="num">04</p><p class="not">We don't just make things.</p><p class="yes">We make decisions.</p></li>
+          <li><p class="num">05</p><p class="not">We don't just finish an activity.</p><p class="yes">We express an idea.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="why" aria-labelledby="why-rooots">
+      <div class="wrap">
+        <h2 class="label" id="why-rooots">Why Rooots?</h2>
+        <p class="display lines">
+          <span>Roots are where things begin, so we <span class="mark m-wasabi">ask</span>.</span>
+          <span>They're hidden, so we <span class="mark m-orange">dig</span>.</span>
+          <span>They feed what grows next, so we <span class="mark m-sauge">make</span>.</span>
+          <span>They connect us, so we <span class="mark m-blue">gather</span>.</span>
+        </p>
+        <p class="closing">That's why we're Rooots.</p>
+      </div>
+    </section>
+  </div>
 </main>
 
 <footer class="foot" id="contact">

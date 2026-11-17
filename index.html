@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rooots: stories, discoveries and making</title>
+<meta name="description" content="Rooots brings cultures to life through stories, discoveries and making, for children, families and elders in Bengaluru.">
+<meta property="og:title" content="Rooots: stories, discoveries and making">
+<meta property="og:description" content="We bring cultures to life through stories, discoveries and making.">
+<meta name="theme-color" content="#351E28">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wasabi: #E9F056;
+    --orange: #FF5C34;
+    --blue: #D7EFFF;
+    --cassis: #351E28;
+    --sauge: #AEB8A0;
+    --pad: clamp(16px, 5.5vw, 80px);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--blue); color: var(--cassis); font-family: 'DM Sans', system-ui, sans-serif; font-size: 19px; line-height: 1.55; }
+  a { color: inherit; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+  .label { margin: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+  .display { font-family: 'Fredoka', sans-serif; font-weight: 600; line-height: 1.06; margin: 0; }
+  .rough { filter: url(#rough); }
+  .grain { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.14; mix-blend-mode: multiply; z-index: 50; }
+
+  /* Logo */
+  .logo { display: inline-flex; align-items: center; font-family: 'Fredoka', sans-serif; font-weight: 700; line-height: 0.75; }
+  .logo .o { display: inline-block; width: 2.3em; height: 0.7em; border: 0.12em solid currentColor; border-radius: 50%; margin: 0 0.02em; }
+  .logo-lockup { display: inline-flex; flex-direction: column; gap: 0.2em; font-size: clamp(76px, 16vw, 210px); color: var(--wasabi); }
+  .logo-lockup .sub { display: flex; justify-content: space-between; font-size: 0.12em; font-weight: 500; letter-spacing: 0.24em; line-height: 1; color: var(--blue); }
+
+  /* Header: links on the left, stretching oval on the right */
+  .hero { background: var(--cassis); color: var(--blue); padding-bottom: clamp(64px, 8vw, 104px); }
+  .nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 28px; min-height: 76px; }
+  .nav ul { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap; }
+  .nav a { text-decoration: none; display: inline-block; padding: 10px 0; }
+  .nav a:hover { color: var(--wasabi); }
+  .nav .cta { border: 2px solid var(--orange); color: var(--orange); padding: 9px 18px; border-radius: 999px; }
+  .nav .cta:hover { background: var(--orange); color: var(--cassis); }
+  .stretch { display: flex; justify-content: flex-end; flex: 1; }
+  .stretch span { display: block; height: 30px; border: 6px solid var(--wasabi); border-radius: 50%; animation: stretch 7s ease-in-out infinite; }
+  @keyframes stretch {
+    0%   { width: 56px;  border-color: var(--wasabi); }
+    25%  { width: 220px; border-color: var(--orange); }
+    50%  { width: 110px; border-color: var(--blue); }
+    75%  { width: 300px; border-color: var(--sauge); }
+    100% { width: 56px;  border-color: var(--wasabi); }
+  }
+  @media (prefers-reduced-motion: reduce) { .stretch span { animation: none; width: 140px; } }
+
+  .hero-body { display: flex; flex-direction: column; align-items: center; gap: clamp(32px, 5vw, 56px); margin-top: clamp(48px, 8vw, 96px); text-align: center; }
+  .hero h1 { max-width: 1000px; font-size: clamp(32px, 4.6vw, 60px); }
+  .hero p { margin: 0; max-width: 680px; font-size: clamp(17px, 1.6vw, 21px); }
+
+  /* Shared layout */
+  section { padding: clamp(72px, 9vw, 112px) 0; }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 24px 48px; }
+  .split .side { display: flex; flex-direction: column; gap: 14px; }
+  .mini-o { width: 96px; height: 34px; border: 6px solid; border-radius: 50%; }
+
+  /* Vision: cassis on wasabi */
+  .vision { background: var(--wasabi); }
+  .vision .mini-o { border-color: var(--orange); }
+  .vision .big { font-size: clamp(30px, 3.9vw, 54px); margin-bottom: 24px; }
+  .vision p.body { margin: 0; max-width: 760px; }
+  .hopes { list-style: none; margin: 32px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+  .hopes li { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: clamp(18px, 2vw, 26px); border-radius: 999px; padding: 10px 22px; }
+  .hopes li:nth-child(1) { background: var(--cassis); color: var(--wasabi); }
+  .hopes li:nth-child(2) { background: var(--orange); color: var(--cassis); }
+  .hopes li:nth-child(3) { background: var(--blue); color: var(--cassis); }
+
+  /* Our way: cassis on blue, ovals stretch row by row */
+  .way ol { list-style: none; margin: 32px 0 0; padding: 0; }
+  .way li { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 5fr); gap: 12px 24px; align-items: center; padding: 22px 0; border-top: 2px solid var(--cassis); }
+  .way .oval { height: 30px; border: 6px solid; border-radius: 50%; }
+  .way .not { margin: 0; font-size: 18px; }
+  .way .yes { margin: 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(32px, 3.8vw, 52px); line-height: 1; }
+
+  /* Who we are: cassis on orange */
+  .us { background: var(--orange); }
+  .us h2 { max-width: 1040px; font-size: clamp(30px, 4.4vw, 60px); margin-top: 14px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 48px; }
+  .card { padding: clamp(28px, 3vw, 40px); border-radius: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .card.one { background: var(--cassis); color: var(--blue); }
+  .card.two { background: var(--blue); color: var(--cassis); }
+  .card .card-o { width: 120px; height: 40px; border: 7px solid; border-radius: 50%; }
+  .card.one .card-o { border-color: var(--wasabi); }
+  .card.two .card-o { border-color: var(--orange); }
+  .card h3 { margin: 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(28px, 3vw, 40px); line-height: 1.05; }
+  .card p { margin: 0; }
+  .card .tags { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  .card.one .tags { color: var(--wasabi); }
+
+  /* Why Rooots: blue on cassis, each verb circled in a different colour */
+  .why { background: var(--cassis); color: var(--blue); text-align: center; }
+  .why .lines { max-width: 1120px; margin: 32px auto 0; font-size: clamp(13px, 4.2vw, 60px); line-height: 1.35; }
+  .why .lines > span { display: block; white-space: nowrap; }
+  .circled { position: relative; display: inline-block; padding: 0 0.15em; }
+  .circled::after { content: ""; position: absolute; left: -0.05em; right: -0.05em; top: -0.02em; bottom: -0.06em; border: 0.06em solid; border-radius: 50%; filter: url(#rough); }
+  .c-wasabi::after { border-color: var(--wasabi); }
+  .c-orange::after { border-color: var(--orange); }
+  .c-sauge::after { border-color: var(--sauge); }
+  .c-blue::after { border-color: var(--blue); }
+  .why .closing { margin: 40px 0 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(22px, 2.4vw, 32px); color: var(--wasabi); }
+
+  /* Footer: cassis on sauge */
+  .foot { background: var(--sauge); color: var(--cassis); padding: clamp(72px, 9vw, 88px) 0 48px; }
+  .foot .display { font-size: clamp(36px, 5vw, 64px); line-height: 1; }
+  .foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; border-top: 2px solid var(--cassis); padding-top: 28px; margin-top: 48px; }
+  .foot .logo { font-size: 38px; }
+  .foot .contact { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.08em; }
+  .foot .contact a { text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+  @media (max-width: 760px) {
+    .nav { padding-top: 18px; min-height: 0; }
+    .nav ul { width: 100%; justify-content: space-between; gap: 8px; font-size: 11px; letter-spacing: 0.08em; }
+    .nav .cta { padding: 7px 12px; }
+    .stretch { display: none; }
+    .split { grid-template-columns: 1fr; }
+    .way li { grid-template-columns: 1fr; }
+    .way .oval { max-width: 60%; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+</svg>
+<svg class="grain" aria-hidden="true">
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  <rect width="100%" height="100%" filter="url(#grain)"/>
+</svg>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <nav class="nav" aria-label="Main">
+      <ul>
+        <li><a href="#vision">Vision</a></li>
+        <li><a href="#our-way">Our way</a></li>
+        <li><a href="#who-we-are">Who we are</a></li>
+        <li><a class="cta" href="#contact">Join us</a></li>
+      </ul>
+      <div class="stretch rough" aria-hidden="true"><span></span></div>
+    </nav>
+    <div class="hero-body">
+      <div class="logo-lockup" role="img" aria-label="Rooots: stories and making">
+        <div class="logo rough"><span>R</span><span class="o"></span><span>TS</span></div>
+        <div class="sub"><span>STORIES</span><span>MAKING</span></div>
+      </div>
+      <h1 class="display">We bring cultures to life through stories, discoveries and making.</h1>
+      <p>Every experience invites children and families to discover a tradition, decode the ideas behind it and reinterpret what they've learned through their own imagination.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="vision" id="vision">
+    <div class="wrap split">
+      <div class="side">
+        <div class="mini-o rough" aria-hidden="true"></div>
+        <p class="label">Our vision</p>
+      </div>
+      <div>
+        <p class="display big">We want people of every age to understand the roots of culture, and feel free to grow something new from them.</p>
+        <p class="body">Too often, culture is memorised or admired from a distance. We believe it stays alive when people get close to it: when they look closely, ask why, understand the ideas and people behind it, and then make it their own. Rooots creates that space for children, families and elders, together.</p>
+        <ul class="hopes">
+          <li>People who ask why.</li>
+          <li>Generations who make together.</li>
+          <li>Traditions that keep growing.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="way" id="our-way">
+    <div class="wrap">
+      <h2 class="label">Our way</h2>
+      <ol>
+        <li><div class="oval rough" style="width:56px;border-color:var(--orange)" aria-hidden="true"></div><p class="not">We don't just look at things.</p><p class="yes">We observe.</p></li>
+        <li><div class="oval rough" style="width:96px;border-color:var(--cassis)" aria-hidden="true"></div><p class="not">We don't just learn facts.</p><p class="yes">We question.</p></li>
+        <li><div class="oval rough" style="width:140px;border-color:var(--sauge)" aria-hidden="true"></div><p class="not">We don't just copy traditional art.</p><p class="yes">We understand it.</p></li>
+        <li><div class="oval rough" style="width:190px;border-color:var(--orange)" aria-hidden="true"></div><p class="not">We don't just make things.</p><p class="yes">We make decisions.</p></li>
+        <li><div class="oval rough" style="width:250px;border-color:var(--cassis)" aria-hidden="true"></div><p class="not">We don't just finish an activity.</p><p class="yes">We express an idea.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="us" id="who-we-are">
+    <div class="wrap">
+      <p class="label">Who we are</p>
+      <h2 class="display">Two mothers, building the experiences we wanted for our own children.</h2>
+      <div class="cards">
+        <article class="card one">
+          <div class="card-o rough" aria-hidden="true"></div>
+          <h3>The thinking behind the experience</h3>
+          <p>A designer and researcher with an engineer's mind. She digs into the history and meaning behind a tradition, finds the idea at its heart, and shapes how it looks, feels and is made.</p>
+          <p class="tags">Research · Cultural decoding · Design · Visual language · Making</p>
+        </article>
+        <article class="card two">
+          <div class="card-o rough" aria-hidden="true"></div>
+          <h3>The experience of being in it</h3>
+          <p>A reader and natural host with an engineer's mind. She shapes the story that opens each tradition, how everyone takes part, and how it feels from the moment a family walks in.</p>
+          <p class="tags">Storytelling · Participation · Facilitation · Flow · Family engagement</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="why" aria-labelledby="why-rooots">
+    <div class="wrap">
+      <h2 class="label" id="why-rooots">Why Rooots?</h2>
+      <p class="display lines">
+        <span>Roots are where things begin, so we <span class="circled c-wasabi">ask</span>.</span>
+        <span>They're hidden, so we <span class="circled c-orange">dig</span>.</span>
+        <span>They feed what grows next, so we <span class="circled c-sauge">make</span>.</span>
+        <span>They connect us, so we <span class="circled c-blue">gather</span>.</span>
+      </p>
+      <p class="closing">That's why we're Rooots.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot" id="contact">
+  <div class="wrap">
+    <p class="display">Come and discover with us.</p>
+    <div class="foot-row">
+      <div class="logo rough" role="img" aria-label="Rooots"><span>R</span><span class="o"></span><span>TS</span></div>
+      <p class="contact"><a href="mailto:rooots.admin@gmail.com">rooots.admin@gmail.com</a> · Bengaluru</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -106,8 +106,8 @@
   .vision { background: var(--sauge); }
   .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 24px 48px; }
   .split .side { display: flex; flex-direction: column; gap: 14px; }
-  .sprout { width: 72px; height: 72px; }
-  .sprout path { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+  .roots-art { width: 150px; height: 150px; }
+  .roots-art path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
   .vision .big { font-size: clamp(30px, 3.9vw, 54px); margin-bottom: 24px; }
   .vision p.body { margin: 0; max-width: 760px; }
   .hopes { list-style: none; margin: 32px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
@@ -229,13 +229,24 @@
   <section class="vision" id="vision">
     <div class="wrap split">
       <div class="side">
-        <svg class="sprout draw" viewBox="0 0 72 72" aria-hidden="true">
-          <path pathLength="1" stroke="#351E28" d="M8 10 L64 10"/>
-          <path pathLength="1" stroke="#351E28" d="M36 10 C36 24 32 34 34 48 C35 56 32 62 30 70"/>
-          <path pathLength="1" stroke="#FF5C34" d="M35 22 C42 28 50 32 54 44"/>
-          <path pathLength="1" stroke="#351E28" d="M34 30 C26 36 20 42 18 54"/>
-          <path pathLength="1" stroke="#FF5C34" d="M34 46 C40 52 44 58 46 68"/>
-          <path pathLength="1" stroke="#351E28" d="M50 36 C56 38 60 42 62 48"/>
+        <svg class="roots-art draw" viewBox="0 0 120 120" aria-hidden="true">
+          <path pathLength="1" stroke="#FF5C34" stroke-width="4" style="animation-delay:0s" d="M8 18 C28 13 48 21 68 16 C86 12 100 19 112 15"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="5.5" style="animation-delay:0.2s" d="M60 17 C60 34 55 46 58 60 C61 74 54 88 56 114"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="3.6" style="animation-delay:0.6s" d="M59 30 C48 36 40 44 34 58"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="3.6" style="animation-delay:0.7s" d="M58 38 C70 42 80 50 86 64"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="3.2" style="animation-delay:0.9s" d="M58 62 C48 68 42 78 40 92"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="3.2" style="animation-delay:1.0s" d="M57 74 C66 80 72 90 74 104"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="2.2" style="animation-delay:1.2s" d="M44 43 C36 44 28 48 20 55"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="2.2" style="animation-delay:1.3s" d="M38 51 C34 60 32 68 30 79"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="2.2" style="animation-delay:1.3s" d="M76 48 C86 48 94 52 101 59"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="2.2" style="animation-delay:1.4s" d="M84 60 C88 68 90 76 90 87"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="2" style="animation-delay:1.5s" d="M46 74 C38 76 30 82 26 93"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="2" style="animation-delay:1.6s" d="M41 88 C38 96 36 102 34 111"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="2" style="animation-delay:1.6s" d="M68 86 C78 88 84 94 88 103"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="1.8" style="animation-delay:1.7s" d="M56 98 C50 101 48 106 46 113"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="1.8" style="animation-delay:1.8s" d="M56 102 C62 105 64 109 66 115"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="1.6" style="animation-delay:1.8s" d="M27 50 C24 46 20 44 15 44"/>
+          <path pathLength="1" stroke="#351E28" stroke-width="1.6" style="animation-delay:1.9s" d="M95 54 C98 50 102 48 107 48"/>
         </svg>
         <p class="label">Our vision</p>
       </div>

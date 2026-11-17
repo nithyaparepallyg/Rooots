@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rooots.co.in/sitemap.xml

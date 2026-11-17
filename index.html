@@ -118,19 +118,15 @@
   .work-card .when { margin-top: 18px; font-weight: 700; }
   .work-card .btn { display: inline-block; margin-top: 24px; background: var(--cassis); color: var(--wasabi); text-decoration: none; font-weight: 700; padding: 14px 24px; border-radius: 999px; }
   .work-card .btn:hover { background: var(--orange); color: var(--cassis); }
-  .grow { width: 100%; max-width: 260px; height: auto; justify-self: center; overflow: visible; }
-  .grow .soil { stroke: var(--sauge); stroke-width: 10; stroke-linecap: round; }
-  .grow .root { fill: none; stroke: var(--cassis); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: rootloop 7s ease-in-out infinite; }
-  .grow .root:nth-of-type(3) { animation-delay: 0.4s; }
-  .grow .root:nth-of-type(4) { animation-delay: 0.8s; }
-  .grow .root:nth-of-type(5) { animation-delay: 1.2s; }
-  .grow .stem { fill: none; stroke: var(--cassis); stroke-width: 5; stroke-linecap: round; }
-  .grow .leaf { transform-origin: 100px 62px; animation: sway 4s ease-in-out infinite; }
-  .grow .leaf.r { animation-delay: 0.6s; }
-  .grow .star { transform-origin: 156px 26px; animation: twinkle 2.6s ease-in-out infinite; }
-  @keyframes rootloop { 0% { stroke-dashoffset: 1; } 45%, 80% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
-  @keyframes sway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
-  @keyframes twinkle { 0%, 100% { transform: scale(0.7) rotate(0deg); opacity: 0.6; } 50% { transform: scale(1.1) rotate(20deg); opacity: 1; } }
+  .tree { width: 100%; max-width: 240px; height: auto; justify-self: center; overflow: visible; }
+  .tree .tier { fill: #AEB8A0; stroke: #351E28; stroke-width: 3; stroke-linejoin: round; }
+  .tree .garland { fill: none; stroke: #351E28; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 3s ease-out 0.4s forwards; }
+  .tree .bauble { animation: blink 2.4s ease-in-out infinite; }
+  .tree .b2 { animation-delay: 0.8s; }
+  .tree .b3 { animation-delay: 1.6s; }
+  .tree .star { transform-origin: 100px 28px; animation: twinkle 2.6s ease-in-out infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @keyframes twinkle { 0%, 100% { transform: scale(0.85) rotate(0deg); } 50% { transform: scale(1.12) rotate(12deg); } }
 
   /* Who we are: founders */
   .us { background: var(--orange); }
@@ -140,6 +136,8 @@
   .card.one { background: var(--cassis); color: var(--blue); }
   .card.two { background: var(--blue); color: var(--cassis); }
   .card .portrait { width: 112px; height: 112px; }
+  .card.one .portrait { color: var(--wasabi); }
+  .card.two .portrait { color: var(--cassis); }
   .card h3 { margin: 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(28px, 3vw, 40px); line-height: 1.05; }
   .card p { margin: 0; }
   .card .tags { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
@@ -178,13 +176,13 @@
     .nav .cta { padding: 7px 12px; }
     .split { grid-template-columns: 1fr; }
     .work-card { grid-template-columns: 1fr; }
-    .grow { max-width: 180px; }
+    .tree { max-width: 170px; }
     .way li { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
     .draw path { animation: none; stroke-dashoffset: 0; }
-    .grow .root { animation: none; stroke-dashoffset: 0; }
-    .grow .leaf, .grow .star { animation: none; }
+    .tree .garland { animation: none; stroke-dashoffset: 0; }
+    .tree .bauble, .tree .star { animation: none; }
   }
 </style>
 </head>
@@ -253,16 +251,19 @@
           <p class="when">Dates and venue to be announced soon.</p>
           <a class="btn" href="mailto:rooots.admin@gmail.com?subject=Christmas%20series">Register your interest</a>
         </div>
-        <svg class="grow" viewBox="0 0 200 220" aria-hidden="true">
-          <line class="soil" x1="20" y1="90" x2="180" y2="90"/>
-          <path class="stem" d="M100 90 L100 48"/>
-          <path class="root" pathLength="1" d="M100 92 C100 130 82 150 88 205"/>
-          <path class="root" pathLength="1" d="M100 108 C122 126 140 136 148 178"/>
-          <path class="root" pathLength="1" d="M92 138 C72 148 62 166 58 196"/>
-          <path class="root" pathLength="1" d="M120 122 C130 150 118 170 124 200"/>
-          <path class="leaf" d="M100 62 C88 48 72 48 66 58 C78 68 92 68 100 62 Z" fill="#AEB8A0"/>
-          <path class="leaf r" d="M100 56 C110 38 128 36 136 46 C126 60 112 62 100 56 Z" fill="#FF5C34"/>
-          <path class="star" d="M156 10 L160 22 L172 26 L160 30 L156 42 L152 30 L140 26 L152 22 Z" fill="#FF5C34"/>
+        <svg class="tree" viewBox="0 0 200 230" role="img" aria-label="Illustration of a Christmas tree">
+          <path class="tier" d="M100 104 L170 184 L30 184 Z"/>
+          <path class="tier" d="M100 70 L154 136 L46 136 Z"/>
+          <path class="tier" d="M100 40 L140 92 L60 92 Z"/>
+          <rect x="88" y="184" width="24" height="28" rx="3" fill="#351E28"/>
+          <path class="garland" pathLength="1" d="M74 80 C90 90 112 88 126 78 M60 122 C82 134 118 132 140 120 M46 168 C76 182 124 180 154 166"/>
+          <circle class="bauble b1" cx="88" cy="100" r="6" fill="#FF5C34"/>
+          <circle class="bauble b2" cx="122" cy="112" r="6" fill="#E9F056"/>
+          <circle class="bauble b3" cx="74" cy="152" r="7" fill="#E9F056"/>
+          <circle class="bauble b1" cx="112" cy="150" r="7" fill="#351E28"/>
+          <circle class="bauble b2" cx="140" cy="172" r="6" fill="#FF5C34"/>
+          <circle class="bauble b3" cx="62" cy="176" r="6" fill="#351E28"/>
+          <path class="star" d="M100 6 L106 22 L122 24 L110 34 L114 50 L100 41 L86 50 L90 34 L78 24 L94 22 Z" fill="#E9F056" stroke="#351E28" stroke-width="2.5" stroke-linejoin="round"/>
         </svg>
       </article>
     </div>
@@ -275,40 +276,35 @@
         <h2 class="display">Two mothers, building the experiences we wanted for our own children.</h2>
         <div class="cards">
           <article class="card one">
-            <svg class="portrait" viewBox="0 0 120 120" role="img" aria-label="Illustration of the first co-founder">
-              <defs><clipPath id="clip-n"><circle cx="60" cy="60" r="58"/></clipPath></defs>
-              <circle cx="60" cy="60" r="58" fill="#E9F056"/>
-              <g clip-path="url(#clip-n)">
-                <path d="M32 50 C32 22 48 12 60 12 C72 12 88 22 88 50 L91 108 L29 108 Z" fill="#241318"/>
-                <path d="M26 122 C28 98 42 90 60 90 C78 90 92 98 94 122 Z" fill="#FF5C34"/>
-                <rect x="52.5" y="66" width="15" height="26" rx="6" fill="#B5785A"/>
-                <path d="M33 54 L30 104 L40 106 L42 58 Z" fill="#241318"/>
-                <path d="M87 54 L90 104 L80 106 L78 58 Z" fill="#241318"/>
-                <ellipse cx="60" cy="50" rx="16" ry="21" fill="#B5785A"/>
-                <path d="M43 46 C42 30 51 25 60 25 C69 25 78 30 77 46 C72 36 65 31 60 29 C55 31 48 36 43 46 Z" fill="#241318"/>
-                <circle cx="53.5" cy="51" r="1.9" fill="#241318"/><circle cx="66.5" cy="51" r="1.9" fill="#241318"/>
-                <circle cx="50" cy="58" r="3" fill="#E89A7E" opacity="0.6"/><circle cx="70" cy="58" r="3" fill="#E89A7E" opacity="0.6"/>
-                <path d="M55 61 C57.5 64 62.5 64 65 61" fill="none" stroke="#241318" stroke-width="1.8" stroke-linecap="round"/>
+            <svg class="portrait" viewBox="0 0 120 120" role="img" aria-label="Line drawing of the first co-founder">
+              <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M34 96 L33 50 C33 22 48 12 60 12 C72 12 87 22 87 50 L86 96"/>
+                <path d="M60 13 L60 29"/>
+                <path d="M44 47 C45 35 52 29 60 29 C68 29 75 35 76 47"/>
+                <ellipse cx="60" cy="50" rx="16" ry="21"/>
+                <path d="M45 62 L43 96 M75 62 L77 96"/>
+                <path d="M54 70 L54 86 M66 70 L66 86"/>
+                <path d="M22 118 C24 104 28 98 34 96 M86 96 C92 98 96 104 98 118"/>
+                <path d="M43 96 C47 90 51 87 54 86 M66 86 C69 87 73 90 77 96"/>
+                <path d="M55 61 C57.5 64 62.5 64 65 61"/>
               </g>
+              <circle cx="53.5" cy="51" r="2" fill="currentColor"/><circle cx="66.5" cy="51" r="2" fill="currentColor"/>
             </svg>
             <h3>The thinking behind the experience</h3>
             <p>A designer and researcher, endlessly curious about the stories behind things. She digs into the history and meaning behind a tradition, finds the idea at its heart, and shapes how it looks, feels and is made.</p>
             <p class="tags">Research · Cultural decoding · Design · Visual language · Making</p>
           </article>
           <article class="card two">
-            <svg class="portrait" viewBox="0 0 120 120" role="img" aria-label="Illustration of the second co-founder">
-              <defs><clipPath id="clip-m"><circle cx="60" cy="60" r="58"/></clipPath></defs>
-              <circle cx="60" cy="60" r="58" fill="#FF5C34"/>
-              <g clip-path="url(#clip-m)">
-                <path d="M34 54 C34 26 48 16 60 16 C72 16 86 26 86 54 L88 80 C82 85 76 84 73 80 L47 80 C44 84 38 85 32 80 Z" fill="#241318"/>
-                <path d="M26 122 C28 98 42 90 60 90 C78 90 92 98 94 122 Z" fill="#AEB8A0"/>
-                <rect x="52.5" y="68" width="15" height="24" rx="6" fill="#B5785A"/>
-                <circle cx="60" cy="53" r="20" fill="#B5785A"/>
-                <path d="M39 50 C40 32 52 26 63 27 C76 28 83 38 81 50 C72 40 58 37 39 50 Z" fill="#241318"/>
-                <circle cx="53" cy="55" r="1.9" fill="#241318"/><circle cx="67" cy="55" r="1.9" fill="#241318"/>
-                <circle cx="49" cy="62" r="3.2" fill="#E89A7E" opacity="0.6"/><circle cx="71" cy="62" r="3.2" fill="#E89A7E" opacity="0.6"/>
-                <path d="M54.5 64 C57.5 67.5 62.5 67.5 65.5 64" fill="none" stroke="#241318" stroke-width="1.8" stroke-linecap="round"/>
+            <svg class="portrait" viewBox="0 0 120 120" role="img" aria-label="Line drawing of the second co-founder">
+              <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M47 80 C44 84 38 85 32 80 L34 54 C34 26 48 16 60 16 C72 16 86 26 86 54 L88 80 C82 85 76 84 73 80"/>
+                <circle cx="60" cy="53" r="20"/>
+                <path d="M81 47 C72 36 55 35 41 52"/>
+                <path d="M54 73 L54 88 M66 73 L66 88"/>
+                <path d="M24 118 C27 99 40 91 54 88 M66 88 C80 91 93 99 96 118"/>
+                <path d="M54.5 64 C57.5 67.5 62.5 67.5 65.5 64"/>
               </g>
+              <circle cx="53" cy="56" r="2" fill="currentColor"/><circle cx="67" cy="56" r="2" fill="currentColor"/>
             </svg>
             <h3>The experience of being in it</h3>
             <p>An engineer and a natural host who loves reading, animals and the outdoors. She digs into the history behind each tradition, curates what we share, and shapes how the story unfolds, how everyone takes part and how it feels from the moment someone walks in.</p>

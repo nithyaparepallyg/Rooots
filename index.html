@@ -84,7 +84,7 @@
   .logo-lockup .sub { display: flex; justify-content: space-between; font-size: 0.12em; font-weight: 500; letter-spacing: 0.24em; line-height: 1; color: var(--blue); }
 
   /* Hero */
-  .hero { background: var(--cassis); color: var(--blue); }
+  .hero { background: var(--cassis); color: var(--blue); padding-bottom: clamp(64px, 8vw, 104px); }
   .nav { display: flex; justify-content: flex-end; align-items: center; gap: 16px; padding-top: 28px; }
   .nav ul { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap; }
   .nav a { text-decoration: none; display: inline-block; padding: 10px 0; }
@@ -94,8 +94,6 @@
   .hero-body { display: flex; flex-direction: column; align-items: center; gap: clamp(32px, 5vw, 56px); margin-top: clamp(48px, 8vw, 96px); text-align: center; }
   .hero h1 { max-width: 1000px; font-size: clamp(32px, 4.6vw, 60px); }
   .hero p { margin: 0; max-width: 680px; font-size: clamp(17px, 1.6vw, 21px); }
-  .hero-roots { display: block; width: 100%; height: clamp(90px, 12vw, 170px); margin-top: clamp(40px, 6vw, 72px); }
-  .hero-roots path { fill: none; stroke-width: 4; stroke-linecap: round; }
 
   /* Vision */
   .vision { background: var(--sauge); }
@@ -141,10 +139,7 @@
   .card { padding: clamp(28px, 3vw, 40px); border-radius: 32px; display: flex; flex-direction: column; gap: 16px; }
   .card.one { background: var(--cassis); color: var(--blue); }
   .card.two { background: var(--blue); color: var(--cassis); }
-  .card .icon { width: 64px; height: 64px; }
-  .card .icon path, .card .icon circle { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
-  .card.one .icon * { stroke: var(--wasabi); }
-  .card.two .icon * { stroke: var(--orange); }
+  .card .portrait { width: 112px; height: 112px; }
   .card h3 { margin: 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(28px, 3vw, 40px); line-height: 1.05; }
   .card p { margin: 0; }
   .card .tags { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
@@ -222,16 +217,6 @@
       <p>Every experience invites children and families to discover a tradition, decode the ideas behind it and reinterpret what they've learned through their own imagination.</p>
     </div>
   </div>
-  <svg class="hero-roots draw rough" viewBox="0 0 1200 170" preserveAspectRatio="none" aria-hidden="true">
-    <path pathLength="1" stroke="#AEB8A0" d="M150 0 C150 40 128 62 140 104 S118 146 108 170"/>
-    <path pathLength="1" stroke="#E9F056" d="M420 0 C432 52 398 82 410 128 S392 160 398 170"/>
-    <path pathLength="1" stroke="#FF5C34" d="M700 0 C690 42 722 72 705 120 S690 152 700 170"/>
-    <path pathLength="1" stroke="#D7EFFF" d="M980 0 C992 34 958 70 975 112 S960 150 968 170"/>
-    <path pathLength="1" stroke="#AEB8A0" d="M140 60 C170 76 190 88 204 128"/>
-    <path pathLength="1" stroke="#E9F056" d="M410 86 C378 104 360 116 348 154"/>
-    <path pathLength="1" stroke="#FF5C34" d="M708 90 C744 102 764 122 774 156"/>
-    <path pathLength="1" stroke="#D7EFFF" d="M975 74 C1012 88 1032 112 1044 146"/>
-  </svg>
 </header>
 
 <main>
@@ -290,20 +275,40 @@
         <h2 class="display">Two mothers, building the experiences we wanted for our own children.</h2>
         <div class="cards">
           <article class="card one">
-            <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M8 46 H40 M8 54 H48 M8 38 H30"/>
-              <circle cx="40" cy="22" r="14"/>
-              <path d="M50 32 L60 42"/>
+            <svg class="portrait" viewBox="0 0 120 120" role="img" aria-label="Illustration of the first co-founder">
+              <defs><clipPath id="clip-n"><circle cx="60" cy="60" r="58"/></clipPath></defs>
+              <circle cx="60" cy="60" r="58" fill="#E9F056"/>
+              <g clip-path="url(#clip-n)">
+                <path d="M32 50 C32 22 48 12 60 12 C72 12 88 22 88 50 L91 108 L29 108 Z" fill="#241318"/>
+                <path d="M26 122 C28 98 42 90 60 90 C78 90 92 98 94 122 Z" fill="#FF5C34"/>
+                <rect x="52.5" y="66" width="15" height="26" rx="6" fill="#B5785A"/>
+                <path d="M33 54 L30 104 L40 106 L42 58 Z" fill="#241318"/>
+                <path d="M87 54 L90 104 L80 106 L78 58 Z" fill="#241318"/>
+                <ellipse cx="60" cy="50" rx="16" ry="21" fill="#B5785A"/>
+                <path d="M43 46 C42 30 51 25 60 25 C69 25 78 30 77 46 C72 36 65 31 60 29 C55 31 48 36 43 46 Z" fill="#241318"/>
+                <circle cx="53.5" cy="51" r="1.9" fill="#241318"/><circle cx="66.5" cy="51" r="1.9" fill="#241318"/>
+                <circle cx="50" cy="58" r="3" fill="#E89A7E" opacity="0.6"/><circle cx="70" cy="58" r="3" fill="#E89A7E" opacity="0.6"/>
+                <path d="M55 61 C57.5 64 62.5 64 65 61" fill="none" stroke="#241318" stroke-width="1.8" stroke-linecap="round"/>
+              </g>
             </svg>
             <h3>The thinking behind the experience</h3>
             <p>A designer and researcher, endlessly curious about the stories behind things. She digs into the history and meaning behind a tradition, finds the idea at its heart, and shapes how it looks, feels and is made.</p>
             <p class="tags">Research · Cultural decoding · Design · Visual language · Making</p>
           </article>
           <article class="card two">
-            <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M32 18 C24 12 14 12 6 14 V52 C14 50 24 50 32 56 C40 50 50 50 58 52 V14 C50 12 40 12 32 18 Z"/>
-              <path d="M32 18 V56"/>
-              <path d="M44 4 L46 9 L51 10 L46 11 L44 16 L42 11 L37 10 L42 9 Z"/>
+            <svg class="portrait" viewBox="0 0 120 120" role="img" aria-label="Illustration of the second co-founder">
+              <defs><clipPath id="clip-m"><circle cx="60" cy="60" r="58"/></clipPath></defs>
+              <circle cx="60" cy="60" r="58" fill="#FF5C34"/>
+              <g clip-path="url(#clip-m)">
+                <path d="M34 54 C34 26 48 16 60 16 C72 16 86 26 86 54 L88 80 C82 85 76 84 73 80 L47 80 C44 84 38 85 32 80 Z" fill="#241318"/>
+                <path d="M26 122 C28 98 42 90 60 90 C78 90 92 98 94 122 Z" fill="#AEB8A0"/>
+                <rect x="52.5" y="68" width="15" height="24" rx="6" fill="#B5785A"/>
+                <circle cx="60" cy="53" r="20" fill="#B5785A"/>
+                <path d="M39 50 C40 32 52 26 63 27 C76 28 83 38 81 50 C72 40 58 37 39 50 Z" fill="#241318"/>
+                <circle cx="53" cy="55" r="1.9" fill="#241318"/><circle cx="67" cy="55" r="1.9" fill="#241318"/>
+                <circle cx="49" cy="62" r="3.2" fill="#E89A7E" opacity="0.6"/><circle cx="71" cy="62" r="3.2" fill="#E89A7E" opacity="0.6"/>
+                <path d="M54.5 64 C57.5 67.5 62.5 67.5 65.5 64" fill="none" stroke="#241318" stroke-width="1.8" stroke-linecap="round"/>
+              </g>
             </svg>
             <h3>The experience of being in it</h3>
             <p>An engineer and a natural host who loves reading, animals and the outdoors. She digs into the history behind each tradition, curates what we share, and shapes how the story unfolds, how everyone takes part and how it feels from the moment someone walks in.</p>

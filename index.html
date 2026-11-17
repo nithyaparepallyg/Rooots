@@ -37,24 +37,14 @@
   .logo-lockup { display: inline-flex; flex-direction: column; gap: 0.2em; font-size: clamp(76px, 16vw, 210px); color: var(--wasabi); }
   .logo-lockup .sub { display: flex; justify-content: space-between; font-size: 0.12em; font-weight: 500; letter-spacing: 0.24em; line-height: 1; color: var(--blue); }
 
-  /* Header: links on the left, stretching oval on the right */
+  /* Header: menu on the right */
   .hero { background: var(--cassis); color: var(--blue); padding-bottom: clamp(64px, 8vw, 104px); }
-  .nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 28px; min-height: 76px; }
+  .nav { display: flex; justify-content: flex-end; align-items: center; gap: 16px; padding-top: 28px; min-height: 76px; }
   .nav ul { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; font-size: 14px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap; }
   .nav a { text-decoration: none; display: inline-block; padding: 10px 0; }
   .nav a:hover { color: var(--wasabi); }
   .nav .cta { border: 2px solid var(--orange); color: var(--orange); padding: 9px 18px; border-radius: 999px; }
   .nav .cta:hover { background: var(--orange); color: var(--cassis); }
-  .stretch { display: flex; justify-content: flex-end; flex: 1; }
-  .stretch span { display: block; height: 30px; border: 6px solid var(--wasabi); border-radius: 50%; animation: stretch 7s ease-in-out infinite; }
-  @keyframes stretch {
-    0%   { width: 56px;  border-color: var(--wasabi); }
-    25%  { width: 220px; border-color: var(--orange); }
-    50%  { width: 110px; border-color: var(--blue); }
-    75%  { width: 300px; border-color: var(--sauge); }
-    100% { width: 56px;  border-color: var(--wasabi); }
-  }
-  @media (prefers-reduced-motion: reduce) { .stretch span { animation: none; width: 140px; } }
 
   .hero-body { display: flex; flex-direction: column; align-items: center; gap: clamp(32px, 5vw, 56px); margin-top: clamp(48px, 8vw, 96px); text-align: center; }
   .hero h1 { max-width: 1000px; font-size: clamp(32px, 4.6vw, 60px); }
@@ -123,7 +113,6 @@
     .nav { padding-top: 18px; min-height: 0; }
     .nav ul { width: 100%; justify-content: space-between; gap: 8px; font-size: 11px; letter-spacing: 0.08em; }
     .nav .cta { padding: 7px 12px; }
-    .stretch { display: none; }
     .split { grid-template-columns: 1fr; }
     .way li { grid-template-columns: 1fr; }
     .way .oval { max-width: 60%; }
@@ -149,7 +138,6 @@
         <li><a href="#who-we-are">Who we are</a></li>
         <li><a class="cta" href="#contact">Join us</a></li>
       </ul>
-      <div class="stretch rough" aria-hidden="true"><span></span></div>
     </nav>
     <div class="hero-body">
       <div class="logo-lockup" role="img" aria-label="Rooots: stories and making">

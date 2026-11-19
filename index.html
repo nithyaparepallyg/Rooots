@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rooots | Culture, stories and making for every age in Bengaluru</title>
-<meta name="description" content="Rooots brings cultures to life through stories, discoveries and making. Hands-on experiences in Bengaluru where people of every age discover a tradition, decode the ideas behind it and make it their own.">
+<title>Rooots | Rooted in culture. Open to interpretation.</title>
+<meta name="description" content="A creative practice started by two mothers. We get curious about traditions and the thinking behind them, then turn what we find into something new.">
 <link rel="canonical" href="https://rooots.co.in/">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#351E28">
@@ -13,17 +13,17 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Rooots">
 <meta property="og:url" content="https://rooots.co.in/">
-<meta property="og:title" content="Rooots: culture, stories and making">
-<meta property="og:description" content="We bring cultures to life through stories, discoveries and making. Experiences for people of every age in Bengaluru.">
-<meta property="og:image" content="https://rooots.co.in/og-image.png?v=4">
+<meta property="og:title" content="Rooots: rooted in culture, open to interpretation">
+<meta property="og:description" content="A creative practice started by two mothers. We get curious about traditions and the thinking behind them, then turn what we find into something new.">
+<meta property="og:image" content="https://rooots.co.in/og-image.png?v=6">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Rooots logo: R, a long oval, TS, with the words stories and making">
 <meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Rooots: culture, stories and making">
-<meta name="twitter:description" content="We bring cultures to life through stories, discoveries and making.">
-<meta name="twitter:image" content="https://rooots.co.in/og-image.png?v=4">
+<meta name="twitter:title" content="Rooots: rooted in culture, open to interpretation">
+<meta name="twitter:description" content="A creative practice started by two mothers. We get curious about traditions and the thinking behind them, then turn what we find into something new.">
+<meta name="twitter:image" content="https://rooots.co.in/og-image.png?v=6">
 
 <!-- Icons -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -39,7 +39,7 @@
   "url": "https://rooots.co.in/",
   "logo": "https://rooots.co.in/icon-512.png",
   "email": "rooots.admin@gmail.com",
-  "description": "Rooots brings cultures to life through stories, discoveries and making, for people of every age.",
+  "description": "A creative practice started by two mothers. We get curious about traditions and the thinking behind them, then turn what we find into something new.",
   "address": { "@type": "PostalAddress", "addressLocality": "Bengaluru", "addressRegion": "Karnataka", "addressCountry": "IN" }
 }
 </script>
@@ -115,11 +115,16 @@
   .roots-art path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
   .vision .big { font-size: clamp(30px, 3.9vw, 54px); margin-bottom: 24px; }
   .vision p.body { margin: 0; max-width: 760px; }
+  .vision p.body + p.body { margin-top: 18px; }
 
   /* Our works */
   .work { background: var(--cassis); color: var(--blue); }
   .work-intro { margin: 16px 0 0; max-width: 720px; font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: clamp(20px, 2.2vw, 28px); line-height: 1.3; }
-  .work-card { margin-top: 32px; background: var(--blue); color: var(--cassis); border-radius: 32px; padding: clamp(28px, 4vw, 56px); display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 32px; align-items: center; }
+  .formats { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 28px 32px; }
+  .formats li { border-top: 2px solid var(--blue); padding-top: 16px; font-size: 17px; line-height: 1.45; }
+  .formats strong { display: block; margin-bottom: 8px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: clamp(21px, 2vw, 26px); line-height: 1.1; color: var(--wasabi); }
+  .formats-note { margin: 32px 0 0; font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 19px; color: var(--wasabi); }
+  .work-card { margin-top: 48px; background: var(--blue); color: var(--cassis); border-radius: 32px; padding: clamp(28px, 4vw, 56px); display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 32px; align-items: center; }
   .work-card .tag { display: inline-flex; align-items: center; gap: 10px; color: var(--cassis); font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
   .work-card .tag::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--orange); }
   .work-card h3 { margin: 18px 0 14px; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(36px, 5vw, 64px); line-height: 1; }
@@ -140,6 +145,7 @@
   /* Who we are: founders */
   .us { background: var(--orange); }
   .us h2 { max-width: 1040px; font-size: clamp(30px, 4.4vw, 60px); margin-top: 14px; }
+  .us .intro { margin: 24px 0 0; max-width: 760px; font-size: clamp(18px, 1.7vw, 21px); }
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 48px; }
   .card { padding: clamp(28px, 3vw, 40px); border-radius: 32px; display: flex; flex-direction: column; gap: 16px; }
   .card.one { background: var(--cassis); color: var(--blue); }
@@ -154,26 +160,14 @@
 
   /* Who we are: our way */
   .way ol { list-style: none; margin: 32px 0 0; padding: 0; }
-  .way li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 4fr) minmax(0, 6fr); gap: 8px 24px; align-items: center; padding: 22px 0; border-top: 2px solid var(--cassis); }
+  .way li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 4fr) minmax(0, 7fr); gap: 8px 24px; align-items: center; padding: 22px 0; border-top: 2px solid var(--cassis); }
   .way .num { margin: 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 22px; color: #B23A1E; }
-  .way .not { margin: 0; font-size: 18px; }
+  .way .not { margin: 0; font-size: 19px; }
   .way .yes { margin: 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(32px, 3.8vw, 52px); line-height: 1; }
-
-  /* Who we are: why Rooots */
-  .why { background: var(--cassis); color: var(--blue); text-align: center; }
-  .why .lines { max-width: 1120px; margin: 32px auto 0; font-size: clamp(13px, 4.2vw, 60px); line-height: 1.4; }
-  .why .lines > span { display: block; white-space: nowrap; }
-  .mark { position: relative; display: inline-block; }
-  .mark::after { content: ""; position: absolute; left: -0.04em; right: -0.04em; bottom: -0.02em; height: 0.12em; border-radius: 999px; filter: url(#rough); }
-  .m-wasabi::after { background: var(--wasabi); }
-  .m-orange::after { background: var(--orange); }
-  .m-sauge::after { background: var(--sauge); }
-  .m-blue::after { background: var(--blue); }
-  .why .closing { margin: 40px 0 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(22px, 2.4vw, 32px); color: var(--wasabi); }
 
   /* Footer / Join us */
   .foot { background: var(--wasabi); color: var(--cassis); padding: clamp(72px, 9vw, 88px) 0 48px; }
-  .foot .display { font-size: clamp(36px, 5vw, 64px); line-height: 1; }
+  .foot .display { max-width: 1000px; font-size: clamp(30px, 4vw, 54px); line-height: 1.08; }
   .foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; border-top: 2px solid var(--cassis); padding-top: 28px; margin-top: 48px; }
   .foot .logo { font-size: 38px; }
   .foot .contact { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.08em; }
@@ -181,7 +175,8 @@
 
   @media (max-width: 760px) {
     .nav { padding-top: 18px; }
-    .nav ul { width: 100%; justify-content: space-between; gap: 6px; font-size: 11px; letter-spacing: 0.05em; }
+    .nav ul { width: 100%; flex-wrap: wrap; justify-content: flex-end; gap: 2px 14px; font-size: 11px; letter-spacing: 0.05em; }
+    .nav a { padding: 7px 0; }
     .nav .cta { padding: 7px 12px; }
     .split { grid-template-columns: 1fr; }
     .work-card { grid-template-columns: 1fr; }
@@ -210,10 +205,11 @@
   <div class="wrap">
     <nav class="nav" aria-label="Main">
       <ul>
-        <li><a href="#vision">Our vision</a></li>
-        <li><a href="#our-works">Our works</a></li>
+        <li><a href="#inspires">What inspires us</a></li>
+        <li><a href="#make">What we make</a></li>
+        <li><a href="#approach">Our approach</a></li>
         <li><a href="#who-we-are">Who we are</a></li>
-        <li><a class="cta" href="#contact">Join us</a></li>
+        <li><a class="cta" href="#contact">Get in touch</a></li>
       </ul>
     </nav>
     <div class="hero-body">
@@ -221,13 +217,14 @@
         <div class="logo rough"><span>R</span><span class="o-merge anim"><i class="r1"></i><i class="r2"></i><i class="r3"></i></span><span>TS</span></div>
         <div class="sub"><span>STORIES</span><span>MAKING</span></div>
       </div>
-      <h1 class="display">We bring cultures to life through stories, discoveries and making.</h1>
+      <h1 class="display">Rooted in culture. Open to interpretation.</h1>
+      <p>Rooots is a creative practice. We pick a tradition, get curious about the thinking behind it, and turn what we find into something new. It could be a story, a game, an object or a gathering. The idea decides.</p>
     </div>
   </div>
 </header>
 
 <main>
-  <section class="vision" id="vision">
+  <section class="vision" id="inspires">
     <div class="wrap split">
       <div class="side">
         <svg class="roots-art draw" viewBox="0 0 120 120" aria-hidden="true">
@@ -249,26 +246,34 @@
           <path pathLength="1" stroke="#351E28" stroke-width="1.6" style="animation-delay:1.8s" d="M27 50 C24 46 20 44 15 44"/>
           <path pathLength="1" stroke="#351E28" stroke-width="1.6" style="animation-delay:1.9s" d="M95 54 C98 50 102 48 107 48"/>
         </svg>
-        <p class="label">Our vision</p>
+        <h2 class="label">What inspires us</h2>
       </div>
       <div>
-        <p class="display big">Every tradition holds a story and an idea. We want to make time to explore them, and to reinterpret them in our own way.</p>
-        <p class="body">We all grow up with traditions: the festivals we celebrate, the things we make, the stories we&rsquo;re told. But we rarely get the time to stop and ask why we do them, or to discover how others do theirs. Rooots makes room for that: to look closely, ask questions, understand the ideas and people behind a tradition, and then make something of our own. Across ages, together.</p>
+        <p class="display big">We&rsquo;re drawn to the things people have done for generations, and the reasons behind them.</p>
+        <p class="body">Festivals and rituals. Folk tales and the stories grandparents tell. Patterns on cloth, shapes in clay, crafts passed from hand to hand. Even small everyday habits, like how a meal is served or a doorstep is decorated.</p>
+        <p class="body">Most of these are so familiar we stop noticing them. But each one began as someone&rsquo;s idea: a way of solving a problem, marking a moment or telling a story. That&rsquo;s the part we&rsquo;re curious about. Once you see the thinking behind a tradition, it&rsquo;s no longer just something to admire from a distance. It becomes something you can talk back to.</p>
       </div>
     </div>
   </section>
 
-  <section class="work" id="our-works">
+  <section class="work" id="make">
     <div class="wrap">
-      <h2 class="label">Our works</h2>
-      <p class="work-intro">Every experience is curated for a specific age group, so the stories, questions and making suit the people taking part.</p>
+      <h2 class="label">What we make</h2>
+      <p class="work-intro">Every project starts with an idea. The format comes later, once we know what the idea wants to be.</p>
+      <ul class="formats">
+        <li><strong>Books and stories</strong>Some ideas want to be read, retold or illustrated.</li>
+        <li><strong>Games and playful explorations</strong>Some are better understood by playing with them.</li>
+        <li><strong>Art and objects</strong>Some want to be held, worn or kept.</li>
+        <li><strong>Workshops and experiences</strong>Some are best shared in person, with people asking questions and making things together.</li>
+        <li><strong>Installations and collaborations</strong>And some need more space, or more people: other makers, artists and places.</li>
+      </ul>
+      <p class="formats-note">Some of these we&rsquo;re working on now. Others we&rsquo;re still dreaming about.</p>
       <article class="work-card">
         <div>
           <span class="tag">Coming this December</span>
           <h3>The Christmas series</h3>
-          <p>A series of experiences exploring how Christmas is celebrated and told in different parts of the world: its stories, symbols and traditions. We'll look closely, ask why, and make something of our own.</p>
-          <p class="when">Age group, dates and venue to be announced soon.</p>
-          <a class="btn" href="mailto:rooots.admin@gmail.com?subject=Christmas%20series">Register your interest</a>
+          <p>A series of sessions on how Christmas is celebrated and told around the world. More soon.</p>
+          <a class="btn" href="mailto:rooots.admin@gmail.com?subject=Christmas%20series">Keep me posted</a>
         </div>
         <svg class="tree" viewBox="0 0 200 230" role="img" aria-label="Illustration of a Christmas tree">
           <path class="tier" d="M100 104 L170 184 L30 184 Z"/>
@@ -288,11 +293,24 @@
     </div>
   </section>
 
+  <section class="way" id="approach" aria-labelledby="our-approach">
+    <div class="wrap">
+      <h2 class="label" id="our-approach">Our approach</h2>
+      <ol>
+        <li><p class="num">01</p><p class="yes">Observe</p><p class="not">We start by looking closely at something familiar, as if seeing it for the first time.</p></li>
+        <li><p class="num">02</p><p class="yes">Question</p><p class="not">Why this shape, this colour, this story? We ask the obvious questions, and the odd ones too.</p></li>
+        <li><p class="num">03</p><p class="yes">Interpret</p><p class="not">We find the idea behind it and think about what it could mean today.</p></li>
+        <li><p class="num">04</p><p class="yes">Make</p><p class="not">Then we give that idea a new form, and leave room for others to make their own.</p></li>
+      </ol>
+    </div>
+  </section>
+
   <div id="who-we-are">
     <section class="us">
       <div class="wrap">
         <p class="label">Who we are</p>
-        <h2 class="display">Two mothers and lifelong learners, building the experiences we always wished existed.</h2>
+        <h2 class="display">Two mothers and lifelong learners, building the things we always wished existed.</h2>
+        <p class="intro">We both love learning, noticing things and asking questions. Together we dig into the history behind a tradition, pick what&rsquo;s worth sharing and shape how its story unfolds.</p>
         <div class="cards">
           <article class="card one">
             <svg class="portrait" viewBox="0 0 120 120" role="img" aria-label="Doodle portrait of the first co-founder">
@@ -316,9 +334,9 @@
               </g>
               <rect x="6" y="6" width="108" height="108" rx="3" fill="none" stroke="currentColor" stroke-width="5"/>
             </svg>
-            <h3>The thinking behind the experience</h3>
-            <p>A designer and researcher, endlessly curious about the stories behind things. She digs into the history and meaning behind a tradition, finds the idea at its heart, and shapes how it looks, feels and is made.</p>
-            <p class="tags">Research · Cultural decoding · Design · Visual language · Making</p>
+            <h3>The thinking behind it</h3>
+            <p>A designer and researcher, endlessly curious about the stories behind things. She finds the idea at the heart of a tradition and works out how it should look, feel and be made.</p>
+            <p class="tags">Research · Decoding · Design · Visual language · Making</p>
           </article>
           <article class="card two">
             <svg class="portrait" viewBox="0 0 120 120" role="img" aria-label="Doodle portrait of the second co-founder">
@@ -344,45 +362,21 @@
               <g fill="#D7EFFF"><circle cx="32" cy="81.5" r="3.4"/><circle cx="88" cy="81.5" r="3.4"/></g>
               <rect x="6" y="6" width="108" height="108" rx="3" fill="none" stroke="currentColor" stroke-width="5"/>
             </svg>
-            <h3>The experience of being in it</h3>
-            <p>An engineer and a natural host who loves reading, animals and the outdoors. She digs into the history behind each tradition, curates what we share, and shapes how the story unfolds, how everyone takes part and how it feels from the moment someone walks in.</p>
-            <p class="tags">Storytelling · Research &amp; curation · Participation · Facilitation · Individual engagement</p>
+            <h3>The experience of it</h3>
+            <p>An engineer and a natural host who loves reading, animals and the outdoors. She shapes how people take part and how it all feels, from the first hello.</p>
+            <p class="tags">Storytelling · Curation · Hosting · Bringing people together</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="way" aria-labelledby="our-way">
-      <div class="wrap">
-        <h2 class="label" id="our-way">Our way</h2>
-        <ol>
-          <li><p class="num">01</p><p class="not">We don't just look at things.</p><p class="yes">We observe.</p></li>
-          <li><p class="num">02</p><p class="not">We don't just learn facts.</p><p class="yes">We question.</p></li>
-          <li><p class="num">03</p><p class="not">We don't just copy traditional art.</p><p class="yes">We understand it.</p></li>
-          <li><p class="num">04</p><p class="not">We don't just make things.</p><p class="yes">We make decisions.</p></li>
-          <li><p class="num">05</p><p class="not">We don't just finish an activity.</p><p class="yes">We express an idea.</p></li>
-        </ol>
-      </div>
-    </section>
 
-    <section class="why" aria-labelledby="why-rooots">
-      <div class="wrap">
-        <h2 class="label" id="why-rooots">Why Rooots?</h2>
-        <p class="display lines">
-          <span>Roots are where things begin, so we <span class="mark m-wasabi">ask</span>.</span>
-          <span>They're hidden, so we <span class="mark m-orange">dig</span>.</span>
-          <span>They feed what grows next, so we <span class="mark m-sauge">make</span>.</span>
-          <span>They connect us, so we <span class="mark m-blue">gather</span>.</span>
-        </p>
-        <p class="closing">That's why we're Rooots.</p>
-      </div>
-    </section>
   </div>
 </main>
 
 <footer class="foot" id="contact">
   <div class="wrap">
-    <p class="display">Come and discover with us.</p>
+    <p class="display">Got an idea, a tradition you&rsquo;re curious about, or something you&rsquo;d like to make together? We&rsquo;d love to hear from you.</p>
     <div class="foot-row">
       <div class="logo rough" role="img" aria-label="Rooots"><span>R</span><span class="o-merge"><i class="r1"></i><i class="r2"></i><i class="r3"></i></span><span>TS</span></div>
       <p class="contact"><a href="mailto:rooots.admin@gmail.com">rooots.admin@gmail.com</a> · Bengaluru</p>

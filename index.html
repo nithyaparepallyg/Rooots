@@ -105,7 +105,9 @@
   .nav .cta:hover { background: var(--orange); color: var(--cassis); }
   .hero-body { display: flex; flex-direction: column; align-items: center; gap: clamp(32px, 5vw, 56px); margin-top: clamp(48px, 8vw, 96px); text-align: center; }
   .hero h1 { max-width: 1000px; font-size: clamp(32px, 4.6vw, 60px); }
-  .hero p { margin: 0; max-width: 680px; font-size: clamp(17px, 1.6vw, 21px); }
+  .hero p { margin: 0; max-width: 720px; font-size: clamp(17px, 1.6vw, 21px); text-wrap: balance; }
+  .hero h1 { text-wrap: balance; }
+  .nowrap { white-space: nowrap; }
 
   /* Vision */
   .vision { background: var(--sauge); }
@@ -218,7 +220,7 @@
         <div class="sub"><span>STORIES</span><span>MAKING</span></div>
       </div>
       <h1 class="display">Rooted in culture. Open to interpretation.</h1>
-      <p>Rooots is a creative practice. We pick a tradition, get curious about the thinking behind it, and turn what we find into something new. It could be a story, a game, an object or a gathering. The idea decides.</p>
+      <p>Rooots is a creative practice. We pick a tradition, get curious about the thinking behind it, and turn what we find into something new. It could be a story, a game, an object or a gathering. <span class="nowrap">The idea decides.</span></p>
     </div>
   </div>
 </header>

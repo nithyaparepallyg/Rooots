@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://rooots.co.in/">
 <meta property="og:title" content="Rooots: culture, stories and making">
 <meta property="og:description" content="We bring cultures to life through stories, discoveries and making. Experiences for people of every age in Bengaluru.">
-<meta property="og:image" content="https://rooots.co.in/og-image.png">
+<meta property="og:image" content="https://rooots.co.in/og-image.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Rooots logo: R, a long oval, TS, with the words stories and making">
@@ -23,7 +23,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Rooots: culture, stories and making">
 <meta name="twitter:description" content="We bring cultures to life through stories, discoveries and making.">
-<meta name="twitter:image" content="https://rooots.co.in/og-image.png">
+<meta name="twitter:image" content="https://rooots.co.in/og-image.png?v=2">
 
 <!-- Icons -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -82,11 +82,16 @@
   .logo .o { display: inline-block; width: 2.3em; height: 0.7em; border: 0.12em solid currentColor; border-radius: 50%; margin: 0 0.02em; }
   /* Hero logo: three o's slide together into one long oval */
   .o-merge { position: relative; display: inline-block; width: 2.3em; height: 0.7em; margin: 0 0.02em; }
-  .o-merge i { position: absolute; top: 0; height: 100%; width: 0.66em; border: 0.12em solid currentColor; border-radius: 50%; animation: merge 1.3s cubic-bezier(0.65, 0, 0.3, 1) 1s forwards; }
-  .o-merge i:nth-child(1) { left: 0; }
-  .o-merge i:nth-child(2) { left: 0.82em; animation-delay: 1.1s; }
-  .o-merge i:nth-child(3) { left: 1.64em; animation-delay: 1.2s; }
-  @keyframes merge { 80% { left: -0.04em; width: 2.38em; } 100% { left: 0; width: 2.3em; } }
+  .o-merge i { position: absolute; border: 0.1em solid currentColor; border-radius: 50%; }
+  .o-merge .r1 { left: 0; top: 0; width: 2.3em; height: 0.7em; }
+  .o-merge .r2 { left: 0.39em; top: 0.145em; width: 1.52em; height: 0.41em; }
+  .o-merge .r3 { left: 0.785em; top: 0.265em; width: 0.73em; height: 0.17em; }
+  .o-merge.anim .r1 { animation: toR1 1.4s cubic-bezier(0.65, 0, 0.3, 1) 1s both; }
+  .o-merge.anim .r2 { animation: toR2 1.4s cubic-bezier(0.65, 0, 0.3, 1) 1.1s both; }
+  .o-merge.anim .r3 { animation: toR3 1.4s cubic-bezier(0.65, 0, 0.3, 1) 1.2s both; }
+  @keyframes toR1 { from { left: 0; top: 0; width: 0.66em; height: 0.7em; } to { left: 0; top: 0; width: 2.3em; height: 0.7em; } }
+  @keyframes toR2 { from { left: 0.82em; top: 0; width: 0.66em; height: 0.7em; } to { left: 0.39em; top: 0.145em; width: 1.52em; height: 0.41em; } }
+  @keyframes toR3 { from { left: 1.64em; top: 0; width: 0.66em; height: 0.7em; } to { left: 0.785em; top: 0.265em; width: 0.73em; height: 0.17em; } }
   .logo-lockup { display: inline-flex; flex-direction: column; gap: 0.2em; font-size: clamp(76px, 16vw, 210px); color: var(--wasabi); }
   .logo-lockup .sub { display: flex; justify-content: space-between; font-size: 0.12em; font-weight: 500; letter-spacing: 0.24em; line-height: 1; color: var(--blue); }
 
@@ -191,7 +196,7 @@
     .draw path { animation: none; stroke-dashoffset: 0; }
     .tree .garland { animation: none; stroke-dashoffset: 0; }
     .tree .bauble, .tree .star { animation: none; }
-    .o-merge i { animation: none; left: 0; width: 2.3em; }
+    .o-merge.anim i { animation: none; }
   }
 </style>
 </head>
@@ -217,7 +222,7 @@
     </nav>
     <div class="hero-body">
       <div class="logo-lockup" role="img" aria-label="Rooots: stories and making">
-        <div class="logo rough"><span>R</span><span class="o-merge"><i></i><i></i><i></i></span><span>TS</span></div>
+        <div class="logo rough"><span>R</span><span class="o-merge anim"><i class="r1"></i><i class="r2"></i><i class="r3"></i></span><span>TS</span></div>
         <div class="sub"><span>STORIES</span><span>MAKING</span></div>
       </div>
       <h1 class="display">We bring cultures to life through stories, discoveries and making.</h1>
@@ -389,7 +394,7 @@
   <div class="wrap">
     <p class="display">Come and discover with us.</p>
     <div class="foot-row">
-      <div class="logo rough" role="img" aria-label="Rooots"><span>R</span><span class="o"></span><span>TS</span></div>
+      <div class="logo rough" role="img" aria-label="Rooots"><span>R</span><span class="o-merge"><i class="r1"></i><i class="r2"></i><i class="r3"></i></span><span>TS</span></div>
       <p class="contact"><a href="mailto:rooots.admin@gmail.com">rooots.admin@gmail.com</a> · Bengaluru</p>
     </div>
   </div>

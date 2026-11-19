@@ -105,6 +105,20 @@
   .nav .cta:hover { background: var(--orange); color: var(--cassis); }
   .hero-body { display: flex; flex-direction: column; align-items: center; gap: clamp(32px, 5vw, 56px); margin-top: clamp(48px, 8vw, 96px); text-align: center; }
   .hero h1 { max-width: 1000px; font-size: clamp(32px, 4.6vw, 60px); }
+  .hero h1.tagline { font-size: clamp(26px, 3.4vw, 44px); font-weight: 500; color: var(--wasabi); transform: rotate(-2deg); letter-spacing: 0.01em; }
+  .hero h1.tagline .mark { position: relative; display: inline-block; }
+  .hero h1.tagline .mark::after { content: ""; position: absolute; left: -0.05em; right: -0.05em; bottom: -0.04em; height: 0.12em; border-radius: 999px; background: var(--orange); filter: url(#rough); }
+  .scratch-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .scratch { position: relative; width: min(360px, 86vw); height: 210px; border-radius: 26px; overflow: hidden; background: var(--blue); color: var(--cassis); transform: rotate(1.5deg); box-shadow: 0 10px 0 rgba(0,0,0,0.18); }
+  .scratch-prize { position: absolute; inset: 0; display: flex; align-items: center; gap: 16px; padding: 20px 24px; text-align: left; }
+  .scratch-prize svg { flex: 0 0 96px; width: 96px; height: 96px; }
+  .hero .scratch-prize h3 { margin: 0 0 6px; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 23px; line-height: 1.05; }
+  .hero .scratch-prize p { margin: 0; font-size: 15px; line-height: 1.4; max-width: none; text-wrap: pretty; }
+  .scratch-cover { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; transition: opacity 0.5s ease; }
+  .scratch-cover.gone { opacity: 0; pointer-events: none; }
+  .scratch-tap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); border: 0; padding: 0; }
+  .scratch-tap:focus-visible { position: absolute; inset: auto 12px 12px; width: auto; height: auto; clip: auto; padding: 6px 10px; border-radius: 999px; background: var(--cassis); color: var(--wasabi); font: 700 13px 'DM Sans', sans-serif; }
+  .scratch-again { background: none; border: 0; color: var(--wasabi); font: 700 15px 'DM Sans', sans-serif; letter-spacing: 0.04em; text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; cursor: pointer; padding: 6px; }
   .hero p { margin: 0; max-width: 720px; font-size: clamp(17px, 1.6vw, 21px); text-wrap: balance; }
   .hero h1 { text-wrap: balance; }
   .nowrap { white-space: nowrap; }
@@ -199,6 +213,11 @@
     .work-card { grid-template-columns: 1fr; }
     .tree { max-width: 170px; }
     .way li { grid-template-columns: 1fr; }
+    .scratch { height: 220px; }
+    .scratch-prize { gap: 12px; padding: 18px; }
+    .scratch-prize svg { flex-basis: 68px; width: 68px; height: 68px; }
+    .hero .scratch-prize h3 { font-size: 20px; }
+    .hero .scratch-prize p { font-size: 14px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .draw path { animation: none; stroke-dashoffset: 0; }
@@ -236,8 +255,16 @@
         <div class="logo rough"><span>R</span><span class="o-merge anim"><i class="r1"></i><i class="r2"></i><i class="r3"></i></span><span>TS</span></div>
         <div class="sub"><span>STORIES</span><span>MAKING</span></div>
       </div>
-      <h1 class="display">Wait, why do we do that?</h1>
-      <p>Rooots is a creative practice. We pick a tradition, get curious about the thinking behind it, and turn what we find into something new. It could be a story, a game, an object or a gathering. <span class="nowrap">The idea decides.</span></p>
+      <h1 class="display tagline">&ldquo;Wait, <span class="mark">why</span> do we do that?&rdquo;</h1>
+      <p>Rooots is a creative practice. We pick a tradition, get curious about the thinking behind it, and reinterpret it as something new.</p>
+      <div class="scratch-wrap">
+        <div class="scratch" id="scratch">
+          <div class="scratch-prize" aria-live="polite"></div>
+          <canvas class="scratch-cover" aria-hidden="true"></canvas>
+          <button class="scratch-tap" type="button">Tap or scratch to see something we make</button>
+        </div>
+        <button class="scratch-again" type="button" hidden>Scratch another</button>
+      </div>
     </div>
   </div>
 </header>
@@ -297,7 +324,7 @@
         <div>
           <span class="tag">Coming this December</span>
           <h3>The Christmas series</h3>
-          <p>A series of sessions on how Christmas is celebrated and told around the world. More soon.</p>
+          <p>How is Christmas celebrated and told around the world? We&rsquo;re working on a few things around it, from sessions to small artefacts. More soon.</p>
           <a class="btn" href="mailto:rooots.admin@gmail.com?subject=Christmas%20series">Keep me posted</a>
         </div>
         <svg class="tree" viewBox="0 0 200 230" role="img" aria-label="Illustration of a Christmas tree">
@@ -315,18 +342,6 @@
           <path class="star" d="M100 6 L106 22 L122 24 L110 34 L114 50 L100 41 L86 50 L90 34 L78 24 L94 22 Z" fill="#E9F056" stroke="#351E28" stroke-width="2.5" stroke-linejoin="round"/>
         </svg>
       </article>
-    </div>
-  </section>
-
-  <section class="way" id="approach" aria-labelledby="our-approach">
-    <div class="wrap">
-      <h2 class="label" id="our-approach">Our approach</h2>
-      <ol>
-        <li><p class="num">01</p><p class="yes">Observe</p><p class="not">We start by looking closely at something familiar, as if seeing it for the first time.</p></li>
-        <li><p class="num">02</p><p class="yes">Question</p><p class="not">Why this shape, this colour, this story? We ask the obvious questions, and the odd ones too.</p></li>
-        <li><p class="num">03</p><p class="yes">Interpret</p><p class="not">We find the idea behind it and think about what it could mean today.</p></li>
-        <li><p class="num">04</p><p class="yes">Make</p><p class="not">Then we give that idea a new form, and leave room for others to make their own.</p></li>
-      </ol>
     </div>
   </section>
 
@@ -397,6 +412,18 @@
 
 
   </div>
+
+  <section class="way" id="approach" aria-labelledby="our-approach">
+    <div class="wrap">
+      <h2 class="label" id="our-approach">Our approach</h2>
+      <ol>
+        <li><p class="num">01</p><p class="yes">Observe</p><p class="not">We start by looking closely at something familiar, as if seeing it for the first time.</p></li>
+        <li><p class="num">02</p><p class="yes">Question</p><p class="not">Why this shape, this colour, this story? We ask the obvious questions, and the odd ones too.</p></li>
+        <li><p class="num">03</p><p class="yes">Interpret</p><p class="not">We find the idea behind it and think about what it could mean today.</p></li>
+        <li><p class="num">04</p><p class="yes">Make</p><p class="not">Then we give that idea a new form, and leave room for others to make their own.</p></li>
+      </ol>
+    </div>
+  </section>
 </main>
 
 <footer class="foot" id="contact">
@@ -424,6 +451,65 @@
     track.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
     update();
+  })();
+</script>
+<script>
+  (function () {
+    var box = document.getElementById('scratch');
+    if (!box) return;
+    var prize = box.querySelector('.scratch-prize'), cv = box.querySelector('.scratch-cover');
+    var tapBtn = box.querySelector('.scratch-tap'), again = document.querySelector('.scratch-again');
+    var items = Array.prototype.map.call(document.querySelectorAll('.fcard'), function (c) {
+      return { svg: c.querySelector('svg').outerHTML, h: c.querySelector('h3').textContent, p: c.querySelector('p').textContent };
+    });
+    if (!items.length) return;
+    var i = Math.floor(Math.random() * items.length), ctx = cv.getContext('2d', { willReadFrequently: true }), down = false, moved = 0, last = null, done = false;
+    function fill() {
+      var it = items[i];
+      prize.innerHTML = it.svg + '<div><h3>' + it.h + '</h3><p>' + it.p + '</p></div>';
+    }
+    function paint() {
+      var r = box.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+      cv.width = r.width * d; cv.height = r.height * d;
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = '#E9F056'; ctx.fillRect(0, 0, r.width, r.height);
+      ctx.strokeStyle = 'rgba(53,30,40,0.18)'; ctx.lineWidth = 2; ctx.lineCap = 'round';
+      for (var y = 14; y < r.height; y += 26) for (var x = 10 + (y % 52 ? 13 : 0); x < r.width; x += 26) {
+        ctx.beginPath(); ctx.moveTo(x - 4, y); ctx.quadraticCurveTo(x, y - 5, x + 4, y); ctx.stroke();
+      }
+      ctx.fillStyle = '#351E28'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '700 26px Fredoka, sans-serif'; ctx.fillText('Scratch me!', r.width / 2, r.height / 2 - 12);
+      ctx.font = '500 14px "DM Sans", sans-serif'; ctx.fillText('or tap to see something we make', r.width / 2, r.height / 2 + 18);
+      cv.style.transition = 'none'; cv.classList.remove('gone'); void cv.offsetWidth; cv.style.transition = ''; done = false;
+    }
+    function reveal() {
+      if (done) return; done = true; cv.classList.add('gone'); again.hidden = false;
+    }
+    function pos(e) { var r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+    function scratch(a, b) {
+      ctx.globalCompositeOperation = 'destination-out'; ctx.strokeStyle = '#000'; ctx.lineWidth = 38; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    }
+    function cleared() {
+      var data = ctx.getImageData(0, 0, cv.width, cv.height).data, n = 0, t = 0;
+      for (var k = 3; k < data.length; k += 4 * 40) { t++; if (data[k] === 0) n++; }
+      return n / t;
+    }
+    cv.addEventListener('pointerdown', function (e) { down = true; moved = 0; last = pos(e); cv.setPointerCapture(e.pointerId); });
+    cv.addEventListener('pointermove', function (e) {
+      if (!down || done) return;
+      var p = pos(e); moved += Math.abs(p.x - last.x) + Math.abs(p.y - last.y); scratch(last, p); last = p;
+      if (moved > 200 && cleared() > 0.35) reveal();
+    });
+    cv.addEventListener('pointerup', function () { down = false; if (moved < 8 || cleared() > 0.25) reveal(); });
+    cv.addEventListener('pointercancel', function () { down = false; });
+    tapBtn.addEventListener('click', reveal);
+    again.addEventListener('click', function () { i = (i + 1) % items.length; again.hidden = true; paint(); fill(); });
+    fill();
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(paint);
+    paint();
+    window.addEventListener('resize', function () { if (!done) paint(); });
   })();
 </script>
 </body>

@@ -136,29 +136,11 @@
   /* Our works */
   .work { background: var(--cassis); color: var(--blue); }
   .work-intro { margin: 16px 0 0; max-width: 720px; font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: clamp(20px, 2.2vw, 28px); line-height: 1.3; }
-  .carousel { position: relative; margin-top: 28px; }
-  .car-nav { display: flex; justify-content: flex-end; gap: 10px; }
-  .car-btn { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--wasabi); background: transparent; color: var(--wasabi); font-size: 22px; line-height: 1; cursor: pointer; }
-  .car-btn:hover:not(:disabled) { background: var(--wasabi); color: var(--cassis); }
-  .car-btn:disabled { opacity: 0.3; cursor: default; }
-  .track { list-style: none; margin: 8px 0 0; padding: 22px 6px 28px; display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
-  .track::-webkit-scrollbar { display: none; }
-  .fcard { flex: 0 0 clamp(250px, 27vw, 310px); scroll-snap-align: start; border-radius: 30px; padding: 28px 26px 30px; display: flex; flex-direction: column; gap: 12px; color: var(--cassis); transform: rotate(var(--tilt, 0deg)); transition: transform 0.35s cubic-bezier(0.3, 1.4, 0.5, 1); }
-  .fcard:hover { transform: rotate(0deg) translateY(-8px); }
-  .fcard:nth-child(1) { background: var(--wasabi); --tilt: -2deg; }
-  .fcard:nth-child(2) { background: var(--orange); --tilt: 1.5deg; }
-  .fcard:nth-child(3) { background: var(--blue); --tilt: -1.5deg; }
-  .fcard:nth-child(4) { background: var(--sauge); --tilt: 2deg; }
-  .fcard:nth-child(5) { background: var(--wasabi); --tilt: -1deg; }
-  .fcard svg { width: 124px; height: 124px; margin: -6px 0 4px -8px; }
-  .fcard:hover svg { animation: wiggle 0.6s ease-in-out; }
-  @keyframes wiggle { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-6deg); } 65% { transform: rotate(5deg); } }
-  .fcard h3 { margin: 0; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(24px, 2.3vw, 30px); line-height: 1.05; }
-  .fcard p { margin: 0; font-size: 17px; line-height: 1.45; }
-  .formats-note { margin: 12px 0 0; font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 19px; color: var(--wasabi); }
   .work-card { margin-top: 48px; background: var(--blue); color: var(--cassis); border-radius: 32px; padding: clamp(28px, 4vw, 56px); display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 32px; align-items: center; }
   .work-card .tag { display: inline-flex; align-items: center; gap: 10px; color: var(--cassis); font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
   .work-card .tag::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--orange); }
+  .work-card .wt { margin: 18px 0 0; font-size: 13px; font-style: italic; opacity: 0.75; }
+  .work-card .wt + h3 { margin-top: 4px; }
   .work-card h3 { margin: 18px 0 14px; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(36px, 5vw, 64px); line-height: 1; }
   .work-card p { margin: 0; max-width: 560px; }
   .work-card .when { margin-top: 18px; font-weight: 700; }
@@ -224,9 +206,6 @@
     .tree .garland { animation: none; stroke-dashoffset: 0; }
     .tree .bauble, .tree .star { animation: none; }
     .o-merge.anim i { animation: none; }
-    .fcard, .fcard:hover { transform: none; transition: none; }
-    .fcard:hover svg { animation: none; }
-    .track { scroll-behavior: auto; }
   }
 </style>
 </head>
@@ -296,7 +275,7 @@
       </div>
       <div>
         <p class="display big">We&rsquo;re drawn to the things people have done for generations, and the reasons behind them.</p>
-        <p class="body">Festivals and rituals. Folk tales and the stories grandparents tell. Patterns on cloth, shapes in clay, crafts passed from hand to hand. Even small everyday habits, like how a meal is served or a doorstep is decorated.</p>
+        <p class="body">Festivals and rituals. Folk tales and the stories grandparents tell. Patterns on cloth, indigenous tattoos, crafts passed from hand to hand. Even small everyday habits, like how a meal is served or a doorstep is decorated.</p>
         <p class="body">Most of these are so familiar we stop noticing them. But each one began as someone&rsquo;s idea: a way of solving a problem, marking a moment or telling a story. That&rsquo;s the part we&rsquo;re curious about. Once you see the thinking behind a tradition, it&rsquo;s no longer just something to admire from a distance. It becomes something you can talk back to.</p>
       </div>
     </div>
@@ -306,25 +285,20 @@
     <div class="wrap">
       <h2 class="label">What we make</h2>
       <p class="work-intro">Every project starts with an idea. The format comes later, once we know what the idea wants to be.</p>
-      <div class="carousel">
-        <div class="car-nav">
-          <button class="car-btn prev" type="button" aria-label="Previous">&larr;</button>
-          <button class="car-btn next" type="button" aria-label="Next">&rarr;</button>
-        </div>
-        <ul class="track" tabindex="0" aria-label="Things we make">
+      <template id="formats">
           <li class="fcard"><svg viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 40 Q39 31 60 41 Q81 31 102 40 V90 Q81 81 60 91 Q39 81 18 90 Z"/><path d="M60 41 V91"/><path d="M28 50 Q39 46 50 51 M28 60 Q39 56 50 61 M28 70 Q37 67 46 71 M70 51 Q81 46 92 50 M70 61 Q81 56 92 60"/><path d="M60 12 L62.5 19 L69 21 L62.5 23 L60 30 L57.5 23 L51 21 L57.5 19 Z"/><path d="M86 18 L88 22 M96 26 L92 27 M26 24 L30 27"/></g></svg><h3>Books and stories</h3><p>Some ideas want to be read, retold or illustrated.</p></li>
           <li class="fcard"><svg viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="34" width="42" height="42" rx="9" transform="rotate(-12 39 55)"/><path d="M98 96 Q102 70 88 62 M78 62 Q66 70 70 96 Z" /><circle cx="83" cy="48" r="11"/><path d="M66 96 H102"/><path d="M14 104 Q40 92 60 104 T104 104" stroke-dasharray="1 7"/></g><g fill="currentColor"><circle cx="30" cy="48" r="3.4"/><circle cx="40" cy="56" r="3.4"/><circle cx="49" cy="63" r="3.4"/></g></svg><h3>Games and playful explorations</h3><p>Some are better understood by playing with them.</p></li>
           <li class="fcard"><svg viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M44 44 Q26 68 42 96 H74 Q90 68 72 44"/><path d="M40 44 H76"/><path d="M48 36 H68 V44 M48 36 V44"/><path d="M36 66 L44 60 L52 66 L60 60 L68 66 L76 60 L82 66"/><path d="M34 80 Q58 86 80 80"/><path d="M92 20 L104 50"/><path d="M90 16 Q86 12 92 10 Q98 12 94 18 Z"/><path d="M102 56 Q100 62 106 60"/></g></svg><h3>Art and objects</h3><p>Some want to be held, worn or kept.</p></li>
           <li class="fcard"><svg viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="36" cy="54" r="10"/><circle cx="84" cy="54" r="10"/><path d="M20 90 Q22 70 36 70 Q50 70 52 90"/><path d="M68 90 Q70 70 84 70 Q98 70 100 90"/><path d="M12 92 H108"/><path d="M52 16 H86 Q92 16 92 22 V36 Q92 42 86 42 H70 L62 50 L63 42 H52 Q46 42 46 36 V22 Q46 16 52 16 Z"/><path d="M64 24 Q64 20 69 20 Q74 20 74 25 Q74 28 69 30 V32"/></g><g fill="currentColor"><circle cx="69" cy="37" r="2"/></g></svg><h3>Workshops and experiences</h3><p>Some are best shared in person, with people asking questions and making things together.</p></li>
           <li class="fcard"><svg viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18 H106"/><path d="M30 18 V44 M60 18 V34 M90 18 V52"/><circle cx="30" cy="54" r="10"/><path d="M60 34 L74 60 H46 Z"/><path d="M84 52 H96 V66 H84 Z" transform="rotate(14 90 59)"/><path d="M30 64 V80 M60 60 V76 M90 66 V84"/><path d="M22 88 Q30 80 38 88 Q46 96 30 98"/><path d="M52 82 Q60 74 68 82"/><path d="M84 92 L90 86 L96 92 L90 98 Z"/></g></svg><h3>Installations and collaborations</h3><p>And some need more space, or more people: other makers, artists and places.</p></li>
-        </ul>
-      </div>
-      <p class="formats-note">Some of these we&rsquo;re working on now. Others we&rsquo;re still dreaming about.</p>
+      </template>
       <article class="work-card">
         <div>
           <span class="tag">Coming this December</span>
+          <p class="wt">Working title</p>
           <h3>The Christmas series</h3>
           <p>How is Christmas celebrated and told around the world? We&rsquo;re working on a few things around it, from sessions to small artefacts. More soon.</p>
+          <p class="when">Ages 3 to 13</p>
           <a class="btn" href="mailto:rooots.admin@gmail.com?subject=Christmas%20series">Keep me posted</a>
         </div>
         <svg class="tree" viewBox="0 0 200 230" role="img" aria-label="Illustration of a Christmas tree">
@@ -438,28 +412,12 @@
 
 <script>
   (function () {
-    var track = document.querySelector('.track');
-    if (!track) return;
-    var prev = document.querySelector('.car-btn.prev'), next = document.querySelector('.car-btn.next');
-    function step() { var c = track.querySelector('.fcard'); return c ? c.getBoundingClientRect().width + 22 : 300; }
-    function update() {
-      prev.disabled = track.scrollLeft < 4;
-      next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
-    }
-    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
-    next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
-    track.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    update();
-  })();
-</script>
-<script>
-  (function () {
     var box = document.getElementById('scratch');
     if (!box) return;
     var prize = box.querySelector('.scratch-prize'), cv = box.querySelector('.scratch-cover');
     var tapBtn = box.querySelector('.scratch-tap'), again = document.querySelector('.scratch-again');
-    var items = Array.prototype.map.call(document.querySelectorAll('.fcard'), function (c) {
+    var tpl = document.getElementById('formats');
+    var items = Array.prototype.map.call(tpl ? tpl.content.querySelectorAll('.fcard') : [], function (c) {
       return { svg: c.querySelector('svg').outerHTML, h: c.querySelector('h3').textContent, p: c.querySelector('p').textContent };
     });
     if (!items.length) return;

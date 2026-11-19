@@ -108,17 +108,37 @@
   .hero h1.tagline { font-size: clamp(26px, 3.4vw, 44px); font-weight: 500; color: var(--wasabi); transform: rotate(-2deg); letter-spacing: 0.01em; }
   .hero h1.tagline .mark { position: relative; display: inline-block; }
   .hero h1.tagline .mark::after { content: ""; position: absolute; left: -0.05em; right: -0.05em; bottom: -0.04em; height: 0.12em; border-radius: 999px; background: var(--orange); filter: url(#rough); }
-  .scratch-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-  .scratch { position: relative; width: min(360px, 86vw); height: 210px; border-radius: 26px; overflow: hidden; background: var(--blue); color: var(--cassis); transform: rotate(1.5deg); box-shadow: 0 10px 0 rgba(0,0,0,0.18); }
-  .scratch-prize { position: absolute; inset: 0; display: flex; align-items: center; gap: 16px; padding: 20px 24px; text-align: left; }
-  .scratch-prize svg { flex: 0 0 96px; width: 96px; height: 96px; }
-  .hero .scratch-prize h3 { margin: 0 0 6px; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 23px; line-height: 1.05; }
-  .hero .scratch-prize p { margin: 0; font-size: 15px; line-height: 1.4; max-width: none; text-wrap: pretty; }
-  .scratch-cover { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; transition: opacity 0.5s ease; }
-  .scratch-cover.gone { opacity: 0; pointer-events: none; }
-  .scratch-tap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); border: 0; padding: 0; }
-  .scratch-tap:focus-visible { position: absolute; inset: auto 12px 12px; width: auto; height: auto; clip: auto; padding: 6px 10px; border-radius: 999px; background: var(--cassis); color: var(--wasabi); font: 700 13px 'DM Sans', sans-serif; }
-  .scratch-again { background: none; border: 0; color: var(--wasabi); font: 700 15px 'DM Sans', sans-serif; letter-spacing: 0.04em; text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; cursor: pointer; padding: 6px; }
+  .dig-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .dig { display: block; width: min(420px, 92vw); padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .dig:focus-visible { outline: 3px dashed var(--wasabi); outline-offset: 6px; border-radius: 20px; }
+  .dig-scene { display: block; width: 100%; height: auto; overflow: visible; }
+  .dig-scene .hole { transform-box: fill-box; transform-origin: center; transform: scale(0); transition: transform 0.35s ease; }
+  .dig-scene .xmark { transition: opacity 0.2s; }
+  .dig.open .xmark { opacity: 0; }
+  .dig-scene .lip { opacity: 0; transition: opacity 0.2s; }
+  .dig.open .hole { transform: scale(1); }
+  .dig.open .lip { opacity: 1; }
+  .dig-scene .art { transform: translateY(112px); transition: transform 0.7s cubic-bezier(0.3, 1.5, 0.5, 1); color: var(--wasabi); }
+  .dig.up .dig-scene .art { transform: translateY(0); }
+  .dig-scene .art-svg { overflow: visible; }
+  .dig-scene .shovel { transform: translate(318px, 132px) rotate(18deg); animation: bob 2.6s ease-in-out infinite; }
+  @keyframes bob { 0%, 100% { transform: translate(318px, 132px) rotate(18deg); } 50% { transform: translate(318px, 124px) rotate(14deg); } }
+  .dig.digging .shovel { animation: shovel 0.9s ease-in-out; }
+  @keyframes shovel {
+    0% { transform: translate(318px, 132px) rotate(18deg); }
+    35% { transform: translate(214px, 140px) rotate(-12deg); }
+    55% { transform: translate(206px, 172px) rotate(-14deg); }
+    78% { transform: translate(240px, 120px) rotate(38deg); }
+    100% { transform: translate(318px, 132px) rotate(18deg); }
+  }
+  .dig-scene .dirt { opacity: 0; transform-box: fill-box; }
+  .dig.digging .dirt { animation: fly 0.6s ease-out both; }
+  @keyframes fly { 0% { opacity: 1; transform: translate(0, 0); } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)); } }
+  .dig-found { min-height: 54px; max-width: 360px; opacity: 0; transform: translateY(6px); transition: opacity 0.4s, transform 0.4s; }
+  .dig-found.show { opacity: 1; transform: none; }
+  .hero .dig-found h3 { margin: 0 0 4px; font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 24px; color: var(--wasabi); }
+  .hero .dig-found p { margin: 0; font-size: 16px; line-height: 1.4; }
+  .hero .dig-hint { margin: 4px 0 0; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wasabi); opacity: 0.85; }
   .hero p { margin: 0; max-width: 720px; font-size: clamp(17px, 1.6vw, 21px); text-wrap: balance; }
   .hero h1 { text-wrap: balance; }
   .nowrap { white-space: nowrap; }
@@ -198,17 +218,14 @@
     .work-card { grid-template-columns: 1fr; }
     .tree { max-width: 170px; }
     .way li { grid-template-columns: 1fr; }
-    .scratch { height: 220px; }
-    .scratch-prize { gap: 12px; padding: 18px; }
-    .scratch-prize svg { flex-basis: 68px; width: 68px; height: 68px; }
-    .hero .scratch-prize h3 { font-size: 20px; }
-    .hero .scratch-prize p { font-size: 14px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .draw path { animation: none; stroke-dashoffset: 0; }
     .tree .garland { animation: none; stroke-dashoffset: 0; }
     .tree .bauble, .tree .star { animation: none; }
     .o-merge.anim i { animation: none; }
+    .dig-scene .shovel, .dig.digging .shovel, .dig.digging .dirt { animation: none; }
+    .dig-scene .art, .dig-scene .hole { transition: none; }
   }
 </style>
 </head>
@@ -239,13 +256,31 @@
       </div>
       <h1 class="display tagline">&ldquo;Wait, <span class="mark">why</span> do we do that?&rdquo;</h1>
       <p>Rooots is a creative practice. We pick a tradition, get curious about the thinking behind it, and reinterpret it as something new.</p>
-      <div class="scratch-wrap">
-        <div class="scratch" id="scratch">
-          <div class="scratch-prize" aria-live="polite"></div>
-          <canvas class="scratch-cover" aria-hidden="true"></canvas>
-          <button class="scratch-tap" type="button">Dig up something we make</button>
-        </div>
-        <button class="scratch-again" type="button" hidden>Dig again</button>
+      <div class="dig-wrap">
+        <button class="dig" id="dig" type="button" aria-label="Dig to find something we make">
+          <svg class="dig-scene" viewBox="0 0 400 260" aria-hidden="true">
+            <defs>
+              <clipPath id="mound-clip"><path d="M18 204 Q46 152 130 148 Q200 140 270 146 Q352 152 382 204 Q394 240 360 248 H40 Q6 240 18 204 Z"/></clipPath>
+              <clipPath id="above-hole"><rect x="0" y="0" width="400" height="160"/></clipPath>
+            </defs>
+            <path d="M18 204 Q46 152 130 148 Q200 140 270 146 Q352 152 382 204 Q394 240 360 248 H40 Q6 240 18 204 Z" fill="#6B4636"/>
+            <g clip-path="url(#mound-clip)"><circle cx="244" cy="220" r="2.1" fill="#3B261D"/><circle cx="359" cy="220" r="2.3" fill="#9A7058"/><circle cx="30" cy="190" r="2.3" fill="#5A3A2C"/><circle cx="254" cy="237" r="1.0" fill="#B08868"/><circle cx="189" cy="167" r="1.7" fill="#3B261D"/><circle cx="227" cy="141" r="1.1" fill="#9A7058"/><circle cx="121" cy="239" r="2.0" fill="#5A3A2C"/><circle cx="77" cy="226" r="1.0" fill="#B08868"/><circle cx="242" cy="154" r="0.8" fill="#3B261D"/><circle cx="334" cy="163" r="1.1" fill="#9A7058"/><circle cx="374" cy="234" r="1.3" fill="#5A3A2C"/><circle cx="366" cy="198" r="1.9" fill="#B08868"/><circle cx="94" cy="242" r="1.9" fill="#3B261D"/><circle cx="368" cy="237" r="1.3" fill="#9A7058"/><circle cx="150" cy="158" r="1.0" fill="#5A3A2C"/><circle cx="43" cy="173" r="1.8" fill="#B08868"/><circle cx="21" cy="213" r="1.3" fill="#3B261D"/><circle cx="132" cy="228" r="1.6" fill="#9A7058"/><circle cx="134" cy="192" r="1.9" fill="#5A3A2C"/><circle cx="41" cy="245" r="0.8" fill="#B08868"/><circle cx="290" cy="231" r="0.8" fill="#3B261D"/><circle cx="304" cy="180" r="1.7" fill="#9A7058"/><circle cx="23" cy="145" r="1.1" fill="#5A3A2C"/><circle cx="364" cy="161" r="2.0" fill="#B08868"/><circle cx="355" cy="242" r="1.4" fill="#3B261D"/><circle cx="148" cy="197" r="2.0" fill="#9A7058"/><circle cx="59" cy="221" r="2.1" fill="#5A3A2C"/><circle cx="329" cy="144" r="2.3" fill="#B08868"/><circle cx="53" cy="177" r="1.8" fill="#3B261D"/><circle cx="351" cy="177" r="2.3" fill="#9A7058"/><circle cx="216" cy="174" r="1.3" fill="#5A3A2C"/><circle cx="84" cy="148" r="1.0" fill="#B08868"/><circle cx="268" cy="248" r="1.1" fill="#3B261D"/><circle cx="37" cy="247" r="1.7" fill="#9A7058"/><circle cx="166" cy="166" r="1.8" fill="#5A3A2C"/><circle cx="317" cy="189" r="1.5" fill="#B08868"/><circle cx="40" cy="239" r="0.9" fill="#3B261D"/><circle cx="198" cy="231" r="1.0" fill="#9A7058"/><circle cx="283" cy="243" r="1.8" fill="#5A3A2C"/><circle cx="304" cy="152" r="1.5" fill="#B08868"/><circle cx="74" cy="231" r="1.3" fill="#3B261D"/><circle cx="183" cy="248" r="2.2" fill="#9A7058"/><circle cx="371" cy="189" r="1.6" fill="#5A3A2C"/><circle cx="283" cy="192" r="1.3" fill="#B08868"/><circle cx="165" cy="156" r="1.4" fill="#3B261D"/><circle cx="376" cy="244" r="1.8" fill="#9A7058"/><circle cx="200" cy="177" r="0.9" fill="#5A3A2C"/><circle cx="118" cy="224" r="2.2" fill="#B08868"/><circle cx="150" cy="225" r="2.0" fill="#3B261D"/><circle cx="270" cy="212" r="2.0" fill="#9A7058"/><circle cx="151" cy="216" r="1.2" fill="#5A3A2C"/><circle cx="195" cy="223" r="1.9" fill="#B08868"/><circle cx="126" cy="242" r="1.8" fill="#3B261D"/><circle cx="229" cy="141" r="1.7" fill="#9A7058"/><circle cx="110" cy="213" r="1.5" fill="#5A3A2C"/><circle cx="314" cy="210" r="2.1" fill="#B08868"/><circle cx="145" cy="210" r="2.0" fill="#3B261D"/><circle cx="318" cy="178" r="2.1" fill="#9A7058"/><circle cx="333" cy="214" r="2.4" fill="#5A3A2C"/><circle cx="364" cy="196" r="1.6" fill="#B08868"/><circle cx="80" cy="230" r="2.3" fill="#3B261D"/><circle cx="192" cy="215" r="2.0" fill="#9A7058"/><circle cx="283" cy="159" r="2.0" fill="#5A3A2C"/><circle cx="229" cy="212" r="1.5" fill="#B08868"/><circle cx="245" cy="224" r="1.8" fill="#3B261D"/><circle cx="279" cy="143" r="1.1" fill="#9A7058"/><circle cx="179" cy="210" r="1.2" fill="#5A3A2C"/><circle cx="267" cy="208" r="0.9" fill="#B08868"/><circle cx="190" cy="164" r="0.9" fill="#3B261D"/><circle cx="68" cy="174" r="1.1" fill="#9A7058"/><circle cx="90" cy="144" r="1.5" fill="#5A3A2C"/><circle cx="157" cy="206" r="1.7" fill="#B08868"/><circle cx="106" cy="238" r="0.8" fill="#3B261D"/><circle cx="166" cy="170" r="1.5" fill="#9A7058"/><circle cx="61" cy="230" r="1.4" fill="#5A3A2C"/><circle cx="33" cy="206" r="1.0" fill="#B08868"/><circle cx="216" cy="177" r="1.7" fill="#3B261D"/><circle cx="365" cy="228" r="1.5" fill="#9A7058"/><circle cx="313" cy="209" r="1.4" fill="#5A3A2C"/><circle cx="71" cy="204" r="1.7" fill="#B08868"/><circle cx="365" cy="245" r="1.8" fill="#3B261D"/><circle cx="146" cy="236" r="0.8" fill="#9A7058"/><circle cx="59" cy="201" r="1.8" fill="#5A3A2C"/><circle cx="71" cy="208" r="2.2" fill="#B08868"/><circle cx="155" cy="187" r="1.2" fill="#3B261D"/><circle cx="125" cy="245" r="1.4" fill="#9A7058"/><circle cx="366" cy="239" r="1.8" fill="#5A3A2C"/><circle cx="114" cy="246" r="1.6" fill="#B08868"/><circle cx="170" cy="174" r="2.4" fill="#3B261D"/><circle cx="197" cy="171" r="1.6" fill="#9A7058"/><circle cx="64" cy="207" r="1.5" fill="#5A3A2C"/><circle cx="126" cy="224" r="2.1" fill="#B08868"/><circle cx="25" cy="198" r="1.2" fill="#3B261D"/><circle cx="357" cy="224" r="1.2" fill="#9A7058"/><circle cx="116" cy="157" r="2.4" fill="#5A3A2C"/><circle cx="126" cy="206" r="1.6" fill="#B08868"/><circle cx="252" cy="205" r="2.0" fill="#3B261D"/><circle cx="63" cy="222" r="1.3" fill="#9A7058"/><circle cx="212" cy="176" r="1.3" fill="#5A3A2C"/><circle cx="211" cy="190" r="1.4" fill="#B08868"/><circle cx="288" cy="204" r="0.9" fill="#3B261D"/><circle cx="111" cy="189" r="2.3" fill="#9A7058"/><circle cx="340" cy="199" r="0.8" fill="#5A3A2C"/><circle cx="300" cy="186" r="1.7" fill="#B08868"/><circle cx="275" cy="208" r="1.6" fill="#3B261D"/><circle cx="348" cy="182" r="1.4" fill="#9A7058"/><circle cx="327" cy="161" r="1.3" fill="#5A3A2C"/><circle cx="319" cy="147" r="2.1" fill="#B08868"/><circle cx="270" cy="187" r="1.3" fill="#3B261D"/><circle cx="301" cy="238" r="1.0" fill="#9A7058"/><circle cx="192" cy="199" r="1.6" fill="#5A3A2C"/><circle cx="139" cy="157" r="1.7" fill="#B08868"/><circle cx="312" cy="147" r="1.2" fill="#3B261D"/><circle cx="315" cy="226" r="1.9" fill="#9A7058"/><circle cx="29" cy="218" r="2.4" fill="#5A3A2C"/><circle cx="379" cy="216" r="0.9" fill="#B08868"/><circle cx="323" cy="164" r="1.8" fill="#3B261D"/><circle cx="363" cy="217" r="1.0" fill="#9A7058"/><circle cx="125" cy="239" r="1.0" fill="#5A3A2C"/><circle cx="240" cy="185" r="1.1" fill="#B08868"/><circle cx="244" cy="145" r="1.0" fill="#3B261D"/><circle cx="157" cy="148" r="0.9" fill="#9A7058"/><circle cx="227" cy="220" r="2.2" fill="#5A3A2C"/><circle cx="68" cy="187" r="1.3" fill="#B08868"/><circle cx="236" cy="193" r="2.3" fill="#3B261D"/><circle cx="155" cy="146" r="1.9" fill="#9A7058"/><circle cx="74" cy="208" r="1.6" fill="#5A3A2C"/><circle cx="348" cy="200" r="1.8" fill="#B08868"/><circle cx="115" cy="200" r="1.2" fill="#3B261D"/><circle cx="290" cy="196" r="1.0" fill="#9A7058"/><circle cx="104" cy="180" r="2.0" fill="#5A3A2C"/><circle cx="85" cy="217" r="1.8" fill="#B08868"/><circle cx="51" cy="212" r="0.9" fill="#3B261D"/><circle cx="65" cy="204" r="1.2" fill="#9A7058"/><circle cx="336" cy="192" r="1.3" fill="#5A3A2C"/><circle cx="307" cy="143" r="2.0" fill="#B08868"/><circle cx="39" cy="156" r="2.3" fill="#3B261D"/><circle cx="265" cy="164" r="1.0" fill="#9A7058"/><circle cx="370" cy="212" r="2.1" fill="#5A3A2C"/><circle cx="70" cy="207" r="1.4" fill="#B08868"/><circle cx="105" cy="176" r="1.8" fill="#3B261D"/><circle cx="146" cy="182" r="1.0" fill="#9A7058"/><circle cx="319" cy="210" r="2.1" fill="#5A3A2C"/><circle cx="176" cy="232" r="1.6" fill="#B08868"/><circle cx="233" cy="202" r="2.0" fill="#3B261D"/><circle cx="162" cy="150" r="0.9" fill="#9A7058"/><circle cx="93" cy="144" r="2.2" fill="#5A3A2C"/><circle cx="193" cy="222" r="0.8" fill="#B08868"/><circle cx="189" cy="236" r="1.8" fill="#3B261D"/><circle cx="174" cy="190" r="1.0" fill="#9A7058"/><circle cx="76" cy="157" r="1.4" fill="#5A3A2C"/><circle cx="159" cy="235" r="1.0" fill="#B08868"/><circle cx="111" cy="170" r="1.1" fill="#3B261D"/><circle cx="123" cy="165" r="1.6" fill="#9A7058"/><circle cx="32" cy="240" r="1.4" fill="#5A3A2C"/><circle cx="358" cy="214" r="1.9" fill="#B08868"/><circle cx="190" cy="242" r="1.0" fill="#3B261D"/><circle cx="261" cy="171" r="1.9" fill="#9A7058"/><circle cx="283" cy="158" r="1.1" fill="#5A3A2C"/><circle cx="29" cy="165" r="0.9" fill="#B08868"/><circle cx="164" cy="245" r="1.4" fill="#3B261D"/><circle cx="132" cy="191" r="1.3" fill="#9A7058"/><circle cx="284" cy="218" r="1.1" fill="#5A3A2C"/><circle cx="107" cy="213" r="2.3" fill="#B08868"/><circle cx="253" cy="187" r="2.4" fill="#3B261D"/><circle cx="22" cy="147" r="2.0" fill="#9A7058"/><circle cx="168" cy="145" r="1.7" fill="#5A3A2C"/><circle cx="376" cy="196" r="1.4" fill="#B08868"/><circle cx="54" cy="148" r="2.2" fill="#3B261D"/><circle cx="197" cy="241" r="0.9" fill="#9A7058"/><circle cx="108" cy="145" r="1.4" fill="#5A3A2C"/><circle cx="42" cy="168" r="1.5" fill="#B08868"/><circle cx="130" cy="146" r="0.9" fill="#3B261D"/><circle cx="370" cy="159" r="1.6" fill="#9A7058"/><circle cx="165" cy="197" r="0.9" fill="#5A3A2C"/><circle cx="133" cy="152" r="1.7" fill="#B08868"/><circle cx="352" cy="205" r="2.2" fill="#3B261D"/><circle cx="97" cy="142" r="1.7" fill="#9A7058"/><circle cx="195" cy="202" r="1.4" fill="#5A3A2C"/><circle cx="245" cy="218" r="2.3" fill="#B08868"/><circle cx="131" cy="188" r="2.1" fill="#3B261D"/><circle cx="101" cy="152" r="1.3" fill="#9A7058"/><circle cx="52" cy="223" r="2.1" fill="#5A3A2C"/><circle cx="133" cy="154" r="0.9" fill="#B08868"/><circle cx="108" cy="149" r="1.5" fill="#3B261D"/><circle cx="228" cy="167" r="0.9" fill="#9A7058"/><circle cx="272" cy="145" r="1.1" fill="#5A3A2C"/><circle cx="123" cy="180" r="1.0" fill="#B08868"/><circle cx="171" cy="174" r="2.0" fill="#3B261D"/><circle cx="220" cy="237" r="1.8" fill="#9A7058"/><circle cx="293" cy="202" r="1.5" fill="#5A3A2C"/><circle cx="314" cy="211" r="2.3" fill="#B08868"/><circle cx="282" cy="216" r="1.2" fill="#3B261D"/><circle cx="312" cy="181" r="1.0" fill="#9A7058"/><circle cx="44" cy="158" r="1.2" fill="#5A3A2C"/><circle cx="263" cy="171" r="0.9" fill="#B08868"/><circle cx="295" cy="200" r="0.8" fill="#3B261D"/><circle cx="38" cy="154" r="1.4" fill="#9A7058"/><circle cx="330" cy="243" r="1.8" fill="#5A3A2C"/><circle cx="103" cy="186" r="1.4" fill="#B08868"/><circle cx="139" cy="141" r="1.7" fill="#3B261D"/><circle cx="318" cy="218" r="1.0" fill="#9A7058"/><circle cx="211" cy="158" r="1.9" fill="#5A3A2C"/><circle cx="181" cy="241" r="2.1" fill="#B08868"/><circle cx="63" cy="174" r="2.3" fill="#3B261D"/><circle cx="186" cy="187" r="1.5" fill="#9A7058"/><circle cx="296" cy="241" r="1.7" fill="#5A3A2C"/><circle cx="369" cy="204" r="1.0" fill="#B08868"/><circle cx="313" cy="185" r="0.9" fill="#3B261D"/><circle cx="372" cy="144" r="1.7" fill="#9A7058"/><circle cx="194" cy="235" r="1.4" fill="#5A3A2C"/><circle cx="98" cy="170" r="1.1" fill="#B08868"/><circle cx="222" cy="179" r="2.0" fill="#3B261D"/><circle cx="107" cy="178" r="1.2" fill="#9A7058"/><circle cx="374" cy="231" r="2.2" fill="#5A3A2C"/><circle cx="243" cy="183" r="1.0" fill="#B08868"/><circle cx="319" cy="193" r="0.9" fill="#3B261D"/><circle cx="81" cy="151" r="1.9" fill="#9A7058"/><circle cx="344" cy="162" r="2.1" fill="#5A3A2C"/><circle cx="137" cy="214" r="2.2" fill="#B08868"/><circle cx="244" cy="226" r="1.4" fill="#3B261D"/><circle cx="24" cy="195" r="1.7" fill="#9A7058"/><circle cx="87" cy="182" r="1.3" fill="#5A3A2C"/><circle cx="30" cy="174" r="1.4" fill="#B08868"/><circle cx="191" cy="216" r="1.4" fill="#3B261D"/><circle cx="374" cy="228" r="2.3" fill="#9A7058"/><circle cx="269" cy="212" r="1.7" fill="#5A3A2C"/><circle cx="308" cy="179" r="1.7" fill="#B08868"/><circle cx="265" cy="196" r="1.3" fill="#3B261D"/><circle cx="48" cy="149" r="1.4" fill="#9A7058"/><circle cx="229" cy="222" r="1.9" fill="#5A3A2C"/><circle cx="130" cy="240" r="1.2" fill="#B08868"/><circle cx="278" cy="148" r="2.0" fill="#3B261D"/><circle cx="261" cy="243" r="2.2" fill="#9A7058"/><circle cx="268" cy="231" r="2.0" fill="#5A3A2C"/><circle cx="240" cy="163" r="1.6" fill="#B08868"/><circle cx="343" cy="166" r="2.4" fill="#3B261D"/><circle cx="216" cy="182" r="0.8" fill="#9A7058"/><circle cx="160" cy="159" r="1.8" fill="#5A3A2C"/><circle cx="344" cy="238" r="1.8" fill="#B08868"/><circle cx="159" cy="152" r="1.9" fill="#3B261D"/><circle cx="219" cy="217" r="1.4" fill="#9A7058"/><circle cx="339" cy="163" r="1.3" fill="#5A3A2C"/><circle cx="116" cy="207" r="2.2" fill="#B08868"/><circle cx="80" cy="208" r="2.0" fill="#3B261D"/><circle cx="101" cy="147" r="1.7" fill="#9A7058"/><circle cx="319" cy="235" r="2.0" fill="#5A3A2C"/><circle cx="170" cy="186" r="1.6" fill="#B08868"/><circle cx="346" cy="173" r="1.2" fill="#3B261D"/><circle cx="238" cy="244" r="1.1" fill="#9A7058"/><circle cx="31" cy="152" r="1.7" fill="#5A3A2C"/><circle cx="237" cy="160" r="1.1" fill="#B08868"/><circle cx="234" cy="210" r="1.9" fill="#3B261D"/><circle cx="282" cy="147" r="1.6" fill="#9A7058"/><circle cx="320" cy="243" r="1.3" fill="#5A3A2C"/><circle cx="326" cy="210" r="2.3" fill="#B08868"/><circle cx="102" cy="215" r="2.1" fill="#3B261D"/><circle cx="192" cy="151" r="1.1" fill="#9A7058"/><circle cx="76" cy="150" r="1.0" fill="#5A3A2C"/><circle cx="242" cy="151" r="2.0" fill="#B08868"/><ellipse cx="70" cy="200" rx="7" ry="4.5" fill="#AEB8A0"/><ellipse cx="118" cy="226" rx="5" ry="3.5" fill="#D7EFFF"/><ellipse cx="300" cy="214" rx="8" ry="5" fill="#C9B49A"/><ellipse cx="338" cy="190" rx="5" ry="3.5" fill="#AEB8A0"/><ellipse cx="250" cy="236" rx="6" ry="4" fill="#D7EFFF"/><ellipse cx="160" cy="190" rx="4" ry="3" fill="#C9B49A"/><path d="M300 236 q8 -10 16 0 t16 0 q6 -6 10 -3" fill="none" stroke="#FF8A6B" stroke-width="3.2" stroke-linecap="round"/></g>
+            <path d="M18 204 Q46 152 130 148 Q200 140 270 146 Q352 152 382 204" fill="none" stroke="#351E28" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+            <ellipse class="hole" cx="200" cy="158" rx="58" ry="15" fill="#2A1710"/>
+            <path class="xmark" d="M189 150 L211 165 M211 150 L189 165" fill="none" stroke="#FF5C34" stroke-width="4.5" stroke-linecap="round"/>
+            <g clip-path="url(#above-hole)"><g class="art"><svg class="art-svg" x="148" y="52" width="104" height="104" viewBox="0 0 120 120"></svg></g></g>
+            <path class="lip" d="M142 158 Q200 180 258 158 Q200 170 142 158 Z" fill="#6B4636"/>
+            <g class="dirts" fill="#7A5240"><circle class="dirt" cx="200" cy="158" r="4" style="--dx:-70px;--dy:-60px;animation-delay:0.42s"/><circle class="dirt" cx="200" cy="158" r="5" style="--dx:-40px;--dy:-90px;animation-delay:0.45s"/><circle class="dirt" cx="200" cy="158" r="6" style="--dx:-10px;--dy:-100px;animation-delay:0.48s"/><circle class="dirt" cx="200" cy="158" r="4" style="--dx:30px;--dy:-95px;animation-delay:0.51s"/><circle class="dirt" cx="200" cy="158" r="5" style="--dx:60px;--dy:-70px;animation-delay:0.54s"/><circle class="dirt" cx="200" cy="158" r="6" style="--dx:90px;--dy:-40px;animation-delay:0.57s"/><circle class="dirt" cx="200" cy="158" r="4" style="--dx:-95px;--dy:-30px;animation-delay:0.60s"/><circle class="dirt" cx="200" cy="158" r="5" style="--dx:110px;--dy:-80px;animation-delay:0.63s"/></g>
+            <g class="shovel">
+              <g fill="none" stroke="#E9F056" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M0 -92 V-30"/><path d="M-10 -92 H10"/>
+                <path d="M-15 -30 H15 Q16 -6 0 2 Q-16 -6 -15 -30 Z" fill="#E9F056" fill-opacity="0.25"/>
+              </g>
+            </g>
+          </svg>
+        </button>
+        <div class="dig-found" aria-live="polite"></div>
+        <p class="dig-hint">Tap the soil to dig</p>
       </div>
     </div>
   </div>
@@ -411,79 +446,37 @@
 
 <script>
   (function () {
-    var box = document.getElementById('scratch');
-    if (!box) return;
-    var prize = box.querySelector('.scratch-prize'), cv = box.querySelector('.scratch-cover');
-    var tapBtn = box.querySelector('.scratch-tap'), again = document.querySelector('.scratch-again');
-    var tpl = document.getElementById('formats');
+    var dig = document.getElementById('dig');
+    if (!dig) return;
+    var tpl = document.getElementById('formats'), found = document.querySelector('.dig-found'), hint = document.querySelector('.dig-hint');
+    var art = dig.querySelector('.art-svg');
     var items = Array.prototype.map.call(tpl ? tpl.content.querySelectorAll('.fcard') : [], function (c) {
-      return { svg: c.querySelector('svg').outerHTML, h: c.querySelector('h3').textContent, p: c.querySelector('p').textContent };
+      return { svg: c.querySelector('svg').innerHTML, h: c.querySelector('h3').textContent, p: c.querySelector('p').textContent };
     });
     if (!items.length) return;
-    var i = Math.floor(Math.random() * items.length), ctx = cv.getContext('2d', { willReadFrequently: true }), down = false, moved = 0, last = null, done = false;
-    function fill() {
-      var it = items[i];
-      prize.innerHTML = it.svg + '<div><h3>' + it.h + '</h3><p>' + it.p + '</p></div>';
+    var i = Math.floor(Math.random() * items.length), busy = false, first = true;
+    var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function later(fn, ms) { setTimeout(fn, calm ? 0 : ms); }
+    function go() {
+      if (busy) return; busy = true;
+      if (!first) i = (i + 1) % items.length;
+      dig.classList.remove('up'); found.classList.remove('show');
+      later(function () {
+        dig.classList.remove('digging'); void dig.offsetWidth; dig.classList.add('digging');
+        later(function () { dig.classList.add('open'); }, 480);
+        later(function () {
+          var it = items[i];
+          art.innerHTML = it.svg;
+          dig.classList.add('up');
+          found.innerHTML = '<h3>' + it.h + '</h3><p>' + it.p + '</p>';
+          found.classList.add('show');
+          hint.textContent = 'Tap to dig again';
+          first = false;
+        }, 820);
+        later(function () { dig.classList.remove('digging'); busy = false; }, 1000);
+      }, first ? 0 : 350);
     }
-    function mulberry(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
-    function paint() {
-      var r = box.getBoundingClientRect(), d = window.devicePixelRatio || 1;
-      cv.width = r.width * d; cv.height = r.height * d;
-      ctx.setTransform(d, 0, 0, d, 0, 0);
-      ctx.globalCompositeOperation = 'source-over';
-      var W = r.width, H = r.height, rnd = mulberry(7);
-      var g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#7A5240'); g.addColorStop(1, '#4E3226');
-      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-      for (var k = 0; k < W * H / 30; k++) {
-        ctx.fillStyle = ['#3B261D', '#8E6650', '#5E3E30', '#A07A60'][k % 4];
-        ctx.beginPath(); ctx.arc(rnd() * W, rnd() * H, 0.6 + rnd() * 1.8, 0, 6.3); ctx.fill();
-      }
-      var pebbles = ['#AEB8A0', '#D7EFFF', '#C9B49A', '#AEB8A0'];
-      for (k = 0; k < 9; k++) {
-        ctx.fillStyle = pebbles[k % 4]; ctx.beginPath();
-        ctx.ellipse(rnd() * W, rnd() * H, 4 + rnd() * 6, 3 + rnd() * 4, rnd() * 3, 0, 6.3); ctx.fill();
-      }
-      ctx.strokeStyle = '#FF8A6B'; ctx.lineWidth = 3; ctx.lineCap = 'round';
-      ctx.beginPath(); ctx.moveTo(W - 64, H - 26); ctx.bezierCurveTo(W - 56, H - 36, W - 48, H - 16, W - 40, H - 26); ctx.bezierCurveTo(W - 34, H - 33, W - 30, H - 28, W - 28, H - 30); ctx.stroke();
-      ctx.save(); ctx.translate(W / 2 - 104, H / 2 - 14); ctx.rotate(-0.5);
-      ctx.strokeStyle = '#E9F056'; ctx.lineWidth = 3; ctx.lineJoin = 'round';
-      ctx.beginPath(); ctx.moveTo(0, -22); ctx.lineTo(0, 6); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(-6, -22); ctx.lineTo(6, -22); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(-9, 6); ctx.lineTo(9, 6); ctx.quadraticCurveTo(9, 22, 0, 26); ctx.quadraticCurveTo(-9, 22, -9, 6); ctx.stroke();
-      ctx.restore();
-      ctx.fillStyle = '#E9F056'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.font = '700 28px Fredoka, sans-serif'; ctx.fillText('Dig here!', W / 2 + 14, H / 2 - 12);
-      ctx.fillStyle = '#F3E6DA'; ctx.font = '500 14px "DM Sans", sans-serif'; ctx.fillText('scratch or tap to find something we make', W / 2, H / 2 + 20);
-      cv.style.transition = 'none'; cv.classList.remove('gone'); void cv.offsetWidth; cv.style.transition = ''; done = false;
-    }
-    function reveal() {
-      if (done) return; done = true; cv.classList.add('gone'); again.hidden = false;
-    }
-    function pos(e) { var r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
-    function scratch(a, b) {
-      ctx.globalCompositeOperation = 'destination-out'; ctx.strokeStyle = '#000'; ctx.fillStyle = '#000'; ctx.lineWidth = 34; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-      for (var c = 0; c < 4; c++) { ctx.beginPath(); ctx.arc(b.x + (Math.random() - 0.5) * 44, b.y + (Math.random() - 0.5) * 44, 3 + Math.random() * 7, 0, 6.3); ctx.fill(); }
-    }
-    function cleared() {
-      var data = ctx.getImageData(0, 0, cv.width, cv.height).data, n = 0, t = 0;
-      for (var k = 3; k < data.length; k += 4 * 40) { t++; if (data[k] === 0) n++; }
-      return n / t;
-    }
-    cv.addEventListener('pointerdown', function (e) { down = true; moved = 0; last = pos(e); cv.setPointerCapture(e.pointerId); });
-    cv.addEventListener('pointermove', function (e) {
-      if (!down || done) return;
-      var p = pos(e); moved += Math.abs(p.x - last.x) + Math.abs(p.y - last.y); scratch(last, p); last = p;
-      if (moved > 200 && cleared() > 0.35) reveal();
-    });
-    cv.addEventListener('pointerup', function () { down = false; if (moved < 8 || cleared() > 0.25) reveal(); });
-    cv.addEventListener('pointercancel', function () { down = false; });
-    tapBtn.addEventListener('click', reveal);
-    again.addEventListener('click', function () { i = (i + 1) % items.length; again.hidden = true; paint(); fill(); });
-    fill();
-    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(paint);
-    paint();
-    window.addEventListener('resize', function () { if (!done) paint(); });
+    dig.addEventListener('click', go);
   })();
 </script>
 </body>

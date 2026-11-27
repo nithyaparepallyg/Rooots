@@ -136,7 +136,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     <input id="parent" name="parent" autocomplete="name" required maxlength="80">
 
     <label for="phone">Phone number</label>
-    <div class="prefix"><span>+91</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="10-digit number" required maxlength="14"></div>
+    <div class="prefix"><span>+91</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="10-digit mobile number" required maxlength="10" pattern="[6-9][0-9]{9}"></div>
 
     <label for="insta">Your Instagram username <span class="hint">(the account that follows us)</span></label>
     <div class="prefix"><span>@</span><input id="insta" name="insta" autocapitalize="none" autocorrect="off" spellcheck="false" required maxlength="40"></div>
@@ -230,6 +230,13 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
       if (old[i]) { k.querySelector('input').value = old[i].name; k.querySelector('select').value = old[i].age; }
     });
   }
+  // Phone: digits only, max 10. A pasted +91 / 0 prefix is dropped.
+  $('phone').addEventListener('input', function () {
+    var d = this.value.replace(/\D/g, '');
+    if (d.length > 10) d = d.replace(/^91/, '');
+    d = d.replace(/^0+/, '');
+    this.value = d.slice(0, 10);
+  });
   $('count').addEventListener('change', renderKids);
   renderKids();
 
@@ -304,13 +311,13 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     e.preventDefault();
     $('msg').style.display = 'none';
     var parent = $('parent').value.trim();
-    var phone = $('phone').value.replace(/\D/g, '').slice(-10);
+    var phone = $('phone').value;
     var insta = $('insta').value.trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/^@/, '').replace(/[/?#].*$/, '');
     var kids = [].slice.call(document.querySelectorAll('.kid')).map(function (k) {
       return { name: k.querySelector('input').value.trim(), age: Number(k.querySelector('select').value) };
     });
     if (!parent) return fail('Please add your name.');
-    if (phone.length !== 10) return fail('Please enter a 10-digit phone number.');
+    if (!/^[6-9]\d{9}$/.test(phone)) return fail('Please enter a valid 10-digit mobile number (no +91 or 0 in front).');
     if (!/^[A-Za-z0-9._]{1,30}$/.test(insta)) return fail('Please enter your Instagram username, like priya.k');
     if (insta.toLowerCase() === HANDLE.toLowerCase()) return fail('Please enter your own Instagram username, not ours.');
     for (var i = 0; i < kids.length; i++) {

@@ -30,7 +30,7 @@ A one-page website for Rooots. It's plain HTML and CSS in a single file, so it n
 
 Open `index.html` on GitHub, click the pencil icon, make your change and click **Commit changes**. The live site updates within a minute or two.
 
-## Free demo registration (30 seats)
+## Early Bird Show registration (30 seats)
 
 Pages:
 

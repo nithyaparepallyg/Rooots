@@ -90,7 +90,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
 <p class="lede">An interactive puppet story that travels around the world to a mango tree in India. Kids draw their own ornament and take home a zine.</p>
 <dl class="facts">
   <div><dt>When</dt><dd>Sun, 29 Nov · 6:30 pm</dd></div>
-  <div><dt>Where</dt><dd>Yamuna Block, NGV</dd></div>
+  <div><dt>Where</dt><dd>NGV, Yamuna Block, Kids play area</dd></div>
   <div><dt>Who</dt><dd>Kids aged 4–12</dd></div>
   <div><dt>Cost</dt><dd>Free</dd></div>
 </dl>
@@ -128,7 +128,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     <label for="parent">Your name</label>
     <input id="parent" name="parent" autocomplete="name" required maxlength="80">
 
-    <label for="phone">WhatsApp number</label>
+    <label for="phone">Phone number</label>
     <div class="prefix"><span>+91</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="10-digit number" required maxlength="14"></div>
 
     <label for="insta">Your Instagram username <span class="hint">(the account that follows us)</span></label>
@@ -150,10 +150,9 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
 <!-- Closed / full / not ready -->
 <div class="card hide" id="closedArea">
   <h2 id="closedTitle" style="margin:0 0 8px;font-family:'Bricolage Grotesque',sans-serif;font-size:26px;letter-spacing:-0.02em">All 30 seats are taken</h2>
-  <p id="closedText" style="margin:0;color:#C4BFB8">Thank you for the love! Join our WhatsApp community to hear about the next session first.</p>
+  <p id="closedText" style="margin:0;color:#C4BFB8">Thank you for the love! Follow us on Instagram to hear about the next session first.</p>
   <div class="actions">
-    <a class="btn wa" target="_blank" rel="noopener" href="#">Join the WhatsApp community</a>
-    <a class="btn ghost igBtn" target="_blank" rel="noopener" href="#">Follow @rooots.co.in</a>
+    <a class="btn igBtn" target="_blank" rel="noopener" href="#">Follow @rooots.co.in</a>
   </div>
 </div>
 
@@ -172,14 +171,14 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
       <div><dt>Seats</dt><dd id="tSeats"></dd></div>
       <div style="grid-column:1/-1"><dt>Kids</dt><dd id="tKids"></dd></div>
       <div><dt>When</dt><dd>Sun, 29 Nov · 6:30 pm</dd></div>
-      <div><dt>Where</dt><dd>Yamuna Block, NGV</dd></div>
+      <div style="grid-column:1/-1"><dt>Where</dt><dd>NGV, Yamuna Block, Kids play area</dd></div>
       <div style="grid-column:1/-1"><dt>Instagram</dt><dd id="tInsta"></dd></div>
     </dl>
   </div>
   <p class="note">Show this ticket at the door. Please arrive 10 minutes early.</p>
   <div class="actions">
     <button class="btn light" id="download" type="button">Save ticket as image</button>
-    <a class="btn wa" target="_blank" rel="noopener" href="#">Join the WhatsApp community for updates</a>
+    <a class="btn igBtn" target="_blank" rel="noopener" href="#">Follow @rooots.co.in</a>
     <button class="btn ghost" id="another" type="button">Register another family</button>
   </div>
 </div>
@@ -205,7 +204,6 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
   ['igTop', 'followBtn'].forEach(function (id) { $(id).href = IG; });
   $('igTop').textContent = '@' + HANDLE;
   document.querySelectorAll('.igBtn').forEach(function (a) { a.href = IG; a.textContent = 'Follow @' + HANDLE; });
-  document.querySelectorAll('.wa').forEach(function (a) { a.href = C.whatsapp; });
 
   // ---- kids fields ----
   function renderKids() {
@@ -252,8 +250,8 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     for (var i = 0; i < opts.length; i++) opts[i].disabled = Number(opts[i].value) > Math.max(1, left);
     if (Number($('count').value) > Math.max(1, left)) { $('count').value = '1'; renderKids(); }
     if (!$('ticketArea').classList.contains('hide')) return;
-    if (!state.open) closed('Registrations are closed', 'The session has started. Join our WhatsApp community to hear about the next one first.');
-    else if (left <= 0) closed('All ' + cap + ' seats are taken', 'Thank you for the love! Join our WhatsApp community to hear about the next session first.');
+    if (!state.open) closed('Registrations are closed', 'The session has started. Follow us on Instagram to hear about the next one first.');
+    else if (left <= 0) closed('All ' + cap + ' seats are taken', 'Thank you for the love! Follow us on Instagram to hear about the next session first.');
   }
   function closed(title, text) {
     $('formArea').classList.add('hide');
@@ -303,7 +301,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
       return { name: k.querySelector('input').value.trim(), age: Number(k.querySelector('select').value) };
     });
     if (!parent) return fail('Please add your name.');
-    if (phone.length !== 10) return fail('Please enter a 10-digit WhatsApp number.');
+    if (phone.length !== 10) return fail('Please enter a 10-digit phone number.');
     if (!/^[A-Za-z0-9._]{1,30}$/.test(insta)) return fail('Please enter your Instagram username, like priya.k');
     if (insta.toLowerCase() === HANDLE.toLowerCase()) return fail('Please enter your own Instagram username, not ours.');
     for (var i = 0; i < kids.length; i++) {
@@ -350,7 +348,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
       x.beginPath(); x.moveTo(100, 560); x.lineTo(W - 100, 560); x.stroke();
       x.font = '800 110px "Bricolage Grotesque", sans-serif'; x.fillText(t.id, 120, 700);
       var rows = [['NAME', t.parent], ['SEATS', t.kids + (t.kids === 1 ? ' child' : ' children')], ['KIDS', t.children],
-                  ['WHEN', 'Sun, 29 Nov · 6:30 pm'], ['WHERE', 'Yamuna Block, NGV'], ['INSTAGRAM', t.instagram]];
+                  ['WHEN', 'Sun, 29 Nov · 6:30 pm'], ['WHERE', 'NGV, Yamuna Block, Kids play area'], ['INSTAGRAM', t.instagram]];
       var y = 800;
       rows.forEach(function (r) {
         x.globalAlpha = .6; x.font = '700 26px "Instrument Sans", sans-serif'; x.fillText(r[0], 120, y);
@@ -373,7 +371,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
   if (saved && saved.id) showTicket(saved, true);
   if (!API && !(saved && saved.id)) {
     $('liveTag').classList.add('hide');
-    closed('Registrations open soon', 'We’re getting things ready. Follow us on Instagram and join the WhatsApp community so you don’t miss it.');
+    closed('Registrations open soon', 'We’re getting things ready. Follow us on Instagram so you don’t miss it.');
   }
   showSeats();
   refresh();

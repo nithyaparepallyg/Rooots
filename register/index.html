@@ -27,6 +27,15 @@ header{display:flex;justify-content:space-between;align-items:center;gap:12px;pa
 h1{margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(36px,9vw,56px);line-height:1;letter-spacing:-0.03em}
 h1 em{font-family:'Instrument Serif',serif;font-weight:400}
 .lede{margin:14px 0 0;color:#C4BFB8;font-size:18px}
+.intro{display:flex;gap:16px;align-items:center}
+.intro-text{flex:1;min-width:0}
+.intro h1{font-size:clamp(28px,7.4vw,52px)}
+.thumb{flex:none;display:block;width:104px;border-radius:14px;overflow:hidden;transform:rotate(-3deg);box-shadow:0 10px 24px rgba(0,0,0,.45);outline:3px solid #F6EFE2;outline-offset:-1px;transition:transform .2s}
+.thumb:hover{transform:rotate(0) scale(1.03)}
+.thumb img{display:block;width:100%;height:auto}
+.thumb-hint{display:block;margin-top:8px;font-size:12px;color:#9F9A93;text-align:center}
+@media (min-width:560px){.thumb{width:140px}}
+
 .facts{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;margin:24px 0 0;padding:0}
 .facts dt{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9F9A93}
 .facts dd{margin:2px 0 0;font-weight:600}
@@ -159,8 +168,18 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
 
 <div class="wrap">
 
-<p class="eyebrow">Early Bird Show · Free · Kids 4–12</p>
-<h1>Is Christmas only for <em>pine trees?</em></h1>
+<div class="intro">
+  <div>
+    <a class="thumb" href="../assets/christmas-poster-full.jpg" target="_blank" rel="noopener" aria-label="Open the full poster">
+      <img src="../assets/christmas-poster-thumb.jpg" alt="Poster: Is Christmas only for Pines? An interactive puppet show for curious little minds" width="300" height="400">
+    </a>
+    <span class="thumb-hint">Tap to view</span>
+  </div>
+  <div class="intro-text">
+    <p class="eyebrow">Early Bird Show · Free · Kids 4–12</p>
+    <h1>Is Christmas only for <em>pine trees?</em></h1>
+  </div>
+</div>
 <p class="lede">An interactive puppet story that travels around the world looking for Christmas. Kids draw their own ornament and take home a zine.</p>
 <dl class="facts">
   <div><dt>When</dt><dd>Sun, 29 Nov · 6:30 pm sharp<br><span style="font-weight:500;color:#C4BFB8">1 hour · ends 7:30 pm</span></dd></div>

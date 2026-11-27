@@ -2,12 +2,15 @@
  * Rooots — free demo registration backend (Google Apps Script + Google Sheet).
  * Paste this whole file into Extensions → Apps Script of your Google Sheet. Setup steps are in the README.
  *
- * Admin password: Project Settings (gear icon) → Script properties → add
+ * Admin password: type it in ADMIN_PASSWORD just below (or, optionally, Project Settings → Script properties →
  *   Property: ADMIN_PASSWORD    Value: <your password>
  * It stays inside your Google account and is never in the public website code.
  */
 
-const CAPACITY = 30;                                       // total kids' seats
+// ▼▼ Type your admin password between the quotes (this stays inside your Google account, not on the website) ▼▼
+const ADMIN_PASSWORD = 'CHANGE-ME';
+
+const CAPACITY = 30;                                      // total kids' seats
 const EVENT_START = new Date('2026-11-29T18:30:00+05:30'); // registrations close at this time
 const MAX_KIDS_PER_FAMILY = 3;
 const SHEET_NAME = 'Registrations';
@@ -46,7 +49,8 @@ function status_(rows) {
 }
 
 function isAdmin_(password) {
-  const real = PropertiesService.getScriptProperties().getProperty('ADMIN_PASSWORD');
+  const real = PropertiesService.getScriptProperties().getProperty('ADMIN_PASSWORD') ||
+               (ADMIN_PASSWORD !== 'CHANGE-ME' ? ADMIN_PASSWORD : '');
   return !!real && String(password || '') === real;
 }
 

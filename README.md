@@ -44,7 +44,7 @@ The website itself can't store anything, so registrations are saved in a Google 
 
 1. Create a new Google Sheet (any name, e.g. "Rooots registrations") with the rooots.admin@gmail.com account.
 2. In the sheet: **Extensions → Apps Script**. Delete what's there, paste the whole of `apps-script/Code.gs`, click **Save**.
-3. **Set the admin password:** in Apps Script click the **gear (Project Settings)** → scroll to **Script properties** → **Add script property** → Property `ADMIN_PASSWORD`, Value: your password → **Save**.
+3. **Set the admin password:** near the top of the code, replace `CHANGE-ME` in `const ADMIN_PASSWORD = 'CHANGE-ME';` with your password (keep the quotes) → **Save**.
 4. **Deploy:** **Deploy → New deployment** → gear next to "Select type" → **Web app**. Execute as: **Me**. Who has access: **Anyone**. Click **Deploy**, allow the permissions (Google warns because it's your own unverified script: Advanced → Go to project).
 5. Copy the **Web app URL** (ends in `/exec`).
 6. On GitHub open `config.js` → pencil icon → paste the URL between the quotes after `api:` → **Commit changes**. The site updates in a minute or two.

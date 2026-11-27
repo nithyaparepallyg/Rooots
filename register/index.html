@@ -63,6 +63,9 @@ input:focus,select:focus{outline:2px solid #F2F600;outline-offset:1px;border-col
 .check input{width:24px;height:24px;min-height:0;flex:none;margin:1px 0 0;accent-color:#FF2F8A}
 .msg{margin:14px 0 0;padding:12px 16px;border-radius:14px;background:rgba(255,78,18,.15);border:1.5px solid #FF4E12;display:none}
 .note{margin:16px 0 0;font-size:14px;color:#9F9A93}
+.rule{margin:22px 0 0;padding:16px 18px;border-radius:18px;border:2px dashed #F2F600;color:#F1EDE6}
+.rule b{color:#F2F600}
+.ticket-rule{grid-column:1/-1;margin-top:4px;padding:12px 14px;border-radius:14px;background:#161618;color:#F2F600;font-weight:600;font-size:15px;line-height:1.4}
 .hide{display:none!important}
 .ticket{margin-top:22px;border-radius:26px;overflow:hidden;background:#F2F600;color:#161618}
 .ticket-top{padding:24px 24px 18px}
@@ -89,11 +92,13 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
 <h1>Is Christmas only for <em>pine trees?</em></h1>
 <p class="lede">An interactive puppet story that travels around the world to a mango tree in India. Kids draw their own ornament and take home a zine.</p>
 <dl class="facts">
-  <div><dt>When</dt><dd>Sun, 29 Nov · 6:30 pm</dd></div>
+  <div><dt>When</dt><dd>Sun, 29 Nov · 6:30 pm sharp</dd></div>
   <div><dt>Where</dt><dd>NGV, Yamuna Block, Kids play area</dd></div>
   <div><dt>Who</dt><dd>Kids aged 4–12</dd></div>
   <div><dt>Cost</dt><dd>Free</dd></div>
 </dl>
+
+<p class="rule"><b>Be there by 6:15 pm.</b> Kiki takes off at 6:30 sharp, and once she’s in the air the doors close behind her. No late entries, not even for reindeer.</p>
 
 <div class="seats" aria-live="polite">
   <div class="seats-top">
@@ -170,12 +175,14 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
       <div><dt>Name</dt><dd id="tParent"></dd></div>
       <div><dt>Seats</dt><dd id="tSeats"></dd></div>
       <div style="grid-column:1/-1"><dt>Kids</dt><dd id="tKids"></dd></div>
-      <div><dt>When</dt><dd>Sun, 29 Nov · 6:30 pm</dd></div>
+      <div><dt>When</dt><dd>Sun, 29 Nov</dd></div>
+      <div><dt>Be there by</dt><dd>6:15 pm</dd></div>
       <div style="grid-column:1/-1"><dt>Where</dt><dd>NGV, Yamuna Block, Kids play area</dd></div>
       <div style="grid-column:1/-1"><dt>Instagram</dt><dd id="tInsta"></dd></div>
+      <p class="ticket-rule">Show starts 6:30 pm sharp and the doors close with it. No late entries, Kiki doesn’t wait!</p>
     </dl>
   </div>
-  <p class="note">Show this ticket at the door. Please arrive 10 minutes early.</p>
+  <p class="note">Show this ticket at the door.</p>
   <div class="actions">
     <button class="btn light" id="download" type="button">Save ticket as image</button>
     <a class="btn igBtn" target="_blank" rel="noopener" href="#">Follow @rooots.co.in</a>
@@ -333,7 +340,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     var t; try { t = JSON.parse(localStorage.getItem(STORE)); } catch (e) {}
     if (!t) return;
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () {
-      var W = 1080, H = 1620, c = document.createElement('canvas'), x = c.getContext('2d');
+      var W = 1080, H = 1830, c = document.createElement('canvas'), x = c.getContext('2d');
       c.width = W; c.height = H;
       x.fillStyle = '#161618'; x.fillRect(0, 0, W, H);
       x.fillStyle = '#F1EDE6'; x.font = '800 64px "Bricolage Grotesque", sans-serif'; x.fillText('rooots', 80, 130);
@@ -348,13 +355,17 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
       x.beginPath(); x.moveTo(100, 560); x.lineTo(W - 100, 560); x.stroke();
       x.font = '800 110px "Bricolage Grotesque", sans-serif'; x.fillText(t.id, 120, 700);
       var rows = [['NAME', t.parent], ['SEATS', t.kids + (t.kids === 1 ? ' child' : ' children')], ['KIDS', t.children],
-                  ['WHEN', 'Sun, 29 Nov · 6:30 pm'], ['WHERE', 'NGV, Yamuna Block, Kids play area'], ['INSTAGRAM', t.instagram]];
+                  ['WHEN', 'Sun, 29 Nov · show starts 6:30 pm sharp'], ['BE THERE BY', '6:15 pm · doors close at 6:30'], ['WHERE', 'NGV, Yamuna Block, Kids play area'], ['INSTAGRAM', t.instagram]];
       var y = 800;
       rows.forEach(function (r) {
         x.globalAlpha = .6; x.font = '700 26px "Instrument Sans", sans-serif'; x.fillText(r[0], 120, y);
         x.globalAlpha = 1; x.font = '700 40px "Instrument Sans", sans-serif'; x.fillText(fit(x, r[1], W - 240), 120, y + 48);
         y += 108;
       });
+      x.fillStyle = '#161618'; round(x, 100, y - 30, W - 200, 120, 24); x.fill();
+      x.fillStyle = '#F2F600'; x.font = '700 32px "Instrument Sans", sans-serif';
+      x.fillText('No late entries. Kiki doesn’t wait,', 140, y + 20);
+      x.fillText('not even for reindeer.', 140, y + 64);
       x.fillStyle = '#C4BFB8'; x.font = '500 30px "Instrument Sans", sans-serif';
       x.fillText('Show this at the door · rooots.co.in', 80, H - 50);
       var a = document.createElement('a');

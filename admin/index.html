@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin · Registrations | Rooots</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&amp;family=Instrument+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="../config.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#161618;color:#F1EDE6;font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px}
+a{color:#F1EDE6}
+.wrap{max-width:1200px;margin:0 auto;padding:24px 20px 60px}
+h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-0.03em;margin:0 0 4px;font-size:34px}
+.sub{color:#9F9A93;margin:0 0 24px}
+.box{background:#232326;border-radius:20px;padding:22px}
+input,button{font:600 16px 'Instrument Sans',sans-serif}
+input[type=password],input[type=search]{min-height:48px;padding:0 14px;border-radius:12px;border:1.5px solid #4A4A50;background:#161618;color:#F1EDE6;width:100%;max-width:320px}
+.btn{min-height:48px;padding:0 20px;border-radius:999px;border:0;background:#FF2F8A;color:#161618;cursor:pointer}
+.btn.ghost{background:transparent;color:#F1EDE6;border:1.5px solid #F1EDE6}
+.btn.small{min-height:34px;padding:0 12px;font-size:14px}
+.btn.danger{background:transparent;color:#FF6B6B;border:1.5px solid #FF6B6B}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.stats{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 18px}
+.stat{background:#232326;border-radius:18px;padding:14px 20px;min-width:140px}
+.stat b{display:block;font-family:'Bricolage Grotesque',sans-serif;font-size:34px;color:#F2F600}
+.stat span{color:#9F9A93;font-size:14px}
+.tablewrap{overflow-x:auto;margin-top:16px;border-radius:16px;background:#232326}
+table{border-collapse:collapse;width:100%;min-width:980px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid #38383C;vertical-align:top;font-size:15px}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9F9A93;position:sticky;top:0;background:#232326}
+td input[type=checkbox]{width:20px;height:20px;accent-color:#00B814}
+.err{color:#FF6B6B;margin:12px 0 0;min-height:1em}
+.hide{display:none!important}
+.muted{color:#9F9A93}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Registrations</h1>
+  <p class="sub">Early Bird Show · Is Christmas only for pine trees? · Sun 29 Nov, 6:30 pm</p>
+
+  <form class="box" id="login">
+    <label for="pw" style="display:block;font-weight:600;margin-bottom:8px">Admin password</label>
+    <div class="row">
+      <input type="password" id="pw" autocomplete="current-password" required>
+      <button class="btn" type="submit">View registrations</button>
+    </div>
+    <p class="err" id="loginErr"></p>
+  </form>
+
+  <div id="panel" class="hide">
+    <div class="stats">
+      <div class="stat"><b id="sTaken">0</b><span>seats booked</span></div>
+      <div class="stat"><b id="sLeft">30</b><span>seats left</span></div>
+      <div class="stat"><b id="sFamilies">0</b><span>families</span></div>
+      <div class="stat"><b id="sIn">0</b><span>kids checked in</span></div>
+    </div>
+    <div class="row">
+      <input type="search" id="q" placeholder="Search name, phone, Instagram, ticket">
+      <button class="btn ghost" id="reload" type="button">Refresh</button>
+      <button class="btn ghost" id="csv" type="button">Download CSV</button>
+      <button class="btn ghost" id="logout" type="button">Log out</button>
+    </div>
+    <p class="err" id="panelErr"></p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Ticket</th><th>Registered</th><th>Parent</th><th>WhatsApp</th><th>Instagram</th><th>Kids</th><th>Children (age)</th><th>IG verified</th><th>Checked in</th><th></th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p class="muted" style="font-size:14px">Tip: tap an Instagram handle to open their profile and confirm they follow you, then tick “IG verified”. Removing a registration frees its seats immediately.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  var API = (window.ROOOTS || {}).api || '';
+  var $ = function (id) { return document.getElementById(id); };
+  var pw = '', data = { rows: [] };
+  try { pw = sessionStorage.getItem('rooots-admin') || ''; } catch (e) {}
+
+  function call(body) {
+    if (!API) return Promise.reject(new Error('The Apps Script URL isn’t in config.js yet.'));
+    body.password = pw;
+    return fetch(API, { method: 'POST', body: JSON.stringify(body) }).then(function (r) { return r.json(); }).then(function (d) {
+      if (!d.ok && d.error === 'wrong_password') { logout(); throw new Error('Wrong password.'); }
+      if (!d.ok) throw new Error('Something went wrong (' + d.error + ').');
+      return d;
+    });
+  }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+  function render() {
+    var q = $('q').value.trim().toLowerCase();
+    var rows = data.rows.filter(function (r) { return !q || r.join(' ').toLowerCase().indexOf(q) > -1; });
+    $('sTaken').textContent = data.taken;
+    $('sLeft').textContent = data.left;
+    $('sFamilies').textContent = data.rows.length;
+    $('sIn').textContent = data.rows.reduce(function (s, r) { return s + (r[9] === 'Yes' ? Number(r[5]) || 0 : 0); }, 0);
+    $('rows').innerHTML = rows.length ? rows.map(function (r) {
+      var h = String(r[4]).replace(/^@/, '');
+      return '<tr><td><b>' + esc(r[0]) + '</b></td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td>' +
+        '<td><a href="https://wa.me/91' + esc(String(r[3]).replace(/\D/g, '')) + '" target="_blank" rel="noopener">' + esc(r[3]) + '</a></td>' +
+        '<td><a href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener">' + esc(r[4]) + '</a></td>' +
+        '<td>' + esc(r[5]) + '</td><td>' + esc(r[6]) + '</td>' +
+        '<td><input type="checkbox" data-t="' + esc(r[0]) + '" data-f="verified"' + (r[8] === 'Yes' ? ' checked' : '') + ' aria-label="Instagram verified"></td>' +
+        '<td><input type="checkbox" data-t="' + esc(r[0]) + '" data-f="checkedIn"' + (r[9] === 'Yes' ? ' checked' : '') + ' aria-label="Checked in"></td>' +
+        '<td><button class="btn danger small" data-del="' + esc(r[0]) + '" data-name="' + esc(r[2]) + '">Remove</button></td></tr>';
+    }).join('') : '<tr><td colspan="10" class="muted">' + (data.rows.length ? 'No matches.' : 'No registrations yet.') + '</td></tr>';
+  }
+
+  function load() {
+    $('panelErr').textContent = '';
+    return call({ action: 'admin_list' }).then(function (d) {
+      data = d;
+      $('login').classList.add('hide'); $('panel').classList.remove('hide');
+      render();
+    });
+  }
+  function logout() {
+    pw = ''; try { sessionStorage.removeItem('rooots-admin'); } catch (e) {}
+    $('panel').classList.add('hide'); $('login').classList.remove('hide');
+  }
+
+  $('login').addEventListener('submit', function (e) {
+    e.preventDefault();
+    pw = $('pw').value; $('loginErr').textContent = 'Checking…';
+    load().then(function () {
+      $('loginErr').textContent = ''; $('pw').value = '';
+      try { sessionStorage.setItem('rooots-admin', pw); } catch (e) {}
+    }).catch(function (err) { $('loginErr').textContent = err.message; });
+  });
+  $('logout').addEventListener('click', logout);
+  $('reload').addEventListener('click', function () { load().catch(function (err) { $('panelErr').textContent = err.message; }); });
+  $('q').addEventListener('input', render);
+
+  $('rows').addEventListener('change', function (e) {
+    var cb = e.target; if (!cb.dataset.f) return;
+    cb.disabled = true;
+    call({ action: 'admin_toggle', ticket: cb.dataset.t, field: cb.dataset.f, value: cb.checked })
+      .then(function (d) { data = d; render(); })
+      .catch(function (err) { cb.checked = !cb.checked; cb.disabled = false; $('panelErr').textContent = err.message; });
+  });
+  $('rows').addEventListener('click', function (e) {
+    var b = e.target; if (!b.dataset.del) return;
+    if (!confirm('Remove ' + b.dataset.del + ' (' + b.dataset.name + ')? Their seats will become available again.')) return;
+    b.disabled = true; b.textContent = 'Removing…';
+    call({ action: 'admin_delete', ticket: b.dataset.del })
+      .then(function (d) { data = d; render(); })
+      .catch(function (err) { $('panelErr').textContent = err.message; b.disabled = false; b.textContent = 'Remove'; });
+  });
+
+  $('csv').addEventListener('click', function () {
+    var lines = [data.header].concat(data.rows).map(function (r) {
+      return r.map(function (v) { v = String(v); if (/^[=+\-@]/.test(v)) v = "'" + v; return '"' + v.replace(/"/g, '""') + '"'; }).join(',');
+    });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['﻿' + lines.join('\n')], { type: 'text/csv' }));
+    a.download = 'rooots-registrations.csv'; a.click();
+  });
+
+  if (pw) load().catch(function () { logout(); });
+  setInterval(function () { if (pw && !document.hidden) load().catch(function () {}); }, 30000);
+})();
+</script>
+</body>
+</html>

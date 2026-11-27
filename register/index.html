@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register · Is Christmas only for pine trees? | Rooots</title>
+<meta name="description" content="Early Bird Show: Rooots' free interactive puppet story for kids aged 4 to 12. 30 seats. Sunday 29 November, 6:30 pm.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#161618">
+<meta property="og:title" content="Early Bird Show: Is Christmas only for pine trees?">
+<meta property="og:description" content="An interactive puppet story for kids aged 4–12. Only 30 seats. Sunday 29 Nov, 6:30 pm.">
+<meta property="og:image" content="https://rooots.co.in/christmas-poster.jpg">
+<link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=Instrument+Sans:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<script src="../config.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#161618;color:#F1EDE6;font-family:'Instrument Sans',system-ui,sans-serif;font-size:17px;line-height:1.5}
+a{color:#F1EDE6} a:hover{color:#F2F600}
+.wrap{max-width:640px;margin:0 auto;padding:20px 20px 64px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:4px 0 28px}
+.logo{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px;letter-spacing:-0.04em;text-decoration:none;color:#F1EDE6}
+.ig-link{font-weight:600;font-size:15px;text-decoration:none}
+.eyebrow{margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#F2F600}
+h1{margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(36px,9vw,56px);line-height:1;letter-spacing:-0.03em}
+h1 em{font-family:'Instrument Serif',serif;font-weight:400}
+.lede{margin:14px 0 0;color:#C4BFB8;font-size:18px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;margin:24px 0 0;padding:0}
+.facts dt{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9F9A93}
+.facts dd{margin:2px 0 0;font-weight:600}
+.seats{margin:26px 0 0;padding:20px 22px;border-radius:22px;background:#232326}
+.seats-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.seats-num{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:40px;line-height:1;letter-spacing:-0.03em;color:#F2F600}
+.seats-live{font-size:13px;color:#9F9A93;display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#00B814;box-shadow:0 0 0 0 rgba(0,184,20,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(0,184,20,0)}100%{box-shadow:0 0 0 0 rgba(0,184,20,0)}}
+@media (prefers-reduced-motion:reduce){.dot{animation:none}}
+.bar{margin-top:14px;height:10px;border-radius:99px;background:#38383C;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#F2F600,#FF2F8A);border-radius:99px;transition:width .6s}
+.card{margin-top:22px;padding:24px 22px;border-radius:22px;background:#232326}
+.step{display:flex;gap:14px;align-items:flex-start}
+.num{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#FF2F8A;color:#161618;font-weight:700}
+.num.done{background:#00B814}
+.step h2{margin:2px 0 6px;font-family:'Bricolage Grotesque',sans-serif;font-size:22px;letter-spacing:-0.02em}
+.step p{margin:0;color:#C4BFB8}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:999px;border:0;background:#FF2F8A;color:#161618;font:700 17px 'Instrument Sans',sans-serif;text-decoration:none;cursor:pointer}
+.btn:hover{color:#161618;filter:brightness(1.08)}
+.btn.light{background:#F1EDE6}
+.btn.ghost{background:transparent;color:#F1EDE6;border:2px solid #F1EDE6}
+.btn.ghost:hover{color:#F2F600;border-color:#F2F600}
+.btn[disabled]{opacity:.4;cursor:not-allowed;filter:none}
+.btn.wide{width:100%}
+label{display:block;font-weight:600;font-size:15px;margin:18px 0 6px}
+.hint{font-weight:400;color:#9F9A93}
+input,select{width:100%;min-height:50px;padding:0 14px;border-radius:14px;border:1.5px solid #4A4A50;background:#161618;color:#F1EDE6;font:500 17px 'Instrument Sans',sans-serif}
+input:focus,select:focus{outline:2px solid #F2F600;outline-offset:1px;border-color:transparent}
+.prefix{position:relative} .prefix span{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#9F9A93;pointer-events:none}
+.prefix input{padding-left:44px}
+.kid{display:grid;grid-template-columns:1fr 110px;gap:10px;margin-top:8px}
+.check{display:flex;gap:12px;align-items:flex-start;margin:22px 0 0;font-weight:500;font-size:16px;cursor:pointer}
+.check input{width:24px;height:24px;min-height:0;flex:none;margin:1px 0 0;accent-color:#FF2F8A}
+.msg{margin:14px 0 0;padding:12px 16px;border-radius:14px;background:rgba(255,78,18,.15);border:1.5px solid #FF4E12;display:none}
+.note{margin:16px 0 0;font-size:14px;color:#9F9A93}
+.hide{display:none!important}
+.ticket{margin-top:22px;border-radius:26px;overflow:hidden;background:#F2F600;color:#161618}
+.ticket-top{padding:24px 24px 18px}
+.ticket-top .eyebrow{color:#161618;opacity:.7}
+.ticket h2{margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:30px;line-height:1.05;letter-spacing:-0.03em}
+.ticket h2 em{font-family:'Instrument Serif',serif;font-weight:400}
+.ticket-tear{height:0;border-top:3px dashed rgba(22,22,24,.35);margin:0 18px;position:relative}
+.ticket-bottom{padding:18px 24px 24px;display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.ticket-bottom dt{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.6}
+.ticket-bottom dd{margin:2px 0 0;font-weight:700;font-size:16px}
+.ticket-id{grid-column:1/-1;font-family:'Bricolage Grotesque',sans-serif;font-size:34px;font-weight:800;letter-spacing:-0.02em}
+.actions{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="../">rooots</a>
+  <a class="ig-link" id="igTop" target="_blank" rel="noopener" href="https://www.instagram.com/rooots.co.in/">@rooots.co.in</a>
+</header>
+
+<p class="eyebrow">Early Bird Show · Free · Kids 4–12</p>
+<h1>Is Christmas only for <em>pine trees?</em></h1>
+<p class="lede">An interactive puppet story that travels around the world to a mango tree in India. Kids draw their own ornament and take home a zine.</p>
+<dl class="facts">
+  <div><dt>When</dt><dd>Sun, 29 Nov · 6:30 pm</dd></div>
+  <div><dt>Where</dt><dd>NGV, Yamuna Block, Kids play area</dd></div>
+  <div><dt>Who</dt><dd>Kids aged 4–12</dd></div>
+  <div><dt>Cost</dt><dd>Free</dd></div>
+</dl>
+
+<div class="seats" aria-live="polite">
+  <div class="seats-top">
+    <div><span class="seats-num" id="left">30</span> <span id="leftLabel">of 30 seats left</span></div>
+    <span class="seats-live" id="liveTag"><span class="dot"></span>live</span>
+  </div>
+  <div class="bar"><i id="barFill"></i></div>
+</div>
+
+<!-- Registration -->
+<div id="formArea">
+  <div class="card">
+    <div class="step">
+      <div class="num" id="n1">1</div>
+      <div style="flex:1">
+        <h2>Follow us on Instagram</h2>
+        <p>Seats are for families who follow <strong>@<span class="handle">rooots.co.in</span></strong>. Follow, then come back to this page.</p>
+        <a class="btn" id="followBtn" style="margin-top:14px" target="_blank" rel="noopener" href="https://www.instagram.com/rooots.co.in/">Open Instagram and follow</a>
+      </div>
+    </div>
+  </div>
+
+  <form class="card" id="form" novalidate>
+    <div class="step">
+      <div class="num" id="n2">2</div>
+      <div style="flex:1">
+        <h2>Book your seats</h2>
+        <p>One seat per child.</p>
+      </div>
+    </div>
+
+    <label for="parent">Your name</label>
+    <input id="parent" name="parent" autocomplete="name" required maxlength="80">
+
+    <label for="phone">Phone number</label>
+    <div class="prefix"><span>+91</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="10-digit number" required maxlength="14"></div>
+
+    <label for="insta">Your Instagram username <span class="hint">(the account that follows us)</span></label>
+    <div class="prefix"><span>@</span><input id="insta" name="insta" autocapitalize="none" autocorrect="off" spellcheck="false" required maxlength="40"></div>
+
+    <label for="count">How many kids are coming?</label>
+    <select id="count"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+
+    <div id="kids"></div>
+
+    <label class="check"><input type="checkbox" id="follows"> <span>I follow <strong>@<span class="handle">rooots.co.in</span></strong> on Instagram. I understand Rooots will check, and seats for accounts that don’t follow may go to the waitlist.</span></label>
+
+    <div class="msg" id="msg" role="alert"></div>
+    <button class="btn wide" id="submit" type="submit" style="margin-top:22px" disabled>Get my ticket</button>
+    <p class="note" id="submitHint">Tap “Open Instagram and follow” and tick the box to continue.</p>
+  </form>
+</div>
+
+<!-- Closed / full / not ready -->
+<div class="card hide" id="closedArea">
+  <h2 id="closedTitle" style="margin:0 0 8px;font-family:'Bricolage Grotesque',sans-serif;font-size:26px;letter-spacing:-0.02em">All 30 seats are taken</h2>
+  <p id="closedText" style="margin:0;color:#C4BFB8">Thank you for the love! Follow us on Instagram to hear about the next session first.</p>
+  <div class="actions">
+    <a class="btn igBtn" target="_blank" rel="noopener" href="#">Follow @rooots.co.in</a>
+  </div>
+</div>
+
+<!-- Ticket -->
+<div class="hide" id="ticketArea">
+  <p class="eyebrow" style="margin-top:28px" id="ticketHeadline">You’re in! Here’s your ticket</p>
+  <div class="ticket" id="ticket">
+    <div class="ticket-top">
+      <p class="eyebrow">Rooots · Early Bird Show</p>
+      <h2>Is Christmas only for <em>pine trees?</em></h2>
+    </div>
+    <div class="ticket-tear"></div>
+    <dl class="ticket-bottom">
+      <div class="ticket-id" id="tId">RT-000</div>
+      <div><dt>Name</dt><dd id="tParent"></dd></div>
+      <div><dt>Seats</dt><dd id="tSeats"></dd></div>
+      <div style="grid-column:1/-1"><dt>Kids</dt><dd id="tKids"></dd></div>
+      <div><dt>When</dt><dd>Sun, 29 Nov · 6:30 pm</dd></div>
+      <div style="grid-column:1/-1"><dt>Where</dt><dd>NGV, Yamuna Block, Kids play area</dd></div>
+      <div style="grid-column:1/-1"><dt>Instagram</dt><dd id="tInsta"></dd></div>
+    </dl>
+  </div>
+  <p class="note">Show this ticket at the door. Please arrive 10 minutes early.</p>
+  <div class="actions">
+    <button class="btn light" id="download" type="button">Save ticket as image</button>
+    <a class="btn igBtn" target="_blank" rel="noopener" href="#">Follow @rooots.co.in</a>
+    <button class="btn ghost" id="another" type="button">Register another family</button>
+  </div>
+</div>
+
+<footer>Questions? <a href="mailto:rooots.admin@gmail.com">rooots.admin@gmail.com</a> · <a href="../">rooots.co.in</a></footer>
+</div>
+
+<script>
+(function () {
+  var C = window.ROOOTS || {};
+  var API = C.api || '';
+  var HANDLE = C.instagram || 'rooots.co.in';
+  var IG = 'https://www.instagram.com/' + HANDLE + '/';
+  var CAP = C.capacity || 30;
+  var START = new Date(C.eventStart || '2026-11-29T18:30:00+05:30');
+  var STORE = 'rooots-ticket-2026-11-29';
+  var $ = function (id) { return document.getElementById(id); };
+  var state = { left: CAP, capacity: CAP, open: new Date() < START };
+  var followed = false;
+  try { followed = localStorage.getItem('rooots-followed') === '1'; } catch (e) {}
+
+  document.querySelectorAll('.handle').forEach(function (el) { el.textContent = HANDLE; });
+  ['igTop', 'followBtn'].forEach(function (id) { $(id).href = IG; });
+  $('igTop').textContent = '@' + HANDLE;
+  document.querySelectorAll('.igBtn').forEach(function (a) { a.href = IG; a.textContent = 'Follow @' + HANDLE; });
+
+  // ---- kids fields ----
+  function renderKids() {
+    var n = Number($('count').value), box = $('kids'), html = '';
+    var old = [].slice.call(box.querySelectorAll('.kid')).map(function (k) {
+      return { name: k.querySelector('input').value, age: k.querySelector('select').value };
+    });
+    for (var i = 0; i < n; i++) {
+      var ages = '<option value="">Age</option>';
+      for (var a = 4; a <= 12; a++) ages += '<option value="' + a + '">' + a + '</option>';
+      html += '<div class="kid"><input aria-label="Child ' + (i + 1) + ' name" placeholder="Child ' + (i + 1) + ' name" maxlength="40"><select aria-label="Child ' + (i + 1) + ' age">' + ages + '</select></div>';
+    }
+    box.innerHTML = '<label style="margin-bottom:0">Kids’ names and ages <span class="hint">(4 to 12 years)</span></label>' + html;
+    box.querySelectorAll('.kid').forEach(function (k, i) {
+      if (old[i]) { k.querySelector('input').value = old[i].name; k.querySelector('select').value = old[i].age; }
+    });
+  }
+  $('count').addEventListener('change', renderKids);
+  renderKids();
+
+  // ---- step gating ----
+  function gate() {
+    $('n1').classList.toggle('done', followed);
+    $('n1').textContent = followed ? '✓' : '1';
+    var ok = followed && $('follows').checked;
+    $('submit').disabled = !ok;
+    $('submitHint').classList.toggle('hide', ok);
+  }
+  $('followBtn').addEventListener('click', function () {
+    followed = true;
+    try { localStorage.setItem('rooots-followed', '1'); } catch (e) {}
+    setTimeout(gate, 300);
+  });
+  $('follows').addEventListener('change', gate);
+  gate();
+
+  // ---- seats ----
+  function showSeats() {
+    var left = Math.max(0, state.left), cap = state.capacity;
+    $('left').textContent = left;
+    $('leftLabel').textContent = 'of ' + cap + (left === 1 ? ' seat left' : ' seats left');
+    $('barFill').style.width = (100 * (cap - left) / cap) + '%';
+    var opts = $('count').options;
+    for (var i = 0; i < opts.length; i++) opts[i].disabled = Number(opts[i].value) > Math.max(1, left);
+    if (Number($('count').value) > Math.max(1, left)) { $('count').value = '1'; renderKids(); }
+    if (!$('ticketArea').classList.contains('hide')) return;
+    if (!state.open) closed('Registrations are closed', 'The session has started. Follow us on Instagram to hear about the next one first.');
+    else if (left <= 0) closed('All ' + cap + ' seats are taken', 'Thank you for the love! Follow us on Instagram to hear about the next session first.');
+  }
+  function closed(title, text) {
+    $('formArea').classList.add('hide');
+    $('closedArea').classList.remove('hide');
+    $('closedTitle').textContent = title;
+    $('closedText').textContent = text;
+  }
+  function refresh() {
+    if (!API) return;
+    fetch(API, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.ok) { state = d; showSeats(); }
+    }).catch(function () {});
+  }
+
+  // ---- ticket ----
+  function showTicket(t, again) {
+    $('formArea').classList.add('hide');
+    $('closedArea').classList.add('hide');
+    $('ticketArea').classList.remove('hide');
+    $('ticketHeadline').textContent = again ? 'You’re already registered. Here’s your ticket' : 'You’re in! Here’s your ticket';
+    $('tId').textContent = t.id;
+    $('tParent').textContent = t.parent;
+    $('tSeats').textContent = t.kids + (t.kids === 1 ? ' child' : ' children');
+    $('tKids').textContent = t.children;
+    $('tInsta').textContent = t.instagram;
+    try { localStorage.setItem(STORE, JSON.stringify(t)); } catch (e) {}
+    window.scrollTo({ top: $('ticketArea').offsetTop - 10, behavior: 'smooth' });
+  }
+  $('another').addEventListener('click', function () {
+    try { localStorage.removeItem(STORE); } catch (e) {}
+    $('form').reset(); renderKids(); gate();
+    $('ticketArea').classList.add('hide');
+    $('formArea').classList.remove('hide');
+    showSeats();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ---- submit ----
+  function fail(text) { var m = $('msg'); m.textContent = text; m.style.display = 'block'; }
+  $('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    $('msg').style.display = 'none';
+    var parent = $('parent').value.trim();
+    var phone = $('phone').value.replace(/\D/g, '').slice(-10);
+    var insta = $('insta').value.trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/^@/, '').replace(/[/?#].*$/, '');
+    var kids = [].slice.call(document.querySelectorAll('.kid')).map(function (k) {
+      return { name: k.querySelector('input').value.trim(), age: Number(k.querySelector('select').value) };
+    });
+    if (!parent) return fail('Please add your name.');
+    if (phone.length !== 10) return fail('Please enter a 10-digit phone number.');
+    if (!/^[A-Za-z0-9._]{1,30}$/.test(insta)) return fail('Please enter your Instagram username, like priya.k');
+    if (insta.toLowerCase() === HANDLE.toLowerCase()) return fail('Please enter your own Instagram username, not ours.');
+    for (var i = 0; i < kids.length; i++) {
+      if (!kids[i].name) return fail('Please add a name for child ' + (i + 1) + '.');
+      if (!(kids[i].age >= 4 && kids[i].age <= 12)) return fail('Please pick an age (4 to 12) for child ' + (i + 1) + '.');
+    }
+    if (!API) return fail('Registrations open very soon. Please try again in a little while.');
+
+    var btn = $('submit');
+    btn.disabled = true; btn.textContent = 'Booking your seats…';
+    fetch(API, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'register', parent: parent, phone: phone, instagram: insta, children: kids, follows: true })
+    }).then(function (r) { return r.json(); }).then(function (d) {
+      if (d.capacity != null) { state = d; }
+      if (d.ok) { showTicket(d.ticket, d.duplicate); showSeats(); return; }
+      if (d.error === 'full') {
+        showSeats();
+        if (state.left > 0) fail('Only ' + state.left + ' seat' + (state.left === 1 ? ' is' : 's are') + ' left. Please choose fewer kids.');
+      } else if (d.error === 'closed') { state.open = false; showSeats(); }
+      else fail('Something was missing. Please check the form and try again.');
+    }).catch(function () {
+      fail('Couldn’t reach us. Check your connection and try again.');
+    }).then(function () { btn.textContent = 'Get my ticket'; gate(); });
+  });
+
+  // ---- save ticket as image ----
+  $('download').addEventListener('click', function () {
+    var t; try { t = JSON.parse(localStorage.getItem(STORE)); } catch (e) {}
+    if (!t) return;
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () {
+      var W = 1080, H = 1620, c = document.createElement('canvas'), x = c.getContext('2d');
+      c.width = W; c.height = H;
+      x.fillStyle = '#161618'; x.fillRect(0, 0, W, H);
+      x.fillStyle = '#F1EDE6'; x.font = '800 64px "Bricolage Grotesque", sans-serif'; x.fillText('rooots', 80, 130);
+      x.fillStyle = '#F2F600'; round(x, 60, 190, W - 120, H - 300, 48); x.fill();
+      x.fillStyle = '#161618';
+      x.font = '700 30px "Instrument Sans", sans-serif'; x.fillText('ROOOTS · EARLY BIRD SHOW', 120, 290);
+      x.font = '800 76px "Bricolage Grotesque", sans-serif'; x.fillText('Is Christmas only', 120, 390);
+      x.fillText('for ', 120, 476);
+      var w = x.measureText('for ').width;
+      x.font = 'italic 84px "Instrument Serif", serif'; x.fillText('pine trees?', 120 + w, 476);
+      x.setLineDash([18, 14]); x.lineWidth = 4; x.strokeStyle = 'rgba(22,22,24,.35)';
+      x.beginPath(); x.moveTo(100, 560); x.lineTo(W - 100, 560); x.stroke();
+      x.font = '800 110px "Bricolage Grotesque", sans-serif'; x.fillText(t.id, 120, 700);
+      var rows = [['NAME', t.parent], ['SEATS', t.kids + (t.kids === 1 ? ' child' : ' children')], ['KIDS', t.children],
+                  ['WHEN', 'Sun, 29 Nov · 6:30 pm'], ['WHERE', 'NGV, Yamuna Block, Kids play area'], ['INSTAGRAM', t.instagram]];
+      var y = 800;
+      rows.forEach(function (r) {
+        x.globalAlpha = .6; x.font = '700 26px "Instrument Sans", sans-serif'; x.fillText(r[0], 120, y);
+        x.globalAlpha = 1; x.font = '700 40px "Instrument Sans", sans-serif'; x.fillText(fit(x, r[1], W - 240), 120, y + 48);
+        y += 108;
+      });
+      x.fillStyle = '#C4BFB8'; x.font = '500 30px "Instrument Sans", sans-serif';
+      x.fillText('Show this at the door · rooots.co.in', 80, H - 50);
+      var a = document.createElement('a');
+      a.download = 'rooots-ticket-' + t.id + '.png';
+      a.href = c.toDataURL('image/png');
+      document.body.appendChild(a); a.click(); a.remove();
+    });
+  });
+  function round(x, l, t, w, h, r) { x.beginPath(); x.moveTo(l + r, t); x.arcTo(l + w, t, l + w, t + h, r); x.arcTo(l + w, t + h, l, t + h, r); x.arcTo(l, t + h, l, t, r); x.arcTo(l, t, l + w, t, r); x.closePath(); }
+  function fit(x, s, max) { s = String(s); while (x.measureText(s).width > max && s.length > 3) s = s.slice(0, -2); return s; }
+
+  // ---- start ----
+  var saved; try { saved = JSON.parse(localStorage.getItem(STORE)); } catch (e) {}
+  if (saved && saved.id) showTicket(saved, true);
+  if (!API && !(saved && saved.id)) {
+    $('liveTag').classList.add('hide');
+    closed('Registrations open soon', 'We’re getting things ready. Follow us on Instagram so you don’t miss it.');
+  }
+  showSeats();
+  refresh();
+  setInterval(refresh, 15000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) refresh(); });
+})();
+</script>
+</body>
+</html>

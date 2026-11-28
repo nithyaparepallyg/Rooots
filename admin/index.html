@@ -103,7 +103,8 @@ td input[type=checkbox]{width:20px;height:20px;accent-color:#00B814}
     $('rows').innerHTML = rows.length ? rows.map(function (r) {
       var h = String(r[4]).replace(/^@/, ''); var isWA = h === 'whatsapp.community';
       return '<tr><td><b>' + esc(r[0]) + '</b></td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td>' +
-        '<td><a href="https://wa.me/91' + esc(String(r[3]).replace(/\D/g, '')) + '" target="_blank" rel="noopener">' + esc(r[3]) + '</a></td>' +
+        (/^0/.test(String(r[3])) ? '<td class="muted">Not needed (Instagram)</td>'
+          : '<td><a href="https://wa.me/91' + esc(String(r[3]).replace(/\D/g, '')) + '" target="_blank" rel="noopener">' + esc(r[3]) + '</a></td>') +
         (isWA ? '<td><span style="color:#25D366;font-weight:700">WhatsApp</span> <span class="muted" style="font-size:13px">(check this number in the group)</span></td>'
               : '<td>Instagram: <a href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener">' + esc(r[4]) + '</a></td>') +
         '<td>' + esc(r[5]) + '</td><td>' + esc(r[6]) + '</td>' +

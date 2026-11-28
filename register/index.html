@@ -236,8 +236,10 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     <label for="parent">Your name</label>
     <input id="parent" name="parent" autocomplete="name" required maxlength="80">
 
+    <div id="phoneField">
     <label for="phone">Phone number <span class="hint" id="phoneHint"></span></label>
     <div class="prefix"><span>+91</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="10-digit mobile number" required maxlength="16"></div>
+    </div>
 
     <div id="instaField" class="hide">
       <label for="insta">Your Instagram username <span class="hint">(the account that follows us)</span></label>
@@ -313,6 +315,12 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
   var state = { left: CAP, capacity: CAP, open: new Date() < START };
   var WA = C.whatsapp || 'https://chat.whatsapp.com/EHLfmDSx37S3kZR1HCOKS3';
   var WA_TAG = 'whatsapp.community';           // stored in the Instagram column for WhatsApp families
+  function igCode(h) {
+    h = String(h || '').trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/^@/, '').replace(/[/?#].*$/, '').toLowerCase();
+    var x = 2166136261;
+    for (var i = 0; i < h.length; i++) { x ^= h.charCodeAt(i); x = Math.imul(x, 16777619) >>> 0; }
+    return '0' + String(x % 1000000000).padStart(9, '0');
+  }
   function viaLabel(v) { return String(v || '').replace(/^@/, '') === WA_TAG ? 'WhatsApp community' : v; }
   var via = '';
   var joined = { ig: false, wa: false };
@@ -365,6 +373,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     $('joinNote').classList.toggle('hide', !via || done);
     $('instaField').classList.toggle('hide', via !== 'ig');
     $('phoneHint').textContent = via === 'wa' ? '(the number you use on WhatsApp)' : '';
+    $('phoneField').classList.toggle('hide', via === 'ig');
     $('followsText').innerHTML = via === 'ig'
       ? 'Yes, I follow <strong>@' + HANDLE + '</strong> on Instagram.'
       : via === 'wa'
@@ -455,13 +464,13 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     e.preventDefault();
     $('msg').style.display = 'none';
     var parent = $('parent').value.trim();
-    var phone = $('phone').value;
+    var phone = via === 'ig' ? igCode($('insta').value) : $('phone').value;
     var insta = via === 'wa' ? WA_TAG : $('insta').value.trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/^@/, '').replace(/[/?#].*$/, '');
     var kids = [].slice.call(document.querySelectorAll('.kid')).map(function (k) {
       return { name: k.querySelector('input').value.trim(), age: Number(k.querySelector('select').value) };
     });
     if (!parent) return fail('Please add your name.');
-    if (!/^[6-9]\d{9}$/.test(phone)) return fail('Please enter a valid 10-digit mobile number (no +91 or 0 in front).');
+    if (via !== 'ig' && !/^[6-9]\d{9}$/.test(phone)) return fail('Please enter a valid 10-digit mobile number (no +91 or 0 in front).');
     if (via === 'ig') {
       if (!/^[A-Za-z0-9._]{1,30}$/.test(insta)) return fail('Please enter your Instagram username, like priya.k');
       if (insta.toLowerCase() === HANDLE.toLowerCase()) return fail('Please enter your own Instagram username, not ours.');

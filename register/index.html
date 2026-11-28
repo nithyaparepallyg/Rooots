@@ -249,7 +249,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
 
     <div id="kids"></div>
 
-    <label class="check"><input type="checkbox" id="follows"> <span id="followsText">I’ve joined the Rooots community. I understand Rooots will check before the show.</span></label>
+    <label class="check"><input type="checkbox" id="follows"> <span id="followsText">Yes, I’ve joined the Rooots community.</span></label>
 
     <div class="msg" id="msg" role="alert"></div>
     <button class="btn wide" id="submit" type="submit" style="margin-top:22px" disabled>Get my ticket</button>
@@ -366,10 +366,10 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     $('instaField').classList.toggle('hide', via !== 'ig');
     $('phoneHint').textContent = via === 'wa' ? '(the number you use on WhatsApp)' : '';
     $('followsText').innerHTML = via === 'ig'
-      ? 'I follow <strong>@' + HANDLE + '</strong> on Instagram. I understand Rooots will check before the show.'
+      ? 'Yes, I follow <strong>@' + HANDLE + '</strong> on Instagram.'
       : via === 'wa'
-        ? 'I’ve joined the <strong>Rooots WhatsApp community</strong> with this phone number. I understand Rooots will check before the show.'
-        : 'I’ve joined the Rooots community. I understand Rooots will check before the show.';
+        ? 'Yes, I’ve joined the <strong>Rooots WhatsApp community</strong> with this number.'
+        : 'Yes, I’ve joined the Rooots community.';
     var ok = done && $('follows').checked;
     $('submit').disabled = !ok;
     $('submitHint').classList.toggle('hide', ok);

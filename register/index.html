@@ -361,16 +361,22 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     this.value = d.slice(0, 10);
   });
   $('count').addEventListener('change', renderKids);
+  $('count').addEventListener('input', renderKids);
   renderKids();
+  window.addEventListener('pageshow', function () { renderKids(); gate(); });
+  setTimeout(function () { if (document.querySelectorAll('.kid').length !== Number($('count').value)) renderKids(); gate(); }, 400);
 
   // ---- step gating ----
   function gate() {
-    var done = !!via && joined[via];
+    var picked = document.querySelector('input[name="via"]:checked');
+    if (picked) via = picked.value;
+    var done = !!via && (joined[via] || $('follows').checked);
     $('n1').classList.toggle('done', done);
     $('n1').textContent = done ? '✓' : '1';
     $('followBtn').classList.toggle('hide', via !== 'ig');
     $('waBtn').classList.toggle('hide', via !== 'wa');
-    $('joinNote').classList.toggle('hide', !via || done);
+    $('joinNote').classList.toggle('hide', !via);
+    $('joinNote').textContent = via === 'ig' ? 'Already following us? Just tick the box in step 2.' : 'Already in the group? Just tick the box in step 2.';
     $('instaField').classList.toggle('hide', via !== 'ig');
     $('phoneHint').textContent = via === 'wa' ? '(the number you use on WhatsApp)' : '';
     $('phoneField').classList.toggle('hide', via === 'ig');
@@ -379,12 +385,10 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
       : via === 'wa'
         ? 'Yes, I’ve joined the <strong>Rooots WhatsApp community</strong> with this number.'
         : 'Yes, I’ve joined the Rooots community.';
-    var ok = done && $('follows').checked;
+    var ok = !!via && $('follows').checked;
     $('submit').disabled = !ok;
     $('submitHint').classList.toggle('hide', ok);
-    $('submitHint').textContent = !via ? 'Choose Instagram or WhatsApp in step 1 to continue.'
-      : !joined[via] ? (via === 'ig' ? 'Tap “Open Instagram and follow” first.' : 'Tap “Join the WhatsApp community” first.')
-      : 'Tick the box above to continue.';
+    $('submitHint').textContent = !via ? 'Choose Instagram or WhatsApp in step 1 to continue.' : 'Tick the box above to continue.';
   }
   document.querySelectorAll('input[name="via"]').forEach(function (r) {
     if (r.value === via) r.checked = true;

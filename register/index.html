@@ -77,6 +77,13 @@ input:focus,select:focus{outline:2px solid #F2F600;outline-offset:1px;border-col
 .opt:has(input:focus-visible){outline:2px solid #F2F600;outline-offset:2px}
 .check{display:flex;gap:12px;align-items:flex-start;margin:22px 0 0;font-weight:500;font-size:16px;cursor:pointer}
 .check input{width:24px;height:24px;min-height:0;flex:none;margin:1px 0 0;accent-color:#FF2F8A}
+.bad{border-color:#FF6B4A!important;box-shadow:0 0 0 3px rgba(255,107,74,.28)}
+.choice.bad{box-shadow:none}
+.choice.bad .opt{border-color:#FF6B4A}
+.check.bad{box-shadow:none;border-radius:14px;background:rgba(255,107,74,.10);padding:10px;margin-left:-10px;margin-right:-10px}
+.check.bad span{color:#FFB09C}
+.check.bad input{outline:3px solid #FF6B4A;outline-offset:2px}
+#submitHint b{color:#F1EDE6;font-weight:600}
 .msg{margin:14px 0 0;padding:12px 16px;border-radius:14px;background:rgba(255,78,18,.15);border:1.5px solid #FF4E12;display:none}
 .note{margin:16px 0 0;font-size:14px;color:#9F9A93}
 .rule{margin:22px 0 0;padding:16px 18px;border-radius:18px;border:2px dashed #F2F600;color:#F1EDE6}
@@ -254,7 +261,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     <label class="check"><input type="checkbox" id="follows"> <span id="followsText">Yes, I’ve joined the Rooots community.</span></label>
 
     <div class="msg" id="msg" role="alert"></div>
-    <button class="btn wide" id="submit" type="submit" style="margin-top:22px" disabled>Get my ticket</button>
+    <button class="btn wide" id="submit" type="submit" style="margin-top:22px">Get my ticket</button>
     <p class="note" id="submitHint">Choose Instagram or WhatsApp in step 1, join, then tick the box to continue.</p>
   </form>
 </div>
@@ -271,6 +278,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
 
 <!-- Ticket -->
 <div class="hide" id="ticketArea">
+  <p class="note hide" id="dupNote" style="margin:24px 0 -12px">This number or Instagram account already has a booking, so here it is again. Need to add a child or change something? Message us on WhatsApp.</p>
   <p class="eyebrow" style="margin-top:28px" id="ticketHeadline">You’re in! Here’s your ticket</p>
   <div class="ticket" id="ticket">
     <div class="ticket-top">
@@ -385,10 +393,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
       : via === 'wa'
         ? 'Yes, I’ve joined the <strong>Rooots WhatsApp community</strong> with this number.'
         : 'Yes, I’ve joined the Rooots community.';
-    var ok = !!via && $('follows').checked;
-    $('submit').disabled = !ok;
-    $('submitHint').classList.toggle('hide', ok);
-    $('submitHint').textContent = !via ? 'Choose Instagram or WhatsApp in step 1 to continue.' : 'Tick the box above to continue.';
+    updateHint();
   }
   document.querySelectorAll('input[name="via"]').forEach(function (r) {
     if (r.value === via) r.checked = true;
@@ -418,8 +423,8 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     $('leftLabel').textContent = 'of ' + cap + (left === 1 ? ' seat left' : ' seats left');
     $('barFill').style.width = (100 * (cap - left) / cap) + '%';
     var opts = $('count').options;
-    for (var i = 0; i < opts.length; i++) opts[i].disabled = Number(opts[i].value) > Math.max(1, left);
-    if (Number($('count').value) > Math.max(1, left)) { $('count').value = '1'; renderKids(); }
+    for (var i = 0; i < opts.length; i++) opts[i].disabled = Number(opts[i].value) > Math.max(1, left) && opts[i].value !== $('count').value;
+    if (typeof updateHint === 'function') updateHint();
     if (!$('ticketArea').classList.contains('hide')) return;
     if (!state.open) closed('Registrations are closed', 'The session has started. Follow us on Instagram or join our WhatsApp community to hear about the next one first.');
     else if (left <= 0) closed('All ' + cap + ' seats are taken', 'Thank you for the love! Follow us on Instagram or join our WhatsApp community to hear about the next session first.');
@@ -443,6 +448,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     $('closedArea').classList.add('hide');
     $('ticketArea').classList.remove('hide');
     $('ticketHeadline').textContent = again ? 'You’re already registered. Here’s your ticket' : 'You’re in! Here’s your ticket';
+    $('dupNote').classList.toggle('hide', !again);
     $('tId').textContent = t.id;
     $('tParent').textContent = t.parent;
     $('tSeats').textContent = t.kids + (t.kids === 1 ? ' child' : ' children');
@@ -462,34 +468,76 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
+  // ---- what's still needed (drives the live hint and the tap-to-submit checks) ----
+  function cleanHandle(v) { return String(v || '').trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/^@/, '').replace(/[/?#].*$/, ''); }
+  function problems() {
+    var out = [];
+    if (!via) out.push({ short: 'choose Instagram or WhatsApp (step 1)', msg: 'Please choose Instagram or WhatsApp in step 1.', el: document.querySelector('.choice') });
+    if (!$('parent').value.trim()) out.push({ short: 'your name', msg: 'Please add your name.', el: $('parent') });
+    if (via === 'wa' && !/^[6-9]\d{9}$/.test($('phone').value))
+      out.push({ short: 'your WhatsApp number', msg: $('phone').value ? 'Please check your WhatsApp number: it should be 10 digits, without +91 or 0 in front.' : 'Please add the phone number you use on WhatsApp.', el: $('phone') });
+    if (via === 'ig') {
+      var h = cleanHandle($('insta').value);
+      if (!h) out.push({ short: 'your Instagram username', msg: 'Please add your Instagram username, like priya.k', el: $('insta') });
+      else if (!/^[A-Za-z0-9._]{1,30}$/.test(h)) out.push({ short: 'a valid Instagram username', msg: 'That doesn’t look like an Instagram username. Use only letters, numbers, dots and underscores, like priya.k', el: $('insta') });
+      else if (h.toLowerCase() === HANDLE.toLowerCase() || h.toLowerCase() === WA_TAG) out.push({ short: 'your own Instagram username', msg: 'Please enter your own Instagram username, not ours.', el: $('insta') });
+    }
+    var rows = document.querySelectorAll('.kid');
+    rows.forEach(function (k, i) {
+      var n = rows.length > 1 ? ' for child ' + (i + 1) : '';
+      if (!k.querySelector('input').value.trim()) out.push({ short: (rows.length > 1 ? 'child ' + (i + 1) + '’s' : 'your child’s') + ' name', msg: 'Please add a name' + n + '.', el: k.querySelector('input') });
+      if (!k.querySelector('select').value) out.push({ short: (rows.length > 1 ? 'child ' + (i + 1) + '’s' : 'your child’s') + ' age', msg: 'Please pick an age (4 to 12)' + n + '.', el: k.querySelector('select') });
+    });
+    var left = Math.max(0, state.left);
+    if (rows.length > left && left > 0) out.push({ short: 'fewer kids (only ' + left + ' seat' + (left === 1 ? '' : 's') + ' left)', msg: 'Only ' + left + ' seat' + (left === 1 ? ' is' : 's are') + ' left. Please choose fewer kids.', el: $('count') });
+    if (!$('follows').checked) out.push({ short: 'tick the box', msg: via === 'ig' ? 'Please tick the box to confirm you follow @' + HANDLE + '.' : via === 'wa' ? 'Please tick the box to confirm you’ve joined our WhatsApp community.' : 'Please tick the confirmation box.', el: $('follows').closest('.check') });
+    return out;
+  }
+  function updateHint() {
+    var list = problems(), h = $('submitHint');
+    h.classList.toggle('hide', !list.length);
+    if (list.length) h.innerHTML = '<b>Still needed:</b> ' + list.map(function (x) { return x.short; }).join(' · ');
+    document.querySelectorAll('.bad').forEach(function (el) {
+      if (!list.some(function (x) { return x.el === el; })) el.classList.remove('bad');
+    });
+  }
+  $('form').addEventListener('input', updateHint);
+  $('form').addEventListener('change', updateHint);
+
   // ---- submit ----
   function fail(text) { var m = $('msg'); m.textContent = text; m.style.display = 'block'; }
   $('form').addEventListener('submit', function (e) {
     e.preventDefault();
     $('msg').style.display = 'none';
+    if ($('submit').getAttribute('aria-busy') === 'true') return;   // ignore double taps while booking
+    var list = problems();
+    document.querySelectorAll('.bad').forEach(function (el) { el.classList.remove('bad'); });
+    if (list.length) {
+      list.forEach(function (x) { if (x.el) x.el.classList.add('bad'); });
+      var first = list[0];
+      fail(first.msg + (list.length > 1 ? ' (' + (list.length - 1) + ' more thing' + (list.length > 2 ? 's' : '') + ' below.)' : ''));
+      if (first.el) {
+        first.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        var f = first.el.matches('input,select') ? first.el : first.el.querySelector('input');
+        if (f) setTimeout(function () { try { f.focus({ preventScroll: true }); } catch (e) {} }, 350);
+      }
+      updateHint();
+      return;
+    }
     var parent = $('parent').value.trim();
     var phone = via === 'ig' ? igCode($('insta').value) : $('phone').value;
-    var insta = via === 'wa' ? WA_TAG : $('insta').value.trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/^@/, '').replace(/[/?#].*$/, '');
+    var insta = via === 'wa' ? WA_TAG : cleanHandle($('insta').value);
     var kids = [].slice.call(document.querySelectorAll('.kid')).map(function (k) {
       return { name: k.querySelector('input').value.trim(), age: Number(k.querySelector('select').value) };
     });
-    if (!parent) return fail('Please add your name.');
-    if (via !== 'ig' && !/^[6-9]\d{9}$/.test(phone)) return fail('Please enter a valid 10-digit mobile number (no +91 or 0 in front).');
-    if (via === 'ig') {
-      if (!/^[A-Za-z0-9._]{1,30}$/.test(insta)) return fail('Please enter your Instagram username, like priya.k');
-      if (insta.toLowerCase() === HANDLE.toLowerCase()) return fail('Please enter your own Instagram username, not ours.');
-      if (insta.toLowerCase() === WA_TAG) return fail('Please enter your own Instagram username.');
-    }
-    for (var i = 0; i < kids.length; i++) {
-      if (!kids[i].name) return fail('Please add a name for child ' + (i + 1) + '.');
-      if (!(kids[i].age >= 4 && kids[i].age <= 12)) return fail('Please pick an age (4 to 12) for child ' + (i + 1) + '.');
-    }
     if (!API) return fail('Registrations open very soon. Please try again in a little while.');
 
     var btn = $('submit');
-    btn.disabled = true; btn.textContent = 'Booking your seats…';
+    btn.setAttribute('aria-busy', 'true'); btn.style.opacity = '.6'; btn.textContent = 'Booking your seats…';
+    var ctl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 25000);
     fetch(API, {
-      method: 'POST',
+      method: 'POST', signal: ctl ? ctl.signal : undefined,
       body: JSON.stringify({ action: 'register', parent: parent, phone: phone, instagram: insta, via: via, children: kids, follows: true })
     }).then(function (r) { return r.json(); }).then(function (d) {
       if (d.capacity != null) { state = d; }
@@ -498,10 +546,12 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
         showSeats();
         if (state.left > 0) fail('Only ' + state.left + ' seat' + (state.left === 1 ? ' is' : 's are') + ' left. Please choose fewer kids.');
       } else if (d.error === 'closed') { state.open = false; showSeats(); }
-      else fail('Something was missing. Please check the form and try again.');
-    }).catch(function () {
-      fail('Couldn’t reach us. Check your connection and try again.');
-    }).then(function () { btn.textContent = 'Get my ticket'; gate(); });
+      else fail('Something didn’t go through. Please check your details and tap “Get my ticket” again. If it keeps happening, message us on WhatsApp.');
+    }).catch(function (err) {
+      fail(err && err.name === 'AbortError'
+        ? 'This is taking too long. Please check your internet and tap “Get my ticket” again (you won’t be booked twice).'
+        : 'We couldn’t reach the booking system. Please check your internet and tap “Get my ticket” again (you won’t be booked twice).');
+    }).then(function () { clearTimeout(timer); btn.removeAttribute('aria-busy'); btn.style.opacity = ''; btn.textContent = 'Get my ticket'; gate(); });
   });
 
   // ---- save ticket as image ----

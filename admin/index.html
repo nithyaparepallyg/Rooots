@@ -67,11 +67,11 @@ td input[type=checkbox]{width:20px;height:20px;accent-color:#00B814}
     <p class="err" id="panelErr"></p>
     <div class="tablewrap">
       <table>
-        <thead><tr><th>Ticket</th><th>Registered</th><th>Parent</th><th>WhatsApp</th><th>Instagram</th><th>Kids</th><th>Children (age)</th><th>IG verified</th><th>Checked in</th><th></th></tr></thead>
+        <thead><tr><th>Ticket</th><th>Registered</th><th>Parent</th><th>WhatsApp</th><th>Joined via</th><th>Kids</th><th>Children (age)</th><th>Verified</th><th>Checked in</th><th></th></tr></thead>
         <tbody id="rows"></tbody>
       </table>
     </div>
-    <p class="muted" style="font-size:14px">Tip: tap an Instagram handle to open their profile and confirm they follow you, then tick “IG verified”. Removing a registration frees its seats immediately.</p>
+    <p class="muted" style="font-size:14px">Tip: for Instagram families, tap the handle to check they follow you; for WhatsApp families, check their number is in the community group. Then tick “Verified”. Removing a registration frees its seats immediately.</p>
   </div>
 </div>
 
@@ -101,12 +101,13 @@ td input[type=checkbox]{width:20px;height:20px;accent-color:#00B814}
     $('sFamilies').textContent = data.rows.length;
     $('sIn').textContent = data.rows.reduce(function (s, r) { return s + (r[9] === 'Yes' ? Number(r[5]) || 0 : 0); }, 0);
     $('rows').innerHTML = rows.length ? rows.map(function (r) {
-      var h = String(r[4]).replace(/^@/, '');
+      var h = String(r[4]).replace(/^@/, ''); var isWA = h === 'whatsapp.community';
       return '<tr><td><b>' + esc(r[0]) + '</b></td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td>' +
         '<td><a href="https://wa.me/91' + esc(String(r[3]).replace(/\D/g, '')) + '" target="_blank" rel="noopener">' + esc(r[3]) + '</a></td>' +
-        '<td><a href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener">' + esc(r[4]) + '</a></td>' +
+        (isWA ? '<td><span style="color:#25D366;font-weight:700">WhatsApp</span> <span class="muted" style="font-size:13px">(check this number in the group)</span></td>'
+              : '<td>Instagram: <a href="https://www.instagram.com/' + encodeURIComponent(h) + '/" target="_blank" rel="noopener">' + esc(r[4]) + '</a></td>') +
         '<td>' + esc(r[5]) + '</td><td>' + esc(r[6]) + '</td>' +
-        '<td><input type="checkbox" data-t="' + esc(r[0]) + '" data-f="verified"' + (r[8] === 'Yes' ? ' checked' : '') + ' aria-label="Instagram verified"></td>' +
+        '<td><input type="checkbox" data-t="' + esc(r[0]) + '" data-f="verified"' + (r[8] === 'Yes' ? ' checked' : '') + ' aria-label="Verified"></td>' +
         '<td><input type="checkbox" data-t="' + esc(r[0]) + '" data-f="checkedIn"' + (r[9] === 'Yes' ? ' checked' : '') + ' aria-label="Checked in"></td>' +
         '<td><button class="btn danger small" data-del="' + esc(r[0]) + '" data-name="' + esc(r[2]) + '">Remove</button></td></tr>';
     }).join('') : '<tr><td colspan="10" class="muted">' + (data.rows.length ? 'No matches.' : 'No registrations yet.') + '</td></tr>';

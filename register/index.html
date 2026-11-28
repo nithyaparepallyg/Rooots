@@ -54,7 +54,7 @@ h1 em{font-family:'Instrument Serif',serif;font-weight:400}
 .num.done{background:#00B814}
 .step h2{margin:2px 0 6px;font-family:'Bricolage Grotesque',sans-serif;font-size:22px;letter-spacing:-0.02em}
 .step p{margin:0;color:#C4BFB8}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:999px;border:0;background:#FF2F8A;color:#161618;font:700 17px 'Instrument Sans',sans-serif;text-decoration:none;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;gap:8px;min-height:52px;padding:0 24px;border-radius:999px;border:0;background:#FF2F8A;color:#161618;font:700 17px 'Instrument Sans',sans-serif;text-decoration:none;cursor:pointer}
 .btn:hover{color:#161618;filter:brightness(1.08)}
 .btn.light{background:#F1EDE6}
 .btn.ghost{background:transparent;color:#F1EDE6;border:2px solid #F1EDE6}
@@ -68,6 +68,13 @@ input:focus,select:focus{outline:2px solid #F2F600;outline-offset:1px;border-col
 .prefix{position:relative} .prefix span{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#9F9A93;pointer-events:none}
 .prefix input{padding-left:44px}
 .kid{display:grid;grid-template-columns:1fr 110px;gap:10px;margin-top:8px}
+.step>div{min-width:0}
+.choice{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
+.opt{position:relative;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;min-width:0;padding:14px 14px 14px 48px;border-radius:16px;border:2px solid #4A4A50;background:#161618;cursor:pointer;margin:0;font-weight:700;font-size:16px}
+.opt input{position:absolute;left:16px;top:15px;width:20px;height:20px;min-height:0;margin:0;accent-color:#FF2F8A}
+.opt small{font-weight:500;font-size:13px;color:#9F9A93}
+.opt:has(input:checked){border-color:#FF2F8A;background:#2A1520}
+.opt:has(input:focus-visible){outline:2px solid #F2F600;outline-offset:2px}
 .check{display:flex;gap:12px;align-items:flex-start;margin:22px 0 0;font-weight:500;font-size:16px;cursor:pointer}
 .check input{width:24px;height:24px;min-height:0;flex:none;margin:1px 0 0;accent-color:#FF2F8A}
 .msg{margin:14px 0 0;padding:12px 16px;border-radius:14px;background:rgba(255,78,18,.15);border:1.5px solid #FF4E12;display:none}
@@ -204,9 +211,15 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     <div class="step">
       <div class="num" id="n1">1</div>
       <div style="flex:1">
-        <h2>Follow us on Instagram</h2>
-        <p>Seats are for families who follow <strong>@<span class="handle">rooots.co.in</span></strong>. Follow, then come back to this page.</p>
-        <a class="btn" id="followBtn" style="margin-top:14px" target="_blank" rel="noopener" href="https://www.instagram.com/rooots.co.in/">Open Instagram and follow</a>
+        <h2>Join our community</h2>
+        <p>Seats are for families in the Rooots community. Pick whichever you use:</p>
+        <div class="choice" role="radiogroup" aria-label="How would you like to join?">
+          <label class="opt"><input type="radio" name="via" value="ig"><span>Instagram</span><small>Follow @<span class="handle">rooots.co.in</span></small></label>
+          <label class="opt"><input type="radio" name="via" value="wa"><span>WhatsApp</span><small>Join our community group</small></label>
+        </div>
+        <a class="btn hide" id="followBtn" style="margin-top:14px" target="_blank" rel="noopener" href="https://www.instagram.com/rooots.co.in/">Open Instagram and follow</a>
+        <a class="btn hide" id="waBtn" style="margin-top:14px;background:#25D366" target="_blank" rel="noopener" href="#">Join the WhatsApp community</a>
+        <p class="note hide" id="joinNote" style="margin-top:10px">Then come back to this page to book.</p>
       </div>
     </div>
   </div>
@@ -223,31 +236,34 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     <label for="parent">Your name</label>
     <input id="parent" name="parent" autocomplete="name" required maxlength="80">
 
-    <label for="phone">Phone number</label>
+    <label for="phone">Phone number <span class="hint" id="phoneHint"></span></label>
     <div class="prefix"><span>+91</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="10-digit mobile number" required maxlength="16"></div>
 
-    <label for="insta">Your Instagram username <span class="hint">(the account that follows us)</span></label>
-    <div class="prefix"><span>@</span><input id="insta" name="insta" autocapitalize="none" autocorrect="off" spellcheck="false" required maxlength="40"></div>
+    <div id="instaField" class="hide">
+      <label for="insta">Your Instagram username <span class="hint">(the account that follows us)</span></label>
+      <div class="prefix"><span>@</span><input id="insta" name="insta" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="40"></div>
+    </div>
 
     <label for="count">How many kids are coming?</label>
     <select id="count"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
 
     <div id="kids"></div>
 
-    <label class="check"><input type="checkbox" id="follows"> <span>I follow <strong>@<span class="handle">rooots.co.in</span></strong> on Instagram. I understand Rooots will check, and seats for accounts that don’t follow may go to the waitlist.</span></label>
+    <label class="check"><input type="checkbox" id="follows"> <span id="followsText">I’ve joined the Rooots community. I understand Rooots will check before the show.</span></label>
 
     <div class="msg" id="msg" role="alert"></div>
     <button class="btn wide" id="submit" type="submit" style="margin-top:22px" disabled>Get my ticket</button>
-    <p class="note" id="submitHint">Tap “Open Instagram and follow” and tick the box to continue.</p>
+    <p class="note" id="submitHint">Choose Instagram or WhatsApp in step 1, join, then tick the box to continue.</p>
   </form>
 </div>
 
 <!-- Closed / full / not ready -->
 <div class="card hide" id="closedArea">
   <h2 id="closedTitle" style="margin:0 0 8px;font-family:'Bricolage Grotesque',sans-serif;font-size:26px;letter-spacing:-0.02em">All 30 seats are taken</h2>
-  <p id="closedText" style="margin:0;color:#C4BFB8">Thank you for the love! Follow us on Instagram to hear about the next session first.</p>
+  <p id="closedText" style="margin:0;color:#C4BFB8">Thank you for the love! Follow us on Instagram or join our WhatsApp community to hear about the next session first.</p>
   <div class="actions">
     <a class="btn igBtn" target="_blank" rel="noopener" href="#">Follow @rooots.co.in</a>
+    <a class="btn ghost waLink" target="_blank" rel="noopener" href="#">Join our WhatsApp community</a>
   </div>
 </div>
 
@@ -268,14 +284,15 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
       <div><dt>When</dt><dd>Sun, 29 Nov<br>6:30–7:30 pm</dd></div>
       <div><dt>Be there by</dt><dd>6:15 pm</dd></div>
       <div style="grid-column:1/-1"><dt>Where</dt><dd><a class="tmap" href="https://share.google/rjEoR0QhxvpcHUfOF" target="_blank" rel="noopener">NGV, Yamuna Block, Kids play area ↗</a></dd></div>
-      <div style="grid-column:1/-1"><dt>Instagram</dt><dd id="tInsta"></dd></div>
+      <div style="grid-column:1/-1"><dt>Joined via</dt><dd id="tInsta"></dd></div>
       <p class="ticket-rule">We start at 6:30 sharp. Please come by 6:15 so you don’t miss Kiki’s take-off!</p>
     </dl>
   </div>
   <p class="note">Show this ticket at the door.</p>
   <div class="actions">
     <button class="btn light" id="download" type="button">Save ticket as image</button>
-    <a class="btn igBtn" target="_blank" rel="noopener" href="#">Follow @rooots.co.in</a>
+    <a class="btn ghost waLink" target="_blank" rel="noopener" href="#">Join our WhatsApp community</a>
+    <a class="btn ghost igBtn" target="_blank" rel="noopener" href="#">Follow @rooots.co.in</a>
     <button class="btn ghost" id="another" type="button">Register another family</button>
   </div>
 </div>
@@ -294,13 +311,23 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
   var STORE = 'rooots-ticket-2026-11-29';
   var $ = function (id) { return document.getElementById(id); };
   var state = { left: CAP, capacity: CAP, open: new Date() < START };
-  var followed = false;
-  try { followed = localStorage.getItem('rooots-followed') === '1'; } catch (e) {}
+  var WA = C.whatsapp || 'https://chat.whatsapp.com/EHLfmDSx37S3kZR1HCOKS3';
+  var WA_TAG = 'whatsapp.community';           // stored in the Instagram column for WhatsApp families
+  function viaLabel(v) { return String(v || '').replace(/^@/, '') === WA_TAG ? 'WhatsApp community' : v; }
+  var via = '';
+  var joined = { ig: false, wa: false };
+  try {
+    joined.ig = localStorage.getItem('rooots-followed') === '1';
+    joined.wa = localStorage.getItem('rooots-joined-wa') === '1';
+    via = localStorage.getItem('rooots-via') || '';
+  } catch (e) {}
 
   document.querySelectorAll('.handle').forEach(function (el) { el.textContent = HANDLE; });
   ['igTop', 'followBtn'].forEach(function (id) { $(id).href = IG; });
   $('igTop').textContent = '@' + HANDLE;
   document.querySelectorAll('.igBtn').forEach(function (a) { a.href = IG; a.textContent = 'Follow @' + HANDLE; });
+  $('waBtn').href = WA;
+  document.querySelectorAll('.waLink').forEach(function (a) { a.href = WA; });
 
   // ---- kids fields ----
   function renderKids() {
@@ -330,15 +357,42 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
 
   // ---- step gating ----
   function gate() {
-    $('n1').classList.toggle('done', followed);
-    $('n1').textContent = followed ? '✓' : '1';
-    var ok = followed && $('follows').checked;
+    var done = !!via && joined[via];
+    $('n1').classList.toggle('done', done);
+    $('n1').textContent = done ? '✓' : '1';
+    $('followBtn').classList.toggle('hide', via !== 'ig');
+    $('waBtn').classList.toggle('hide', via !== 'wa');
+    $('joinNote').classList.toggle('hide', !via || done);
+    $('instaField').classList.toggle('hide', via !== 'ig');
+    $('phoneHint').textContent = via === 'wa' ? '(the number you use on WhatsApp)' : '';
+    $('followsText').innerHTML = via === 'ig'
+      ? 'I follow <strong>@' + HANDLE + '</strong> on Instagram. I understand Rooots will check before the show.'
+      : via === 'wa'
+        ? 'I’ve joined the <strong>Rooots WhatsApp community</strong> with this phone number. I understand Rooots will check before the show.'
+        : 'I’ve joined the Rooots community. I understand Rooots will check before the show.';
+    var ok = done && $('follows').checked;
     $('submit').disabled = !ok;
     $('submitHint').classList.toggle('hide', ok);
+    $('submitHint').textContent = !via ? 'Choose Instagram or WhatsApp in step 1 to continue.'
+      : !joined[via] ? (via === 'ig' ? 'Tap “Open Instagram and follow” first.' : 'Tap “Join the WhatsApp community” first.')
+      : 'Tick the box above to continue.';
   }
+  document.querySelectorAll('input[name="via"]').forEach(function (r) {
+    if (r.value === via) r.checked = true;
+    r.addEventListener('change', function () {
+      via = r.value; $('follows').checked = false;
+      try { localStorage.setItem('rooots-via', via); } catch (e) {}
+      gate();
+    });
+  });
   $('followBtn').addEventListener('click', function () {
-    followed = true;
+    joined.ig = true;
     try { localStorage.setItem('rooots-followed', '1'); } catch (e) {}
+    setTimeout(gate, 300);
+  });
+  $('waBtn').addEventListener('click', function () {
+    joined.wa = true;
+    try { localStorage.setItem('rooots-joined-wa', '1'); } catch (e) {}
     setTimeout(gate, 300);
   });
   $('follows').addEventListener('change', gate);
@@ -354,8 +408,8 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     for (var i = 0; i < opts.length; i++) opts[i].disabled = Number(opts[i].value) > Math.max(1, left);
     if (Number($('count').value) > Math.max(1, left)) { $('count').value = '1'; renderKids(); }
     if (!$('ticketArea').classList.contains('hide')) return;
-    if (!state.open) closed('Registrations are closed', 'The session has started. Follow us on Instagram to hear about the next one first.');
-    else if (left <= 0) closed('All ' + cap + ' seats are taken', 'Thank you for the love! Follow us on Instagram to hear about the next session first.');
+    if (!state.open) closed('Registrations are closed', 'The session has started. Follow us on Instagram or join our WhatsApp community to hear about the next one first.');
+    else if (left <= 0) closed('All ' + cap + ' seats are taken', 'Thank you for the love! Follow us on Instagram or join our WhatsApp community to hear about the next session first.');
   }
   function closed(title, text) {
     $('formArea').classList.add('hide');
@@ -380,13 +434,15 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     $('tParent').textContent = t.parent;
     $('tSeats').textContent = t.kids + (t.kids === 1 ? ' child' : ' children');
     $('tKids').textContent = t.children;
-    $('tInsta').textContent = t.instagram;
+    $('tInsta').textContent = viaLabel(t.instagram);
     try { localStorage.setItem(STORE, JSON.stringify(t)); } catch (e) {}
     window.scrollTo({ top: $('ticketArea').offsetTop - 10, behavior: 'smooth' });
   }
   $('another').addEventListener('click', function () {
     try { localStorage.removeItem(STORE); } catch (e) {}
-    $('form').reset(); renderKids(); gate();
+    $('form').reset(); renderKids();
+    document.querySelectorAll('input[name="via"]').forEach(function (r) { r.checked = r.value === via; });
+    gate();
     $('ticketArea').classList.add('hide');
     $('formArea').classList.remove('hide');
     showSeats();
@@ -400,14 +456,17 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     $('msg').style.display = 'none';
     var parent = $('parent').value.trim();
     var phone = $('phone').value;
-    var insta = $('insta').value.trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/^@/, '').replace(/[/?#].*$/, '');
+    var insta = via === 'wa' ? WA_TAG : $('insta').value.trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/^@/, '').replace(/[/?#].*$/, '');
     var kids = [].slice.call(document.querySelectorAll('.kid')).map(function (k) {
       return { name: k.querySelector('input').value.trim(), age: Number(k.querySelector('select').value) };
     });
     if (!parent) return fail('Please add your name.');
     if (!/^[6-9]\d{9}$/.test(phone)) return fail('Please enter a valid 10-digit mobile number (no +91 or 0 in front).');
-    if (!/^[A-Za-z0-9._]{1,30}$/.test(insta)) return fail('Please enter your Instagram username, like priya.k');
-    if (insta.toLowerCase() === HANDLE.toLowerCase()) return fail('Please enter your own Instagram username, not ours.');
+    if (via === 'ig') {
+      if (!/^[A-Za-z0-9._]{1,30}$/.test(insta)) return fail('Please enter your Instagram username, like priya.k');
+      if (insta.toLowerCase() === HANDLE.toLowerCase()) return fail('Please enter your own Instagram username, not ours.');
+      if (insta.toLowerCase() === WA_TAG) return fail('Please enter your own Instagram username.');
+    }
     for (var i = 0; i < kids.length; i++) {
       if (!kids[i].name) return fail('Please add a name for child ' + (i + 1) + '.');
       if (!(kids[i].age >= 4 && kids[i].age <= 12)) return fail('Please pick an age (4 to 12) for child ' + (i + 1) + '.');
@@ -418,7 +477,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
     btn.disabled = true; btn.textContent = 'Booking your seats…';
     fetch(API, {
       method: 'POST',
-      body: JSON.stringify({ action: 'register', parent: parent, phone: phone, instagram: insta, children: kids, follows: true })
+      body: JSON.stringify({ action: 'register', parent: parent, phone: phone, instagram: insta, via: via, children: kids, follows: true })
     }).then(function (r) { return r.json(); }).then(function (d) {
       if (d.capacity != null) { state = d; }
       if (d.ok) { showTicket(d.ticket, d.duplicate); showSeats(); return; }
@@ -452,7 +511,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
       x.beginPath(); x.moveTo(100, 560); x.lineTo(W - 100, 560); x.stroke();
       x.font = '800 110px "Bricolage Grotesque", sans-serif'; x.fillText(t.id, 120, 700);
       var rows = [['NAME', t.parent], ['SEATS', t.kids + (t.kids === 1 ? ' child' : ' children')], ['KIDS', t.children],
-                  ['WHEN', 'Sun, 29 Nov · 6:30–7:30 pm (1 hour)'], ['PLEASE COME BY', '6:15 pm, we start at 6:30 sharp'], ['WHERE', 'NGV, Yamuna Block, Kids play area'], ['MAP', 'share.google/rjEoR0QhxvpcHUfOF'], ['INSTAGRAM', t.instagram]];
+                  ['WHEN', 'Sun, 29 Nov · 6:30–7:30 pm (1 hour)'], ['PLEASE COME BY', '6:15 pm, we start at 6:30 sharp'], ['WHERE', 'NGV, Yamuna Block, Kids play area'], ['MAP', 'share.google/rjEoR0QhxvpcHUfOF'], ['JOINED VIA', viaLabel(t.instagram)]];
       var y = 800;
       rows.forEach(function (r) {
         x.globalAlpha = .6; x.font = '700 26px "Instrument Sans", sans-serif'; x.fillText(r[0], 120, y);
@@ -479,7 +538,7 @@ footer{margin-top:40px;font-size:14px;color:#9F9A93;text-align:center}
   if (saved && saved.id) showTicket(saved, true);
   if (!API && !(saved && saved.id)) {
     $('liveTag').classList.add('hide');
-    closed('Registrations open soon', 'We’re getting things ready. Follow us on Instagram so you don’t miss it.');
+    closed('Registrations open soon', 'We’re getting things ready. Follow us on Instagram or join our WhatsApp community so you don’t miss it.');
   }
   showSeats();
   refresh();
